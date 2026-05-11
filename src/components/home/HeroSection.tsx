@@ -45,8 +45,8 @@ export default function HeroSection() {
       {/* 거대 영문 워드마크 — Vivid Pink */}
       <div
         aria-hidden
-        className="absolute inset-x-0 pointer-events-none select-none overflow-hidden"
-        style={{ top: "50%", transform: "translateY(-58%)" }}
+        className="absolute inset-x-0 pointer-events-none select-none overflow-hidden top-[28%] md:top-[50%]"
+        style={{ transform: "translateY(-58%)" }}
       >
         <motion.p
           initial={{ clipPath: "inset(0 100% 0 0)" }}
@@ -99,7 +99,7 @@ export default function HeroSection() {
             앱으로 쉽게 관리
           </h1>
           <p
-            className="text-white/55 leading-relaxed mt-4 max-w-[400px] break-keep"
+            className="hidden sm:block text-white/55 leading-relaxed mt-4 max-w-[400px] break-keep"
             style={{ fontSize: "clamp(14px, 1.6vw, 18px)" }}
           >
             영업이 끝난 후 시작되는 전문 위생 솔루션.
