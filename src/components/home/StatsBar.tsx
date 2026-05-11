@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 
 const STATS = [
   { numeric: 1200, suffix: "+", label: "누적 현장", sub: "전문 노하우, 팀원 운영" },
-  { numeric: 98, suffix: "개", label: "딥케어 품목", sub: "최대 품목 골라서 청소" },
-  { numeric: 46, suffix: "개", label: "엔드케어 품목", sub: "원하는 만큼 골라서 위탁" },
+  { numeric: 43, suffix: "개", label: "딥케어 품목", sub: "최대 품목 골라서 청소" },
+  { numeric: 42, suffix: "개", label: "엔드케어 품목", sub: "원하는 만큼 골라서 위탁" },
   { numeric: null, display: "24h", label: "운영 시간", sub: "언제든 원하는 시간에" },
 ] as const;
 
