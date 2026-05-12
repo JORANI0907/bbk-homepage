@@ -3,9 +3,8 @@
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Bell, Camera, CalendarCheck, BarChart3, Shield, Smartphone, Download } from "lucide-react";
-import { InstallModal } from "./InstallModal";
 
 const FEATURES = [
   {
@@ -60,7 +59,6 @@ export default function AppSection() {
   const doubled = [...TICKER_ITEMS, ...TICKER_ITEMS];
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
 
   return (
     <section className="bg-bbk-black py-24 md:py-32 overflow-hidden">
@@ -209,13 +207,15 @@ export default function AppSection() {
             >
               앱 사용 문의하기
             </Link>
-            <button
-              onClick={() => setIsInstallModalOpen(true)}
+            <a
+              href="https://app.bbkorea.co.kr/install"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 border border-white/30 text-white px-8 py-4 font-bold text-[13px] uppercase tracking-wider hover:bg-white/8 active:scale-[0.98] transition-all"
             >
               <Download className="w-3.5 h-3.5" />
               앱 설치하기
-            </button>
+            </a>
           </div>
           <p className="font-mono text-[10px] text-white/30 uppercase tracking-wider">
             정기 계약 고객에게 무료 제공
@@ -223,9 +223,6 @@ export default function AppSection() {
         </motion.div>
       </div>
 
-      {isInstallModalOpen && (
-        <InstallModal onClose={() => setIsInstallModalOpen(false)} />
-      )}
     </section>
   );
 }
