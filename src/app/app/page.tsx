@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import {
   Bell,
   Camera,
@@ -11,7 +10,6 @@ import {
   BarChart3,
   Shield,
   Smartphone,
-  Monitor,
   Download,
   CheckCircle,
 } from "lucide-react";
@@ -51,47 +49,6 @@ const FEATURES = [
   },
 ];
 
-const PLATFORMS = [
-  {
-    id: "ios" as const,
-    label: "iPhone / iPad",
-    Icon: Smartphone,
-    steps: [
-      "Safari 브라우저로 app.bbkorea.co.kr 접속",
-      "화면 하단 공유 버튼 (□↑) 탭",
-      '"홈 화면에 추가" 선택',
-      '"추가" 버튼 탭 → 설치 완료',
-    ],
-    note: "Safari 브라우저에서만 설치 가능합니다.",
-  },
-  {
-    id: "android" as const,
-    label: "Android",
-    Icon: Smartphone,
-    steps: [
-      "Chrome 브라우저로 app.bbkorea.co.kr 접속",
-      "주소창 오른쪽 설치 아이콘(⊕) 탭",
-      '또는 우측 상단 ⋮ 메뉴 → "앱 설치" 선택',
-      '"설치" 버튼 탭 → 설치 완료',
-    ],
-    note: "Chrome에서 접속 시 설치 팝업이 자동으로 뜨기도 합니다.",
-  },
-  {
-    id: "pc" as const,
-    label: "PC",
-    Icon: Monitor,
-    steps: [
-      "Chrome 브라우저로 app.bbkorea.co.kr 접속",
-      "주소창 오른쪽 설치 아이콘(⊕) 클릭",
-      '"BBK 공간케어 설치" 클릭',
-      "설치 완료 — 바탕화면에서 실행 가능",
-    ],
-    note: '설치 아이콘이 없으면 ⋮ 메뉴 → "앱 설치"를 클릭하세요.',
-  },
-];
-
-type PlatformId = (typeof PLATFORMS)[number]["id"];
-
 const BENEFITS = [
   "정기 계약 고객에게 무료 제공",
   "별도 앱스토어 다운로드 불필요",
@@ -100,9 +57,6 @@ const BENEFITS = [
 ];
 
 export default function AppPage() {
-  const [activePlatform, setActivePlatform] = useState<PlatformId>("ios");
-  const platform = PLATFORMS.find((p) => p.id === activePlatform)!;
-
   return (
     <>
       <Header />
@@ -157,7 +111,7 @@ export default function AppPage() {
                   className="flex flex-col sm:flex-row gap-3"
                 >
                   <a
-                    href="https://app.bbkorea.co.kr"
+                    href="https://app.bbkorea.co.kr/install"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 bg-bbk-pink text-white px-8 py-4 font-bold text-[13px] uppercase tracking-wider hover:brightness-110 active:scale-[0.98] transition-all"
@@ -300,67 +254,76 @@ export default function AppPage() {
               className="text-bbk-black font-black leading-tight tracking-[-0.02em] break-keep mb-12 md:mb-16"
               style={{ fontSize: "clamp(28px, 4vw, 56px)" }}
             >
-              30초면 설치 완료됩니다.
+              버튼 하나로 설치 완료됩니다.
             </motion.h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-8 md:gap-16 items-start">
-              {/* 플랫폼 탭 */}
-              <div className="flex md:flex-col gap-2">
-                {PLATFORMS.map((p) => (
-                  <button
-                    key={p.id}
-                    onClick={() => setActivePlatform(p.id)}
-                    className={`flex items-center gap-3 px-5 py-4 text-left transition-all border ${
-                      activePlatform === p.id
-                        ? "bg-bbk-black text-white border-bbk-black"
-                        : "bg-white text-bbk-stone-6 border-bbk-concrete hover:border-bbk-stone-4"
-                    }`}
-                  >
-                    <p.Icon
-                      className={`w-4 h-4 shrink-0 ${
-                        activePlatform === p.id ? "text-bbk-pink" : "text-bbk-stone-4"
-                      }`}
-                    />
-                    <span className="font-mono text-[11px] uppercase tracking-wider">
-                      {p.label}
-                    </span>
-                  </button>
-                ))}
-              </div>
-
-              {/* 단계별 안내 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
+              {/* 설명 */}
               <motion.div
-                key={activePlatform}
-                initial={{ opacity: 0, x: 12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.25 }}
-                className="bg-white border border-bbk-concrete p-8 md:p-10"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
               >
-                <ol className="space-y-6">
-                  {platform.steps.map((step, i) => (
-                    <li key={i} className="flex gap-5 items-start">
-                      <span className="flex-shrink-0 w-8 h-8 bg-bbk-pink text-white font-mono text-[11px] font-bold flex items-center justify-center">
-                        {i + 1}
+                <ul className="space-y-5 mb-10">
+                  {[
+                    { platform: "Android · PC Chrome", desc: "설치 버튼 탭 → 브라우저 팝업 → 설치 완료" },
+                    { platform: "iPhone · iPad", desc: "설치 버튼 탭 → 화면 안내에 따라 홈 화면에 추가" },
+                  ].map(({ platform, desc }) => (
+                    <li key={platform} className="flex gap-5 items-start">
+                      <span className="flex-shrink-0 w-8 h-8 bg-bbk-black text-white font-mono text-[10px] font-bold flex items-center justify-center">
+                        <CheckCircle className="w-4 h-4 text-bbk-pink" />
                       </span>
-                      <p className="text-bbk-stone-6 text-base leading-relaxed break-keep pt-1">
-                        {step}
-                      </p>
+                      <div>
+                        <p className="text-bbk-black font-bold text-sm">{platform}</p>
+                        <p className="text-bbk-stone-6 text-sm leading-relaxed mt-0.5">{desc}</p>
+                      </div>
                     </li>
                   ))}
-                </ol>
-                <p className="mt-8 font-mono text-[10px] text-bbk-stone-4 leading-relaxed border-t border-bbk-concrete pt-5">
-                  * {platform.note}
-                </p>
+                </ul>
 
                 <a
-                  href="https://app.bbkorea.co.kr"
+                  href="https://app.bbkorea.co.kr/install"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-8 inline-flex items-center justify-center gap-2 bg-bbk-pink text-white px-8 py-4 font-bold text-[13px] uppercase tracking-wider hover:brightness-110 active:scale-[0.98] transition-all w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 bg-bbk-pink text-white px-10 py-4 font-bold text-[13px] uppercase tracking-wider hover:brightness-110 active:scale-[0.98] transition-all"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  app.bbkorea.co.kr 바로가기
+                  앱 설치 페이지로 이동
                 </a>
+                <p className="mt-4 font-mono text-[10px] text-bbk-stone-4">
+                  * 브라우저가 자동으로 최적 설치 방법을 안내합니다.
+                </p>
+              </motion.div>
+
+              {/* 시각적 강조 카드 */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.15 }}
+                className="bg-bbk-black p-10 md:p-12 flex flex-col gap-6"
+              >
+                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-bbk-pink">
+                  INSTALL URL
+                </p>
+                <p
+                  className="text-white font-black leading-tight tracking-[-0.02em] break-all"
+                  style={{ fontSize: "clamp(16px, 2.5vw, 24px)" }}
+                >
+                  app.bbkorea.co.kr
+                  <span className="text-bbk-pink">/install</span>
+                </p>
+                <p className="text-white/40 text-sm leading-relaxed break-keep">
+                  링크 하나로 모든 기기에서 설치 가능합니다.
+                  Android, iPhone, PC — 어떤 기기든 자동으로 최적 방법을 안내합니다.
+                </p>
+                <div className="flex flex-col gap-2 pt-2 border-t border-white/[0.08]">
+                  {["Android Chrome — 원클릭 설치", "iPhone Safari — 홈 화면 추가 안내", "PC Chrome — 데스크탑 앱 설치"].map((t) => (
+                    <p key={t} className="flex items-center gap-2 font-mono text-[10px] text-white/30 uppercase tracking-wider">
+                      <span className="text-bbk-pink">›</span> {t}
+                    </p>
+                  ))}
+                </div>
               </motion.div>
             </div>
           </div>
@@ -416,7 +379,7 @@ export default function AppPage() {
             </div>
             <div className="flex flex-col sm:flex-row gap-3 shrink-0">
               <a
-                href="https://app.bbkorea.co.kr"
+                href="https://app.bbkorea.co.kr/install"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 bg-white text-bbk-pink px-8 py-4 font-bold text-[13px] uppercase tracking-wider hover:bg-white/90 active:scale-[0.98] transition-all"
