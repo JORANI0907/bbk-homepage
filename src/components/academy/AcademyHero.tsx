@@ -2,10 +2,16 @@ const META_ITEMS = [
   { label: '교육 방식', value: '1:1 오프라인' },
   { label: '기본 교육일', value: '13일' },
   { label: '월 정원', value: '3명 한정' },
-  { label: '수료 후', value: '커뮤니티 영구 제공' },
+  { label: '수료 후', value: '커뮤니티 무료 제공' },
 ] as const
 
-const BADGES = ['현장 실습 7일 포함', '대표 직접 교육', '수료생 커뮤니티'] as const
+const BADGES = [
+  '현장 실습 7일 포함',
+  '대표 직접 교육',
+  '실제 오더까지 함께',
+  'BBK앱 무료 제공 (맥스)',
+  '수료생 커뮤니티',
+] as const
 
 export default function AcademyHero() {
   return (
@@ -41,21 +47,27 @@ export default function AcademyHero() {
           월 1,000만원으로 시작하세요
         </h1>
 
-        <p className="text-[#8e8e8a] leading-relaxed break-keep mb-8 max-w-xl"
+        <p
+          className="text-[#8e8e8a] leading-relaxed break-keep mb-2 max-w-xl"
           style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}
         >
-          1:1 맞춤 교육부터 브랜딩, 운영 시스템까지
+          1:1 맞춤 교육부터 브랜딩, 실제 오더까지.
           <br />
-          단 13일 만에 사업 준비 완료
+          BBK앱으로 운영 자동화까지 단 13일 만에 사업 준비 완료
+        </p>
+
+        {/* 강조 문구 */}
+        <p className="font-mono text-xs tracking-wide text-[#00ff66] mb-8 break-keep">
+          실제 오더 받는 것까지 같이 합니다
         </p>
 
         {/* CTA + 배지 */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-12">
+        <div className="flex flex-col sm:flex-row sm:items-start gap-4 mb-12">
           <a
             href="http://pf.kakao.com/_JTNxin/chat"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center bg-[#00ff66] text-black font-bold text-sm uppercase tracking-[0.08em] px-8 py-4 hover:brightness-110 active:scale-[0.98] transition-all"
+            className="inline-flex items-center justify-center bg-[#00ff66] text-black font-bold text-sm uppercase tracking-[0.08em] px-8 py-4 hover:brightness-110 active:scale-[0.98] transition-all whitespace-nowrap flex-shrink-0"
           >
             카카오 채팅으로 무료 상담하기
           </a>
@@ -64,7 +76,7 @@ export default function AcademyHero() {
             {BADGES.map((badge) => (
               <span
                 key={badge}
-                className="inline-flex items-center border border-white/40 text-white font-mono text-[11px] px-3 py-2 tracking-wide"
+                className="inline-flex items-center border border-white/40 text-white font-mono text-[11px] px-3 py-2 tracking-wide break-keep"
               >
                 {badge}
               </span>

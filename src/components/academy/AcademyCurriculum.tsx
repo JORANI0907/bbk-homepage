@@ -9,7 +9,7 @@ const TIMELINE = [
     days: 'Day 4–10',
     icon: '🏢',
     title: '현장 실습 (7일)',
-    items: ['실제 현장 동행', '케어 노하우 전수'],
+    items: ['실제 현장 동행', '케어 노하우 전수', '실제 오더 받기까지 함께'],
   },
   {
     days: 'Day 11–13',
@@ -34,11 +34,14 @@ export default function AcademyCurriculum() {
         </p>
 
         <h2
-          className="text-white font-black leading-tight break-keep mb-14"
+          className="text-white font-black leading-tight break-keep mb-3"
           style={{ fontSize: 'clamp(22px, 3.5vw, 48px)' }}
         >
           13일이면 사업 준비 완료
         </h2>
+        <p className="text-[#00ff66] font-mono text-sm tracking-wide mb-14 break-keep">
+          실제 오더 받는 것까지 같이 합니다
+        </p>
 
         {/* 타임라인 */}
         <div className="relative">
