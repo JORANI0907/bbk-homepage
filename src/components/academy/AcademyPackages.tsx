@@ -28,7 +28,7 @@ const PACKAGES: Package[] = [
     days: '총 16일',
     features: [
       '스탠다드 전체 포함',
-      '홈페이지 제작',
+      '홈페이지 제작 (원하는 방향으로 얼마든지)',
       '명함 제작',
     ],
     highlight: true,
@@ -40,13 +40,15 @@ const PACKAGES: Package[] = [
     days: '총 19일',
     features: [
       '프로 전체 포함',
-      'BBK앱 3개월 무료',
-      '이후 월 6,930원 (정가 30% 할인 평생 적용)',
+      'BBK앱 평생 무료',
+      'BBK앱 세팅 교육 3일',
     ],
     highlight: false,
-    chip: '3개월 무료 · 이후 30% 할인 평생 적용',
+    chip: 'BBK앱 평생 무료 제공',
   },
 ]
+
+const KAKAO_URL = 'http://pf.kakao.com/_JTNxin/chat'
 
 export default function AcademyPackages() {
   return (
@@ -126,10 +128,12 @@ export default function AcademyPackages() {
 
               {/* CTA */}
               <a
-                href="#"
+                href={KAKAO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-[#00ff66] text-black font-bold text-sm uppercase tracking-[0.07em] px-5 py-3.5 hover:brightness-110 active:scale-[0.98] transition-all"
               >
-                카카오 오픈채팅 상담하기
+                카카오 채팅 상담하기
               </a>
             </div>
           ))}
