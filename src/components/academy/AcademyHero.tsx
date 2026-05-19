@@ -52,10 +52,12 @@ export default function AcademyHero() {
         {/* CTA + 배지 */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-12">
           <a
-            href="#"
+            href="http://pf.kakao.com/_JTNxin/chat"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center justify-center bg-[#00ff66] text-black font-bold text-sm uppercase tracking-[0.08em] px-8 py-4 hover:brightness-110 active:scale-[0.98] transition-all"
           >
-            카카오 오픈채팅으로 무료 상담하기
+            카카오 채팅으로 무료 상담하기
           </a>
 
           <div className="flex flex-wrap gap-2">

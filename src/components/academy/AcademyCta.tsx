@@ -30,11 +30,13 @@ export default function AcademyCta() {
 
         {/* 메인 CTA 버튼 */}
         <a
-          href="#"
+          href="http://pf.kakao.com/_JTNxin/chat"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center justify-center bg-[#00ff66] text-black font-black uppercase tracking-[0.08em] px-12 py-5 hover:brightness-110 active:scale-[0.98] transition-all mb-8"
           style={{ fontSize: 'clamp(14px, 1.6vw, 18px)' }}
         >
-          카카오 오픈채팅 상담하기
+          카카오 채팅 상담하기
         </a>
 
         {/* 하단 모노 라벨 */}
