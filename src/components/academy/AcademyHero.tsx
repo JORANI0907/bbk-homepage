@@ -16,8 +16,20 @@ const BADGES = [
 export default function AcademyHero() {
   return (
     <section className="relative overflow-hidden bg-[#0b0b0f] pt-20 pb-0">
+      {/* 배경 영상 */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/videos/academy-hero.mp4" type="video/mp4" />
+      </video>
+      {/* 어두운 오버레이 — 텍스트 가독성 + AI 어색함 완화 */}
+      <div className="absolute inset-0 bg-black/65" />
       {/* 모노 상단 라벨 */}
-      <div className="max-w-6xl mx-auto px-6 md:px-12">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12">
         <p className="font-mono text-xs tracking-widest uppercase text-[#8e8e8a] mb-8">
           BBK ACADEMY · 청소창업 컨설팅
         </p>
@@ -26,7 +38,7 @@ export default function AcademyHero() {
       {/* 풀블리드 워드마크 */}
       <div
         aria-hidden
-        className="overflow-hidden select-none pointer-events-none mb-4"
+        className="relative z-10 overflow-hidden select-none pointer-events-none mb-4"
       >
         <p
           className="text-[#00ff66] font-black leading-[0.85] tracking-[-0.04em] whitespace-nowrap pl-4 md:pl-8"
@@ -37,7 +49,7 @@ export default function AcademyHero() {
       </div>
 
       {/* 헤드라인 + 서브 + CTA */}
-      <div className="max-w-6xl mx-auto px-6 md:px-12 pb-12">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 pb-12">
         <h1
           className="text-white font-black leading-[1.08] tracking-[-0.02em] break-keep mb-4"
           style={{ fontSize: 'clamp(28px, 4.5vw, 64px)' }}
