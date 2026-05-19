@@ -44,7 +44,7 @@ export default function AcademyHero() {
         >
           청소업 창업, 처음부터
           <br />
-          월 1,000만원으로 시작하세요
+          월 매출 1,000만원까지 함께합니다
         </h1>
 
         <p
