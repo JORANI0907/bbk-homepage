@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { label: "APP", href: "/app" },
   { label: "ABOUT", href: "/about" },
   { label: "CONTACT", href: "/contact" },
+  { label: "ACADEMY", href: "/academy", highlight: true },
 ];
 
 export default function Header() {
@@ -49,11 +50,15 @@ export default function Header() {
 
         {/* 데스크탑 네비 */}
         <nav className="hidden md:flex items-center gap-8">
-          {NAV_ITEMS.map(({ label, href }) => (
+          {NAV_ITEMS.map(({ label, href, highlight }) => (
             <Link
               key={label}
               href={href}
-              className="text-white/60 font-mono text-[11px] uppercase tracking-[0.1em] hover:text-white transition-colors"
+              className={`font-mono text-[11px] uppercase tracking-[0.1em] transition-colors ${
+                highlight
+                  ? "text-[#00ff66] hover:brightness-125"
+                  : "text-white/60 hover:text-white"
+              }`}
             >
               {label}
             </Link>
@@ -89,11 +94,15 @@ export default function Header() {
 
           {/* 메뉴 항목 */}
           <nav className="flex flex-col items-center gap-10">
-            {NAV_ITEMS.map(({ label, href }) => (
+            {NAV_ITEMS.map(({ label, href, highlight }) => (
               <Link
                 key={label}
                 href={href}
-                className="text-white font-mono text-2xl uppercase tracking-[0.12em] hover:text-bbk-pink transition-colors"
+                className={`font-mono text-2xl uppercase tracking-[0.12em] transition-colors ${
+                  highlight
+                    ? "text-[#00ff66]"
+                    : "text-white hover:text-bbk-pink"
+                }`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {label}
