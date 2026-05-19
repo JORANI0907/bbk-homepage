@@ -3,19 +3,19 @@ const TIMELINE = [
     days: 'Day 1–3',
     icon: '📖',
     title: '이론 교육',
-    items: ['약품 이해', '안전 교육', '청소 원리'],
+    items: ['약품 이해', '소재별 특성 이해', '냉난방기 교육', '청소 유형', '안전 교육', '청소 원리'],
   },
   {
     days: 'Day 4–10',
     icon: '🏢',
     title: '현장 실습 (7일)',
-    items: ['실제 현장 동행', '케어 노하우 전수', '실제 오더 받기까지 함께'],
+    items: ['실제 현장 동행', '케어 노하우 전수', '고객 소통', '현장 장비 사용 교육'],
   },
   {
     days: 'Day 11–13',
     icon: '🎨',
     title: '브랜딩 컨설팅',
-    items: ['상호명', 'SNS 셋업', '포지셔닝 전략'],
+    items: ['브랜드 가치 설정', '로고 제작', '상호명', 'SNS 셋업', '포지셔닝 전략'],
   },
 ] as const
 
@@ -80,6 +80,19 @@ export default function AcademyCurriculum() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* 실제 오더 강조 블록 */}
+        <div className="mt-10 border border-[#00ff66]/30 bg-[#00ff66]/5 p-6 md:p-8">
+          <p className="font-mono text-[10px] uppercase tracking-widest text-[#00ff66] mb-3">
+            FINAL STEP
+          </p>
+          <p className="text-white font-bold text-lg break-keep mb-1">
+            실제 오더, 직접 받을 수 있게 제가 함께합니다
+          </p>
+          <p className="text-[#8e8e8a] text-sm leading-relaxed break-keep">
+            교육이 끝난 뒤 혼자 남겨두지 않습니다. 첫 오더를 받는 순간까지 옆에서 돕겠습니다.
+          </p>
         </div>
 
         {/* 추가 옵션 */}
