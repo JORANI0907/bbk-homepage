@@ -11,6 +11,10 @@
   --color-bbk-stone-4: #8e8e8a;
   --color-bbk-stone-6: #5a5a56;
 
+  /* 아카데미 전용 컬러 */
+  --color-academy-green: #00ff66;
+  --color-academy-green-dim: rgba(0, 255, 102, 0.12);
+
   /* 폰트 시스템 */
   --font-sans: var(--font-inter), "Pretendard Variable", Pretendard,
     -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo",
