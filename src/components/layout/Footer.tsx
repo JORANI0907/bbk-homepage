@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 const COMPANY_INFO = [
-  { label: "COMPANY", value: "범빌드코리아" },
+  { label: "COMPANY", value: "범빌드코리아 주식회사" },
   { label: "CEO", value: "조동환" },
-  { label: "REG", value: "298-78-00455" },
+  { label: "REG", value: "398-81-04260" },
   { label: "TEL", value: "031-759-4877 / 010-5434-4877" },
   { label: "EMAIL", value: "sunrise@bbkorea.co.kr" },
   { label: "ADDRESS", value: "성남시 둔촌대로268번길 22 201호" },
