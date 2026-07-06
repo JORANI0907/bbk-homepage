@@ -1,42 +1,17 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
-import { Bell, Camera, CalendarCheck, BarChart3, Shield, Smartphone, Download } from "lucide-react";
+import { Bell, Camera, CalendarCheck, BarChart3, Shield, Smartphone, ExternalLink, ArrowRight } from "lucide-react";
 
 const FEATURES = [
-  {
-    icon: CalendarCheck,
-    title: "정기 일정 확인",
-    desc: "다음 방문 일정과 작업 내역을 앱에서 바로 확인합니다.",
-  },
-  {
-    icon: Camera,
-    title: "시공 전후 사진",
-    desc: "매 시공 전후 사진을 앱에 자동 업로드. 현장 없이 결과를 확인합니다.",
-  },
-  {
-    icon: Bell,
-    title: "실시간 알림",
-    desc: "시공 시작·완료 알림을 실시간으로 받아보세요.",
-  },
-  {
-    icon: BarChart3,
-    title: "관리 리포트",
-    desc: "월별 시공 내역과 청소 상태 리포트를 자동으로 생성합니다.",
-  },
-  {
-    icon: Shield,
-    title: "위생 이력 관리",
-    desc: "HACCP 등 위생 점검에 필요한 시공 이력을 앱 하나로 관리합니다.",
-  },
-  {
-    icon: Smartphone,
-    title: "언제 어디서나",
-    desc: "iOS·Android 전용 앱으로 이동 중에도 위생 상태를 확인합니다.",
-  },
+  { icon: CalendarCheck, title: "정기 일정 확인" },
+  { icon: Camera,        title: "시공 전후 사진" },
+  { icon: Bell,          title: "실시간 알림" },
+  { icon: BarChart3,     title: "관리 리포트" },
+  { icon: Shield,        title: "위생 이력 관리" },
+  { icon: Smartphone,    title: "언제 어디서나" },
 ];
 
 const TICKER_ITEMS = [
@@ -45,20 +20,8 @@ const TICKER_ITEMS = [
   "iOS · Android", "언제 어디서나",
 ];
 
-// 각 카드가 폰 중앙에서 퍼져나오는 방향 벡터 (3×2 그리드)
-const CARD_OFFSETS = [
-  { x: -60, y: -40 }, // 0: top-left
-  { x: 0,   y: -60 }, // 1: top-center
-  { x: 60,  y: -40 }, // 2: top-right
-  { x: -60, y: 40  }, // 3: bottom-left
-  { x: 0,   y: 60  }, // 4: bottom-center
-  { x: 60,  y: 40  }, // 5: bottom-right
-];
-
 export default function AppSection() {
   const doubled = [...TICKER_ITEMS, ...TICKER_ITEMS];
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
     <section className="bg-bbk-black py-24 md:py-32 overflow-hidden">
@@ -70,8 +33,9 @@ export default function AppSection() {
           <div className="flex-1 h-px bg-white/[0.08]" />
         </div>
 
-        {/* 헤드라인 + 폰 목업 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center mb-20 md:mb-28">
+        {/* 헤드라인 + 스크린샷 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+          {/* 좌측: 헤드라인 + 기능 리스트 + 버튼 */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -88,95 +52,76 @@ export default function AppSection() {
               <br />
               공간 위생을 관리하세요.
             </h2>
-            <p className="text-white/45 text-base leading-relaxed break-keep max-w-md">
+            <p className="text-white/45 text-base leading-relaxed break-keep max-w-md mb-8">
               시공 일정부터 전후 사진, 위생 이력 리포트까지 — BBK 전용 앱
               하나로 우리 공간의 위생 상태를 언제 어디서나 확인할 수 있습니다.
             </p>
+
+            {/* FEATURES 6개 제목 리스트 */}
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-3 mb-10 max-w-md">
+              {FEATURES.map((f) => (
+                <li key={f.title} className="flex items-center gap-2.5">
+                  <span className="w-7 h-7 border border-bbk-pink/30 flex items-center justify-center shrink-0">
+                    <f.icon className="w-3.5 h-3.5 text-bbk-pink" />
+                  </span>
+                  <span className="text-white text-sm font-bold break-keep">{f.title}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* 버튼 2개 */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a
+                href="https://app.bbkorea.co.kr/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-bbk-pink text-white px-8 py-4 font-bold text-[13px] uppercase tracking-wider hover:brightness-110 active:scale-[0.98] transition-all"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                웹앱 바로가기
+              </a>
+              <Link
+                href="/app"
+                className="inline-flex items-center justify-center gap-2 border border-white/30 text-white px-8 py-4 font-bold text-[13px] uppercase tracking-wider hover:bg-white/[0.08] active:scale-[0.98] transition-all"
+              >
+                앱 자세히 보기
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </motion.div>
 
-          {/* 폰 목업 (플로팅 뱃지 없음) */}
+          {/* 우측: 세로 모바일 앱 스크린샷 */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="relative hidden md:flex items-center justify-center"
+            className="relative flex items-center justify-center"
           >
-            <div className="relative w-52 h-[420px] rounded-[2.8rem] border-[3px] border-white/15 bg-[#0d0d12] flex flex-col items-center pt-10 pb-8 overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.6)]">
-              <div className="absolute top-3 left-1/2 -translate-x-1/2 w-14 h-3.5 rounded-full bg-white/10" />
-              <div className="flex-1 flex flex-col items-center justify-center gap-5 w-full px-6">
-                <div
-                  className="rounded-[22px] overflow-hidden shadow-[0_8px_32px_rgba(0,170,255,0.35)]"
-                  style={{ width: 100, height: 100 }}
-                >
-                  <Image
-                    src="/app-logo.png"
-                    alt="BBK 공간케어 앱"
-                    width={100}
-                    height={100}
-                    className="object-cover"
-                  />
-                </div>
-                <p className="font-mono text-[9px] uppercase tracking-widest text-white/30">
-                  BBK 공간케어
-                </p>
-                <div className="w-full space-y-2 mt-2">
-                  {[80, 60, 70].map((w, i) => (
-                    <div
-                      key={i}
-                      className="h-1.5 rounded-full bg-white/[0.06]"
-                      style={{ width: `${w}%` }}
-                    />
-                  ))}
-                </div>
-              </div>
-              <div className="w-20 h-1 rounded-full bg-white/20" />
-            </div>
+            {/* 발광 배경 */}
             <div
+              aria-hidden
               className="absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  "radial-gradient(ellipse at 50% 50%, rgba(0,170,255,0.08) 0%, rgba(255,46,99,0.05) 50%, transparent 75%)",
+                  "radial-gradient(ellipse at 50% 50%, rgba(0,170,255,0.10) 0%, rgba(255,46,99,0.05) 50%, transparent 75%)",
               }}
             />
+            <div className="relative w-full max-w-[320px] aspect-[3/5] rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_40px_80px_rgba(0,0,0,0.55)]">
+              <Image
+                src="/screenshots/home-app-preview.png"
+                alt="BBK 공간케어 앱 대시보드"
+                fill
+                sizes="(min-width: 768px) 320px, 100vw"
+                className="object-contain"
+                priority
+              />
+            </div>
           </motion.div>
         </div>
 
-        {/* 피처 그리드 — 폰에서 퍼져나오는 애니메이션 */}
-        <div ref={sectionRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-px bg-white/[0.06] mb-16">
-          {FEATURES.map((f, i) => {
-            const offset = CARD_OFFSETS[i];
-            return (
-              <motion.div
-                key={f.title}
-                initial={{ opacity: 0, x: offset.x, y: offset.y, scale: 0.82 }}
-                animate={
-                  isInView
-                    ? { opacity: 1, x: 0, y: 0, scale: 1 }
-                    : { opacity: 0, x: offset.x, y: offset.y, scale: 0.82 }
-                }
-                transition={{
-                  delay: i * 0.07,
-                  type: "spring",
-                  stiffness: 180,
-                  damping: 18,
-                }}
-                className="bg-[#111116] p-6 md:p-8 flex flex-col gap-3 group hover:bg-[#161619] transition-colors"
-              >
-                <div className="w-9 h-9 border border-bbk-pink/30 flex items-center justify-center group-hover:border-bbk-pink/60 transition-colors">
-                  <f.icon className="w-4 h-4 text-bbk-pink" />
-                </div>
-                <p className="text-white font-bold">{f.title}</p>
-                <p className="text-white/45 text-sm leading-relaxed break-keep">
-                  {f.desc}
-                </p>
-              </motion.div>
-            );
-          })}
-        </div>
-
         {/* 앱 키워드 티커 */}
-        <div className="overflow-hidden -mx-6 md:-mx-12 mb-14">
+        <div className="overflow-hidden -mx-6 md:-mx-12 mt-20 md:mt-24">
           <div
             className="flex w-max py-2"
             style={{ animation: "marquee 30s linear infinite" }}
@@ -192,37 +137,7 @@ export default function AppSection() {
             ))}
           </div>
         </div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-col sm:flex-row items-start sm:items-center gap-5"
-        >
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center bg-bbk-pink text-white px-8 py-4 font-bold text-[13px] uppercase tracking-wider hover:brightness-110 active:scale-[0.98] transition-all"
-            >
-              앱 사용 문의하기
-            </Link>
-            <a
-              href="https://app.bbkorea.co.kr/install"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 border border-white/30 text-white px-8 py-4 font-bold text-[13px] uppercase tracking-wider hover:bg-white/8 active:scale-[0.98] transition-all"
-            >
-              <Download className="w-3.5 h-3.5" />
-              앱 설치하기
-            </a>
-          </div>
-          <p className="font-mono text-[10px] text-white/30 uppercase tracking-wider">
-            정기 계약 고객에게 무료 제공
-          </p>
-        </motion.div>
       </div>
-
     </section>
   );
 }

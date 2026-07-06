@@ -12,6 +12,9 @@ import {
   Smartphone,
   Download,
   CheckCircle,
+  Play,
+  Globe,
+  BookOpen,
 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -51,8 +54,7 @@ const FEATURES = [
 
 const BENEFITS = [
   "정기 계약 고객에게 무료 제공",
-  "별도 앱스토어 다운로드 불필요",
-  "iOS · Android · PC 모두 지원",
+  "Android 앱 · iOS·PC 웹앱 지원",
   "업데이트 자동 적용",
 ];
 
@@ -111,7 +113,7 @@ export default function AppPage() {
                   className="flex flex-col sm:flex-row gap-3"
                 >
                   <a
-                    href="https://app.bbkorea.co.kr/install"
+                    href="https://play.google.com/store/apps/details?id=co.kr.bbkorea.app"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 bg-bbk-pink text-white px-8 py-4 font-bold text-[13px] uppercase tracking-wider hover:brightness-110 active:scale-[0.98] transition-all"
@@ -254,145 +256,113 @@ export default function AppPage() {
               className="text-bbk-black font-black leading-tight tracking-[-0.02em] break-keep mb-12 md:mb-16"
               style={{ fontSize: "clamp(28px, 4vw, 56px)" }}
             >
-              버튼 하나로 설치 완료됩니다.
+              내 기기에 맞춰
+              <br className="hidden sm:block" /> 시작하세요.
             </motion.h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
-              {/* 설명 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+              {/* 좌측: 버튼 3개 */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                className="flex flex-col gap-4"
               >
-                <ul className="space-y-5 mb-10">
-                  {[
-                    { platform: "Android · PC Chrome", desc: "설치 버튼 탭 → 브라우저 팝업 → 설치 완료" },
-                    { platform: "iPhone · iPad", desc: "설치 버튼 탭 → 화면 안내에 따라 홈 화면에 추가" },
-                  ].map(({ platform, desc }) => (
-                    <li key={platform} className="flex gap-5 items-start">
-                      <span className="flex-shrink-0 w-8 h-8 bg-bbk-black text-white font-mono text-[10px] font-bold flex items-center justify-center">
-                        <CheckCircle className="w-4 h-4 text-bbk-pink" />
-                      </span>
-                      <div>
-                        <p className="text-bbk-black font-bold text-sm">{platform}</p>
-                        <p className="text-bbk-stone-6 text-sm leading-relaxed mt-0.5">{desc}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-
+                {/* 1. Google Play Store */}
                 <a
-                  href="https://app.bbkorea.co.kr/install"
+                  href="https://play.google.com/store/apps/details?id=co.kr.bbkorea.app"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 bg-bbk-pink text-white px-10 py-4 font-bold text-[13px] uppercase tracking-wider hover:brightness-110 active:scale-[0.98] transition-all"
+                  className="group flex items-center justify-between gap-4 bg-bbk-black text-white px-6 py-5 hover:brightness-125 active:scale-[0.98] transition-all"
                 >
-                  <Download className="w-3.5 h-3.5" />
-                  앱 설치 페이지로 이동
+                  <div className="flex items-center gap-4">
+                    <span className="w-11 h-11 bg-white/10 flex items-center justify-center shrink-0">
+                      <Play className="w-4 h-4 fill-white" />
+                    </span>
+                    <div className="flex flex-col text-left">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40">
+                        FOR ANDROID
+                      </span>
+                      <span className="font-bold text-sm">Google Play 스토어에서 설치</span>
+                    </div>
+                  </div>
+                  <span className="text-bbk-pink font-mono text-[11px] uppercase tracking-wider">
+                    →
+                  </span>
                 </a>
-                <p className="mt-4 font-mono text-[10px] text-bbk-stone-4">
-                  * 브라우저가 자동으로 최적 설치 방법을 안내합니다.
+
+                {/* 2. 웹앱 */}
+                <a
+                  href="https://app.bbkorea.co.kr/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between gap-4 bg-bbk-pink text-white px-6 py-5 hover:brightness-110 active:scale-[0.98] transition-all"
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="w-11 h-11 bg-white/15 flex items-center justify-center shrink-0">
+                      <Globe className="w-4 h-4" />
+                    </span>
+                    <div className="flex flex-col text-left">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/70">
+                        FOR PC · iOS
+                      </span>
+                      <span className="font-bold text-sm">웹앱 바로 사용하기</span>
+                    </div>
+                  </div>
+                  <span className="text-white font-mono text-[11px] uppercase tracking-wider">
+                    →
+                  </span>
+                </a>
+
+                {/* 3. 설치 방법 안내 (Notion) */}
+                <a
+                  href="https://app.notion.com/p/BBK-391fc2d565d78020b222c2959703ea30"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between gap-4 border border-bbk-concrete text-bbk-black px-6 py-5 hover:bg-bbk-concrete/40 active:scale-[0.98] transition-all"
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="w-11 h-11 border border-bbk-concrete flex items-center justify-center shrink-0">
+                      <BookOpen className="w-4 h-4 text-bbk-stone-6" />
+                    </span>
+                    <div className="flex flex-col text-left">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-bbk-stone-4">
+                        GUIDE
+                      </span>
+                      <span className="font-bold text-sm">자세한 설치 방법 보기</span>
+                    </div>
+                  </div>
+                  <span className="text-bbk-pink font-mono text-[11px] uppercase tracking-wider">
+                    →
+                  </span>
+                </a>
+
+                <p className="mt-2 font-mono text-[10px] text-bbk-stone-4">
+                  * iPhone·iPad·PC는 웹앱으로 사용하며, 브라우저에서 홈 화면에 추가할 수 있습니다.
                 </p>
               </motion.div>
 
-              {/* 시각적 강조 카드 */}
+              {/* 우측: 관리 화면 스크린샷 */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.15 }}
-                className="bg-bbk-black p-10 md:p-12 flex flex-col gap-6"
+                className="relative w-full"
               >
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-bbk-pink">
-                  INSTALL URL
-                </p>
-                <p
-                  className="text-white font-black leading-tight tracking-[-0.02em] break-all"
-                  style={{ fontSize: "clamp(16px, 2.5vw, 24px)" }}
-                >
-                  app.bbkorea.co.kr
-                  <span className="text-bbk-pink">/install</span>
-                </p>
-                <p className="text-white/40 text-sm leading-relaxed break-keep">
-                  링크 하나로 모든 기기에서 설치 가능합니다.
-                  Android, iPhone, PC — 어떤 기기든 자동으로 최적 방법을 안내합니다.
-                </p>
-                <div className="flex flex-col gap-2 pt-2 border-t border-white/[0.08]">
-                  {["Android Chrome — 원클릭 설치", "iPhone Safari — 홈 화면 추가 안내", "PC Chrome — 데스크탑 앱 설치"].map((t) => (
-                    <p key={t} className="flex items-center gap-2 font-mono text-[10px] text-white/30 uppercase tracking-wider">
-                      <span className="text-bbk-pink">›</span> {t}
-                    </p>
-                  ))}
+                <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden bg-bbk-black shadow-[0_20px_60px_rgba(15,23,42,0.15)] border border-bbk-concrete">
+                  <Image
+                    src="/screenshots/install-preview.png"
+                    alt="BBK 공간케어 본사 포털 대시보드"
+                    fill
+                    sizes="(min-width: 768px) 640px, 100vw"
+                    className="object-contain"
+                  />
                 </div>
+                <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-bbk-stone-6 text-right">
+                  본사 포털 · 다점포 통합 관리
+                </p>
               </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* 앱 정보 요약 */}
-        <section className="bg-bbk-black py-20 md:py-28">
-          <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-            <div className="flex items-center gap-4 mb-12 md:mb-16">
-              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/30">
-                APP INFO
-              </span>
-              <div className="flex-1 h-px bg-white/[0.07]" />
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.06]">
-              {[
-                { label: "지원 플랫폼", value: "iOS · Android · PC" },
-                { label: "설치 방법", value: "브라우저에서 바로 설치 (PWA)" },
-                { label: "제공 대상", value: "정기 계약 고객 무료 제공" },
-                { label: "앱 주소", value: "app.bbkorea.co.kr" },
-              ].map(({ label, value }, i) => (
-                <motion.div
-                  key={label}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  className="bg-[#111116] px-7 py-8 flex flex-col gap-2"
-                >
-                  <p className="font-mono text-[10px] uppercase tracking-[0.1em] text-white/30">
-                    {label}
-                  </p>
-                  <p className="text-white font-bold text-sm break-keep leading-relaxed">
-                    {value}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 하단 CTA */}
-        <section className="bg-bbk-pink py-14 md:py-16">
-          <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div>
-              <h2 className="text-white font-black text-xl md:text-2xl break-keep">
-                BBK 앱, 지금 바로 시작하세요.
-              </h2>
-              <p className="text-white/70 text-sm mt-1 break-keep">
-                정기 계약 고객이라면 추가 비용 없이 사용할 수 있습니다.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-              <a
-                href="https://app.bbkorea.co.kr/install"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-white text-bbk-pink px-8 py-4 font-bold text-[13px] uppercase tracking-wider hover:bg-white/90 active:scale-[0.98] transition-all"
-              >
-                <Download className="w-3.5 h-3.5" />
-                앱 설치하기
-              </a>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center border border-white/40 text-white px-8 py-4 font-bold text-[13px] uppercase tracking-wider hover:bg-white/10 active:scale-[0.98] transition-all"
-              >
-                서비스 문의
-              </Link>
             </div>
           </div>
         </section>
