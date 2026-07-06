@@ -90,13 +90,13 @@ export default function AppSection() {
             </div>
           </motion.div>
 
-          {/* 우측: 본사 포털 가로 스크린샷 */}
+          {/* 우측: 본사 포털 스크린샷 (미니멀 모니터 인포그래픽) */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="relative flex items-center justify-center"
+            className="relative flex flex-col items-center justify-center"
           >
             {/* 발광 배경 */}
             <div
@@ -104,18 +104,64 @@ export default function AppSection() {
               className="absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  "radial-gradient(ellipse at 50% 50%, rgba(0,170,255,0.10) 0%, rgba(255,46,99,0.05) 50%, transparent 75%)",
+                  "radial-gradient(ellipse at 50% 50%, rgba(0,170,255,0.12) 0%, rgba(255,46,99,0.06) 55%, transparent 78%)",
               }}
             />
-            <div className="relative w-full max-w-[560px] aspect-[784/378] rounded-2xl overflow-hidden bg-white border border-white/10 shadow-[0_40px_80px_rgba(0,0,0,0.55)]">
-              <Image
-                src="/screenshots/home-app-preview.png"
-                alt="BBK 공간케어 본사 포털 대시보드"
-                fill
-                sizes="(min-width: 768px) 560px, 100vw"
-                className="object-cover"
-                priority
+
+            {/* 모니터 상단 좌표 라벨 (인포그래픽 힌트) */}
+            <div className="relative w-full max-w-[560px] flex items-center justify-between mb-2 px-1">
+              <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/25">
+                BBK / HQ PORTAL
+              </span>
+              <span className="flex items-center gap-1.5 font-mono text-[9px] tracking-widest text-white/25">
+                <span className="w-1 h-1 rounded-full bg-bbk-pink/70" />
+                LIVE
+              </span>
+            </div>
+
+            {/* 모니터 화면 (베젤 + 카메라 + 스크린) */}
+            <div className="relative w-full max-w-[560px] rounded-2xl bg-[#f5f5f7] border border-white/[0.08] shadow-[0_40px_80px_rgba(0,0,0,0.55)] p-2 pt-3">
+              {/* 상단 카메라 dot */}
+              <span
+                aria-hidden
+                className="absolute top-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-black/25"
               />
+              {/* 스크린 */}
+              <div className="relative w-full aspect-[784/378] rounded-lg overflow-hidden bg-white ring-1 ring-black/[0.04]">
+                <Image
+                  src="/screenshots/home-app-preview.png"
+                  alt="BBK 공간케어 본사 포털 대시보드"
+                  fill
+                  sizes="(min-width: 768px) 560px, 100vw"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* 스탠드: 목 + base */}
+            <div aria-hidden className="relative w-full max-w-[560px] flex flex-col items-center">
+              {/* 목 */}
+              <div className="w-2 h-5 bg-white/15" />
+              {/* 사다리꼴 → 위: 좁게, 아래: 넓게 */}
+              <div
+                className="w-24 h-1.5 bg-white/18"
+                style={{ clipPath: "polygon(15% 0, 85% 0, 100% 100%, 0 100%)" }}
+              />
+              {/* base 라인 */}
+              <div className="w-40 h-[3px] rounded-full bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+              {/* 반사광 */}
+              <div className="mt-3 w-56 h-6 rounded-full bg-bbk-pink/[0.05] blur-xl" />
+            </div>
+
+            {/* 하단 좌표 눈금 (인포그래픽 힌트) */}
+            <div className="relative w-full max-w-[560px] flex items-center justify-center gap-1 mt-2">
+              {[...Array(9)].map((_, i) => (
+                <span
+                  key={i}
+                  className={`h-px ${i === 4 ? "w-4 bg-bbk-pink/50" : "w-2 bg-white/15"}`}
+                />
+              ))}
             </div>
           </motion.div>
         </div>
