@@ -342,26 +342,23 @@ export default function AppPage() {
                 </p>
               </motion.div>
 
-              {/* 우측: 관리 화면 스크린샷 */}
+              {/* 우측: 미리보기 앱 화면 스크린샷 */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.15 }}
-                className="relative w-full"
+                className="relative w-full flex items-center justify-center"
               >
-                <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden bg-bbk-black shadow-[0_20px_60px_rgba(15,23,42,0.15)] border border-bbk-concrete">
+                <div className="relative w-full max-w-[380px] aspect-[435/617] rounded-2xl overflow-hidden bg-white shadow-[0_20px_60px_rgba(15,23,42,0.15)] border border-bbk-concrete">
                   <Image
                     src="/screenshots/install-preview.png"
-                    alt="BBK 공간케어 본사 포털 대시보드"
+                    alt="BBK 공간케어 앱 화면 미리보기"
                     fill
-                    sizes="(min-width: 768px) 640px, 100vw"
-                    className="object-contain"
+                    sizes="(min-width: 768px) 380px, 100vw"
+                    className="object-cover"
                   />
                 </div>
-                <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-bbk-stone-6 text-right">
-                  본사 포털 · 다점포 통합 관리
-                </p>
               </motion.div>
             </div>
           </div>

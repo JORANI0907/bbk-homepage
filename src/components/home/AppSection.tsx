@@ -90,7 +90,7 @@ export default function AppSection() {
             </div>
           </motion.div>
 
-          {/* 우측: 세로 모바일 앱 스크린샷 */}
+          {/* 우측: 본사 포털 가로 스크린샷 */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -107,13 +107,13 @@ export default function AppSection() {
                   "radial-gradient(ellipse at 50% 50%, rgba(0,170,255,0.10) 0%, rgba(255,46,99,0.05) 50%, transparent 75%)",
               }}
             />
-            <div className="relative w-full max-w-[320px] aspect-[3/5] rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_40px_80px_rgba(0,0,0,0.55)]">
+            <div className="relative w-full max-w-[560px] aspect-[784/378] rounded-2xl overflow-hidden bg-white border border-white/10 shadow-[0_40px_80px_rgba(0,0,0,0.55)]">
               <Image
                 src="/screenshots/home-app-preview.png"
-                alt="BBK 공간케어 앱 대시보드"
+                alt="BBK 공간케어 본사 포털 대시보드"
                 fill
-                sizes="(min-width: 768px) 320px, 100vw"
-                className="object-contain"
+                sizes="(min-width: 768px) 560px, 100vw"
+                className="object-cover"
                 priority
               />
             </div>
