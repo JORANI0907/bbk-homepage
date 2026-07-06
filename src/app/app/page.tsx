@@ -276,8 +276,14 @@ export default function AppPage() {
                   className="group flex items-center justify-between gap-4 bg-bbk-black text-white px-6 py-5 hover:brightness-125 active:scale-[0.98] transition-all"
                 >
                   <div className="flex items-center gap-4">
-                    <span className="w-11 h-11 bg-white/10 flex items-center justify-center shrink-0">
-                      <Play className="w-4 h-4 fill-white" />
+                    <span className="relative w-11 h-11 bg-white flex items-center justify-center shrink-0 rounded-md p-1.5">
+                      <Image
+                        src="/logos/google-play.png"
+                        alt="Google Play"
+                        fill
+                        sizes="44px"
+                        className="object-contain p-1.5"
+                      />
                     </span>
                     <div className="flex flex-col text-left">
                       <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40">
@@ -299,8 +305,14 @@ export default function AppPage() {
                   className="group flex items-center justify-between gap-4 bg-bbk-pink text-white px-6 py-5 hover:brightness-110 active:scale-[0.98] transition-all"
                 >
                   <div className="flex items-center gap-4">
-                    <span className="w-11 h-11 bg-white/15 flex items-center justify-center shrink-0">
-                      <Globe className="w-4 h-4" />
+                    <span className="relative w-11 h-11 bg-white flex items-center justify-center shrink-0 rounded-md overflow-hidden">
+                      <Image
+                        src="/logos/bbk-app.png"
+                        alt="BBK 공간케어"
+                        fill
+                        sizes="44px"
+                        className="object-cover"
+                      />
                     </span>
                     <div className="flex flex-col text-left">
                       <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/70">
