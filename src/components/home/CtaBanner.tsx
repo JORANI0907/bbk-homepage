@@ -51,11 +51,11 @@ export default function CtaBanner() {
             상담 신청하기
           </Link>
           <a
-            href="tel:010-5434-4877"
+            href="tel:1522-9597"
             className="inline-flex items-center justify-center gap-2 border border-white/45 text-white px-8 py-5 font-bold text-[13px] uppercase tracking-wider hover:bg-white/8 active:scale-[0.98] transition-all"
           >
             <Phone className="w-4 h-4" />
-            010-5434-4877
+            1522-9597
           </a>
         </motion.div>
       </div>

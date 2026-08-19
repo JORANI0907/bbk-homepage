@@ -314,7 +314,7 @@ export default function AboutPage() {
                 { label: "법인명", value: "범빌드코리아" },
                 { label: "대표이사", value: "조동환" },
                 { label: "사업자등록번호", value: "298-78-00455" },
-                { label: "대표전화", value: "031-759-4877" },
+                { label: "대표전화", value: "1522-9597" },
                 { label: "이메일", value: "sunrise@bbkorea.co.kr" },
                 { label: "주소", value: "성남시 둔촌대로268번길 22 201호" },
               ].map(({ label, value }) => (

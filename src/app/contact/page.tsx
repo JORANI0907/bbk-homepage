@@ -19,9 +19,9 @@ const CONTACT_INFO = [
   {
     icon: Phone,
     label: "대표전화",
-    value: "031-759-4877",
-    sub: "010-5434-4877",
-    href: "tel:010-5434-4877",
+    value: "1522-9597",
+    sub: null,
+    href: "tel:1522-9597",
   },
   {
     icon: Mail,
@@ -188,11 +188,11 @@ export default function ContactPage() {
                   QUICK CALL
                 </p>
                 <a
-                  href="tel:010-5434-4877"
+                  href="tel:1522-9597"
                   className="inline-flex items-center gap-2.5 bg-bbk-black text-white px-6 py-4 font-bold text-[13px] uppercase tracking-wider hover:bg-bbk-black/80 active:scale-[0.98] transition-all"
                 >
                   <Phone className="w-4 h-4" />
-                  010-5434-4877
+                  1522-9597
                 </a>
               </div>
             </div>
@@ -218,7 +218,7 @@ export default function ContactPage() {
                   <p className="text-bbk-stone-6 text-sm leading-relaxed break-keep max-w-xs">
                     담당자가 120분 내 연락드립니다.
                     <br />
-                    급한 문의는 010-5434-4877로 연락주세요.
+                    급한 문의는 1522-9597로 연락주세요.
                   </p>
                 </motion.div>
               ) : (

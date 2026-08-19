@@ -173,10 +173,10 @@ export default async function ServiceDetailPage({ params }: Props) {
                 {svc.cta}
               </Link>
               <a
-                href="tel:010-5434-4877"
+                href="tel:1522-9597"
                 className="inline-flex items-center justify-center border border-white/50 text-white px-8 py-5 font-bold text-[13px] uppercase tracking-wider hover:bg-white/10 active:scale-[0.98] transition-all"
               >
-                010-5434-4877
+                1522-9597
               </a>
             </div>
           </div>
