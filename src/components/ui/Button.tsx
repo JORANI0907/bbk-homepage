@@ -24,7 +24,7 @@ type ButtonAsLink = CommonProps & {
   href: string;
   target?: string;
   rel?: string;
-  onClick?: never;
+  onClick?: () => void;
   type?: never;
   disabled?: never;
 };
@@ -81,9 +81,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     );
 
     if ("href" in rest && rest.href) {
-      const { href, target, rel } = rest as ButtonAsLink;
+      const { href, target, rel, onClick } = rest as ButtonAsLink;
       return (
-        <Link href={href} target={target} rel={rel} className={className}>
+        <Link
+          href={href}
+          target={target}
+          rel={rel}
+          onClick={onClick}
+          className={className}
+        >
           {inner}
         </Link>
       );
