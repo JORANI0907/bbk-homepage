@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import CursorGlow from "@/components/ui/CursorGlow";
+import { AdminProvider } from "@/components/admin/AdminProvider";
+import { HomepageContentProvider } from "@/components/admin/HomepageContentProvider";
+import FloatingActions from "@/components/home-v4/FloatingActions";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -11,9 +14,46 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "BBK 공간케어 — 상업·의료 공간 전문 야간 공간케어 서비스",
+  metadataBase: new URL("https://bbkorea.co.kr"),
+  title: {
+    default: "BBK 공간케어 — 야간 청소 전문",
+    template: "%s | BBK 공간케어",
+  },
   description:
-    "영업이 끝난 공간을 완벽하게 지웁니다. 야간 전문 상업 공간케어 서비스 BBK.",
+    "청소 걱정, 오늘부터 안 하셔도 돼요. 전국 24시간 야간 청소 전문. 매달 500건 이상 고객님이 공간 진행하고 있어요.",
+  keywords: [
+    "야간 청소",
+    "매장 청소",
+    "상업 청소",
+    "주방 후드 청소",
+    "덕트 청소",
+    "정기 청소",
+    "BBK",
+    "범빌드코리아",
+  ],
+  authors: [{ name: "범빌드코리아" }],
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: "https://bbkorea.co.kr",
+    siteName: "BBK 공간케어",
+    title: "BBK 공간케어 — 야간 청소 전문",
+    description:
+      "청소 걱정, 오늘부터 안 하셔도 돼요. 전국 24시간 야간 청소 전문.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BBK 공간케어 — 야간 청소 전문",
+    description:
+      "청소 걱정, 오늘부터 안 하셔도 돼요. 전국 24시간 야간 청소 전문.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://bbkorea.co.kr",
+  },
 };
 
 export default function RootLayout({
@@ -28,8 +68,13 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full">
-        <CursorGlow />
-        {children}
+        <AdminProvider>
+          <HomepageContentProvider>
+            <CursorGlow />
+            {children}
+            <FloatingActions />
+          </HomepageContentProvider>
+        </AdminProvider>
       </body>
     </html>
   );

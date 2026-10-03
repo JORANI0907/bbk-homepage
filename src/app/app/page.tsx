@@ -1,382 +1,211 @@
-"use client";
-
-import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import {
-  Bell,
+  Calendar,
   Camera,
-  CalendarCheck,
-  BarChart3,
+  Bell,
+  FileBarChart,
+  History,
   Shield,
   Smartphone,
-  Download,
-  CheckCircle,
-  Play,
   Globe,
-  BookOpen,
+  ArrowRight,
 } from "lucide-react";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import HeaderV4 from "@/components/layout/HeaderV4";
+import FooterV4 from "@/components/layout/FooterV4";
+import MobileStickyCta from "@/components/home-v4/MobileStickyCta";
+import CtaBannerV4 from "@/components/home-v4/CtaBannerV4";
+import AppSectionV4 from "@/components/home-v4/AppSectionV4";
+import { Bridge } from "@/components/home-v4/Bridge";
+import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 
-const FEATURES = [
+export const metadata = {
+  title: "BBK 앱 — 시공 이후에도, 앱으로 계속 지켜드립니다",
+  description:
+    "정기 계약 고객에게 무료로 제공되는 BBK 전용 앱. 시공 사진·리포트·실시간 알림을 매장 밖에서도 확인하세요.",
+};
+
+const DEEP_FEATURES = [
   {
-    icon: CalendarCheck,
-    title: "정기 일정 확인",
-    desc: "다음 방문 일정과 작업 내역을 앱에서 바로 확인합니다.",
+    icon: Calendar,
+    title: "다음 시공 일정",
+    desc: "언제 오는지 캘린더에서 바로 확인. 팀 도착 3분 전 알림.",
   },
   {
     icon: Camera,
     title: "시공 전후 사진",
-    desc: "매 시공 전후 사진을 앱에 자동 업로드. 현장 없이 결과를 확인합니다.",
+    desc: "매장에 없어도 결과를 실시간으로. 사진 리포트로 정리해 드립니다.",
   },
   {
     icon: Bell,
     title: "실시간 알림",
-    desc: "시공 시작·완료 알림을 실시간으로 받아보세요.",
+    desc: "팀 도착·시작·완료 순간 즉시 알림. 사장님이 안심하실 수 있게.",
   },
   {
-    icon: BarChart3,
-    title: "관리 리포트",
-    desc: "월별 시공 내역과 청소 상태 리포트를 자동으로 생성합니다.",
+    icon: FileBarChart,
+    title: "월간 리포트",
+    desc: "매달 시공 횟수·품목·위생 등급을 정리해서 자동 전송.",
+  },
+  {
+    icon: History,
+    title: "위생 이력 관리",
+    desc: "지난 6개월 시공 내역이 앱에 그대로 보관. 감사·심사 대응 즉시.",
   },
   {
     icon: Shield,
-    title: "위생 이력 관리",
-    desc: "HACCP 등 위생 점검에 필요한 시공 이력을 앱 하나로 관리합니다.",
-  },
-  {
-    icon: Smartphone,
-    title: "언제 어디서나",
-    desc: "iOS·Android·PC 전용 앱으로 이동 중에도 위생 상태를 확인합니다.",
+    title: "다점포 통합 관리",
+    desc: "지점이 여럿이어도 한 화면. 지점별 성과·이슈를 한눈에.",
   },
 ];
 
-const BENEFITS = [
-  "정기 계약 고객에게 무료 제공",
-  "Android 앱 · iOS·PC 웹앱 지원",
-  "업데이트 자동 적용",
+const PLATFORMS = [
+  { icon: Smartphone, label: "iOS · Android", desc: "앱스토어·플레이스토어 정식 등록" },
+  { icon: Globe, label: "웹 브라우저", desc: "앱 설치 없이 web.bbkorea.co.kr 접속" },
 ];
 
 export default function AppPage() {
   return (
     <>
-      <Header />
-      <main>
-        {/* 히어로 */}
-        <section className="bg-bbk-black pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden relative">
+      <HeaderV4 />
+      <main className="bg-white text-ink-900">
+        {/* Hero */}
+        <section className="relative bg-white overflow-hidden">
           <div
+            className="absolute inset-0 pointer-events-none"
             aria-hidden
-            className="absolute inset-x-0 bottom-0 overflow-hidden pointer-events-none select-none"
-          >
-            <p
-              className="text-white/[0.03] font-black leading-[0.85] tracking-[-0.04em] whitespace-nowrap pl-6 md:pl-12"
-              style={{ fontSize: "clamp(100px, 20vw, 320px)" }}
-            >
-              APP.
-            </p>
-          </div>
-
-          <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12">
-            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/30 mb-6">
-              BBK KOREA — SPACE CARE APP
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
-              <div>
-                <motion.h1
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7 }}
-                  className="text-white font-black leading-[1.05] tracking-[-0.03em] break-keep mb-6"
-                  style={{ fontSize: "clamp(38px, 7vw, 100px)" }}
-                >
-                  스마트폰 하나로
-                  <br />
-                  공간 위생을
-                  <br />
-                  <span className="text-bbk-pink">관리하세요.</span>
-                </motion.h1>
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                  className="text-white/45 text-base md:text-lg max-w-md break-keep leading-relaxed mb-8"
-                >
-                  시공 일정부터 전후 사진, 위생 이력 리포트까지 — BBK 전용 앱
-                  하나로 우리 공간의 위생 상태를 언제 어디서나 확인할 수
-                  있습니다.
-                </motion.p>
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.45 }}
-                  className="flex flex-col sm:flex-row gap-3"
-                >
-                  <a
-                    href="https://play.google.com/store/apps/details?id=co.kr.bbkorea.app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 bg-bbk-pink text-white px-8 py-4 font-bold text-[13px] uppercase tracking-wider hover:brightness-110 active:scale-[0.98] transition-all"
-                  >
-                    <Download className="w-3.5 h-3.5" />
-                    앱 설치하기
-                  </a>
+            style={{
+              background:
+                "radial-gradient(ellipse 55% 45% at 20% 30%, rgba(44,167,241,0.08), transparent 60%)",
+            }}
+          />
+          <div className="relative max-w-7xl mx-auto px-5 md:px-8 pt-28 md:pt-32 pb-16 md:pb-24">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+              <div className="lg:col-span-7 flex flex-col gap-8">
+                <Bridge
+                  step="BBK App"
+                  bridge="시공만이 아니라, 관리까지."
+                  title={
+                    <>
+                      매장에 없어도,
+                      <br />
+                      <span className="text-ink-400">매장을 지켜드립니다.</span>
+                    </>
+                  }
+                  subtitle="BBK 전용 앱은 정기 계약 고객에게 무료로 제공됩니다. 시공 사진·월간 리포트·실시간 알림을 사장님 스마트폰으로 바로."
+                />
+                <div className="flex flex-col sm:flex-row gap-3">
                   <Link
                     href="/contact"
-                    className="inline-flex items-center justify-center border border-white/30 text-white px-8 py-4 font-bold text-[13px] uppercase tracking-wider hover:bg-white/8 active:scale-[0.98] transition-all"
+                    className="inline-flex items-center justify-center gap-2 h-13 md:h-14 px-7 rounded-full bg-ink-900 text-white text-[15px] md:text-base font-semibold hover:bg-brand-600 transition-colors duration-200 active:scale-[0.98]"
                   >
-                    도입 문의하기
+                    앱 사용 상담 받기
+                    <ArrowRight className="w-4 h-4" strokeWidth={1.75} />
                   </Link>
-                </motion.div>
+                  <a
+                    href="https://web.bbkorea.co.kr"
+                    className="inline-flex items-center justify-center gap-2 h-13 md:h-14 px-7 rounded-full border border-ink-200 text-ink-900 text-[15px] md:text-base font-semibold hover:border-ink-900 transition-colors duration-200 active:scale-[0.98]"
+                  >
+                    <Globe className="w-4 h-4" strokeWidth={1.75} />
+                    웹앱으로 열기
+                  </a>
+                </div>
               </div>
+              <div className="lg:col-span-5">
+                <ImagePlaceholder
+                  ratio="9/16"
+                  tone="brand"
+                  rounded="3xl"
+                  label="BBK App Screen"
+                  className="max-w-[320px] mx-auto shadow-[0_30px_80px_-25px_rgba(44,167,241,0.4)]"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
 
-              {/* 폰 목업 */}
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2, duration: 0.7 }}
-                className="hidden md:flex items-center justify-center"
-              >
-                <div className="relative">
-                  <div className="relative w-52 h-[420px] rounded-[2.8rem] border-[3px] border-white/15 bg-[#0d0d12] flex flex-col items-center pt-10 pb-8 overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.6)]">
-                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-14 h-3.5 rounded-full bg-white/10" />
-                    <div className="flex-1 flex flex-col items-center justify-center gap-5 w-full px-6">
-                      <div
-                        className="rounded-[22px] overflow-hidden shadow-[0_8px_32px_rgba(0,170,255,0.35)]"
-                        style={{ width: 100, height: 100 }}
-                      >
-                        <Image
-                          src="/app-logo.png"
-                          alt="BBK 공간케어 앱"
-                          width={100}
-                          height={100}
-                          className="object-cover"
-                        />
-                      </div>
-                      <p className="font-mono text-[9px] uppercase tracking-widest text-white/30">
-                        BBK 공간케어
-                      </p>
-                      <div className="w-full space-y-2 mt-2">
-                        {[80, 60, 70].map((w, i) => (
-                          <div
-                            key={i}
-                            className="h-1.5 rounded-full bg-white/[0.06]"
-                            style={{ width: `${w}%` }}
-                          />
-                        ))}
-                      </div>
+        {/* 홈 앱 섹션 재사용 · 상세 뷰 */}
+        <AppSectionV4 />
+
+        {/* 6개 기능 상세 */}
+        <section className="bg-ink-50 py-24 md:py-32">
+          <div className="max-w-7xl mx-auto px-5 md:px-8 flex flex-col gap-14 md:gap-20">
+            <Bridge
+              step="Features"
+              bridge="앱 안에 이 6가지가 들어 있어요."
+              title={<>매장 밖에서도 매장을 관리하는 방법.</>}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {DEEP_FEATURES.map((f, i) => {
+                const Icon = f.icon;
+                return (
+                  <article
+                    key={f.title}
+                    className="rounded-3xl bg-white border border-ink-100 p-8 flex flex-col gap-5 hover:border-ink-300 hover:shadow-[0_16px_40px_-25px_rgba(10,15,26,0.15)] transition-all duration-200"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="w-11 h-11 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center">
+                        <Icon className="w-5 h-5" strokeWidth={1.5} />
+                      </span>
+                      <span className="text-[10px] uppercase tracking-[0.18em] text-ink-400 font-semibold">
+                        0{i + 1}
+                      </span>
                     </div>
-                    <div className="w-20 h-1 rounded-full bg-white/20" />
-                  </div>
+                    <h3 className="text-lg md:text-xl font-bold text-ink-900 leading-snug break-keep">
+                      {f.title}
+                    </h3>
+                    <p className="text-[14px] text-ink-600 leading-[1.65] break-keep">
+                      {f.desc}
+                    </p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* 플랫폼 */}
+        <section className="bg-white py-24 md:py-32">
+          <div className="max-w-7xl mx-auto px-5 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+            <div className="lg:col-span-6">
+              <Bridge
+                step="Platforms"
+                bridge="아이폰·안드로이드·웹, 어디서든."
+                title={
+                  <>
+                    설치 없이도
+                    <br />
+                    <span className="text-ink-400">바로 시작하실 수 있어요.</span>
+                  </>
+                }
+              />
+            </div>
+            <div className="lg:col-span-6 flex flex-col gap-4">
+              {PLATFORMS.map((p) => {
+                const Icon = p.icon;
+                return (
                   <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background:
-                        "radial-gradient(ellipse at 50% 50%, rgba(0,170,255,0.1) 0%, rgba(255,46,99,0.06) 50%, transparent 75%)",
-                    }}
-                  />
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* 혜택 배지 바 */}
-        <section className="bg-bbk-pink py-5">
-          <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex flex-wrap gap-x-8 gap-y-2 items-center justify-center md:justify-start">
-            {BENEFITS.map((b) => (
-              <span
-                key={b}
-                className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-white/90"
-              >
-                <CheckCircle className="w-3.5 h-3.5 shrink-0" />
-                {b}
-              </span>
-            ))}
-          </div>
-        </section>
-
-        {/* 주요 기능 */}
-        <section className="bg-bbk-black py-20 md:py-32">
-          <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-            <div className="flex items-center gap-4 mb-12 md:mb-16">
-              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/30">
-                FEATURES
-              </span>
-              <div className="flex-1 h-px bg-white/[0.07]" />
-            </div>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-white font-black leading-tight tracking-[-0.02em] break-keep mb-12 md:mb-16"
-              style={{ fontSize: "clamp(28px, 4vw, 56px)" }}
-            >
-              앱 하나로 모든 걸 확인합니다.
-            </motion.h2>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-px bg-white/[0.06]">
-              {FEATURES.map((f, i) => (
-                <motion.div
-                  key={f.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  className="bg-[#111116] p-6 md:p-8 flex flex-col gap-3 group hover:bg-[#161619] transition-colors"
-                >
-                  <div className="w-9 h-9 border border-bbk-pink/30 flex items-center justify-center group-hover:border-bbk-pink/60 transition-colors">
-                    <f.icon className="w-4 h-4 text-bbk-pink" />
-                  </div>
-                  <p className="text-white font-bold">{f.title}</p>
-                  <p className="text-white/45 text-sm leading-relaxed break-keep">
-                    {f.desc}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 설치 방법 */}
-        <section className="bg-bbk-cool-white py-20 md:py-32">
-          <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-            <div className="flex items-center gap-4 mb-12 md:mb-16">
-              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-bbk-stone-6">
-                HOW TO INSTALL
-              </span>
-              <div className="flex-1 h-px bg-bbk-concrete" />
-            </div>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-bbk-black font-black leading-tight tracking-[-0.02em] break-keep mb-12 md:mb-16"
-              style={{ fontSize: "clamp(28px, 4vw, 56px)" }}
-            >
-              내 기기에 맞춰
-              <br className="hidden sm:block" /> 시작하세요.
-            </motion.h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-              {/* 좌측: 버튼 3개 */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="flex flex-col gap-4"
-              >
-                {/* 1. Google Play Store */}
-                <a
-                  href="https://play.google.com/store/apps/details?id=co.kr.bbkorea.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-between gap-4 bg-bbk-black text-white px-6 py-5 hover:brightness-125 active:scale-[0.98] transition-all"
-                >
-                  <div className="flex items-center gap-4">
-                    <span className="relative w-11 h-11 bg-white flex items-center justify-center shrink-0 rounded-md p-1.5">
-                      <Image
-                        src="/logos/google-play.png"
-                        alt="Google Play"
-                        fill
-                        sizes="44px"
-                        className="object-contain p-1.5"
-                      />
+                    key={p.label}
+                    className="rounded-3xl bg-ink-50 border border-ink-100 p-6 md:p-8 flex items-center gap-6"
+                  >
+                    <span className="w-14 h-14 rounded-2xl bg-brand-500 text-white flex items-center justify-center shrink-0">
+                      <Icon className="w-6 h-6" strokeWidth={1.5} />
                     </span>
-                    <div className="flex flex-col text-left">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/40">
-                        FOR ANDROID
-                      </span>
-                      <span className="font-bold text-sm">Google Play 스토어에서 설치</span>
+                    <div className="flex flex-col gap-1">
+                      <p className="text-lg font-bold text-ink-900">{p.label}</p>
+                      <p className="text-sm text-ink-600 leading-[1.55] break-keep">
+                        {p.desc}
+                      </p>
                     </div>
                   </div>
-                  <span className="text-bbk-pink font-mono text-[11px] uppercase tracking-wider">
-                    →
-                  </span>
-                </a>
-
-                {/* 2. 웹앱 */}
-                <a
-                  href="https://app.bbkorea.co.kr/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-between gap-4 bg-bbk-pink text-white px-6 py-5 hover:brightness-110 active:scale-[0.98] transition-all"
-                >
-                  <div className="flex items-center gap-4">
-                    <span className="relative w-11 h-11 bg-white flex items-center justify-center shrink-0 rounded-md overflow-hidden">
-                      <Image
-                        src="/logos/bbk-app.png"
-                        alt="BBK 공간케어"
-                        fill
-                        sizes="44px"
-                        className="object-cover"
-                      />
-                    </span>
-                    <div className="flex flex-col text-left">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/70">
-                        FOR PC · iOS
-                      </span>
-                      <span className="font-bold text-sm">웹앱 바로 사용하기</span>
-                    </div>
-                  </div>
-                  <span className="text-white font-mono text-[11px] uppercase tracking-wider">
-                    →
-                  </span>
-                </a>
-
-                {/* 3. 설치 방법 안내 (Notion) */}
-                <a
-                  href="https://app.notion.com/p/BBK-391fc2d565d78020b222c2959703ea30"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-between gap-4 border border-bbk-concrete text-bbk-black px-6 py-5 hover:bg-bbk-concrete/40 active:scale-[0.98] transition-all"
-                >
-                  <div className="flex items-center gap-4">
-                    <span className="w-11 h-11 border border-bbk-concrete flex items-center justify-center shrink-0">
-                      <BookOpen className="w-4 h-4 text-bbk-stone-6" />
-                    </span>
-                    <div className="flex flex-col text-left">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-bbk-stone-4">
-                        GUIDE
-                      </span>
-                      <span className="font-bold text-sm">자세한 설치 방법 보기</span>
-                    </div>
-                  </div>
-                  <span className="text-bbk-pink font-mono text-[11px] uppercase tracking-wider">
-                    →
-                  </span>
-                </a>
-
-                <p className="mt-2 font-mono text-[10px] text-bbk-stone-4">
-                  * iPhone·iPad·PC는 웹앱으로 사용하며, 브라우저에서 홈 화면에 추가할 수 있습니다.
-                </p>
-              </motion.div>
-
-              {/* 우측: 미리보기 앱 화면 스크린샷 */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.15 }}
-                className="relative w-full flex items-center justify-center"
-              >
-                <div className="relative w-full max-w-[380px] aspect-[435/617] rounded-2xl overflow-hidden bg-white shadow-[0_20px_60px_rgba(15,23,42,0.15)] border border-bbk-concrete">
-                  <Image
-                    src="/screenshots/install-preview.png"
-                    alt="BBK 공간케어 앱 화면 미리보기"
-                    fill
-                    sizes="(min-width: 768px) 380px, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-              </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>
+
+        <CtaBannerV4 />
       </main>
-      <Footer />
+      <FooterV4 />
+      <MobileStickyCta />
     </>
   );
 }

@@ -38,8 +38,7 @@ const AXES = [
     countLabel: "서비스 품목",
     items: DEEP_ITEMS,
     links: [
-      { label: "딥케어 구독 →", href: "/services/deep-care-subscription" },
-      { label: "딥케어 1회 →", href: "/services/deep-care-onetime" },
+      { label: "딥케어 자세히 보기 →", href: "/services#deepcare" },
     ],
   },
   {
@@ -52,8 +51,7 @@ const AXES = [
     countLabel: "서비스 품목",
     items: END_ITEMS,
     links: [
-      { label: "엔드케어 정기 →", href: "/services/end-care-regular" },
-      { label: "엔드케어 1회 →", href: "/services/end-care-onetime" },
+      { label: "엔드케어 자세히 보기 →", href: "/services#endcare" },
     ],
   },
 ];

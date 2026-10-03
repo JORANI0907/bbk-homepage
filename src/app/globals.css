@@ -1,7 +1,57 @@
 @import "tailwindcss";
 
 @theme {
-  /* BBK 브랜드 컬러 */
+  /* ===============================================
+   * v4.0 리뉴얼 컬러 — 3색 원칙: 브랜드 블루 + 흰색 + 블랙
+   * 참고: RENEWAL-PLAN-v4.md 섹션 3
+   * =============================================== */
+
+  /* 브랜드 블루 (#2CA7F1 확장 팔레트) */
+  --color-brand-50: #ebf6fe;
+  --color-brand-100: #d0eafc;
+  --color-brand-200: #a5d6f8;
+  --color-brand-300: #7bc1f5;
+  --color-brand-400: #52b7f3;
+  --color-brand-500: #2ca7f1;
+  --color-brand-600: #1a8fd8;
+  --color-brand-700: #1573b2;
+  --color-brand-800: #10578a;
+  --color-brand-900: #0b3e63;
+
+  /* 뉴트럴 (화이트 → 짙은 슬레이트 블랙) */
+  --color-ink-50: #f8fafc;
+  --color-ink-100: #f1f5f9;
+  --color-ink-200: #e2e8f0;
+  --color-ink-400: #94a3b8;
+  --color-ink-600: #475569;
+  --color-ink-900: #0a0f1a;
+
+  /* 시스템 색 — 폼 상태 표시에만 사용. 브랜딩 금지 */
+  --color-system-success: #16a34a;
+  --color-system-danger: #dc2626;
+
+  /* v4.0 타이포 크기 (Desktop / Mobile은 컴포넌트에서 md: 분기) */
+  --text-display: 4rem;        /* 64px — 표제 */
+  --text-h1: 3rem;             /* 48px — 대제목 */
+  --text-h2: 2.25rem;          /* 36px — 중제목 */
+  --text-h3: 1.5rem;           /* 24px — 소제목 */
+  --text-sub: 1.125rem;        /* 18px — 부제 */
+  --text-body: 1rem;           /* 16px — 본문 */
+  --text-small: 0.875rem;      /* 14px — 설명 */
+  --text-meta: 0.75rem;        /* 12px — 각주 */
+
+  /* v4.0 shadow — 부드러운 매장 느낌 */
+  --shadow-soft: 0 1px 3px rgba(10, 15, 26, 0.06), 0 1px 2px rgba(10, 15, 26, 0.04);
+  --shadow-card: 0 4px 12px rgba(10, 15, 26, 0.08), 0 2px 4px rgba(10, 15, 26, 0.04);
+  --shadow-pop: 0 12px 32px rgba(10, 15, 26, 0.12), 0 4px 8px rgba(10, 15, 26, 0.06);
+  --shadow-brand-hover: 0 4px 14px rgba(44, 167, 241, 0.28), 0 2px 4px rgba(44, 167, 241, 0.12);
+
+  /* v4.0 easing */
+  --ease-out-toss: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* =====================================================
+   * v3.0 (Editorial Brutalism) — 리팩터링 중 유지, 점진 삭제
+   * ===================================================== */
   --color-bbk-black: #0b0b0f;
   --color-bbk-pink: #ff2e63;
   --color-bbk-pink-soft: #ffd8e2;
@@ -15,8 +65,8 @@
   --color-academy-green: #00ff66;
   --color-academy-green-dim: rgba(0, 255, 102, 0.12);
 
-  /* 폰트 시스템 */
-  --font-sans: var(--font-inter), "Pretendard Variable", Pretendard,
+  /* 폰트 시스템 — Pretendard 우선 (v4.0), Inter는 뒤로 (v3.0 호환) */
+  --font-sans: "Pretendard Variable", Pretendard, var(--font-inter),
     -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo",
     "Noto Sans KR", sans-serif;
   --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace,
@@ -36,11 +86,30 @@ html {
     from { transform: translateX(-50%); }
     to   { transform: translateX(0); }
   }
+  @keyframes bbkScrollUp {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-50%); }
+  }
+}
+
+.bbk-feed-column {
+  will-change: transform;
+}
+.bbk-feed-wrapper:hover .bbk-feed-column {
+  animation-play-state: paused !important;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 body {
-  background-color: #0b0b0f;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #0a0f1a;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
