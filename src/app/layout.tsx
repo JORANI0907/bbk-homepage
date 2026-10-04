@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import CursorGlow from "@/components/ui/CursorGlow";
@@ -54,6 +54,17 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://bbkorea.co.kr",
   },
+  appleWebApp: {
+    capable: true,
+    title: "BBK",
+    statusBarStyle: "default",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#2ca7f1",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
