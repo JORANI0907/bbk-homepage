@@ -7,9 +7,11 @@ import { maskStoreName, type Case } from "@/lib/data/cases";
 
 type Props = {
   cases: Case[];
+  /** 모바일 열 수. 1 = 1열(홈 대표사례, 몰입감), 2 = 2열(/cases 전체 사례, 둘러보기). 기본 1 */
+  mobileColumns?: 1 | 2;
 };
 
-export default function BeforeAfterCardsGrid({ cases }: Props) {
+export default function BeforeAfterCardsGrid({ cases, mobileColumns = 1 }: Props) {
   if (cases.length === 0) {
     return (
       <div className="rounded-3xl border border-dashed border-brand-200 bg-white/60 py-16 flex flex-col items-center gap-3 text-brand-700">
@@ -22,8 +24,26 @@ export default function BeforeAfterCardsGrid({ cases }: Props) {
     );
   }
 
+  const isCompact = mobileColumns === 2;
+  const gridCols = isCompact
+    ? "grid-cols-2 md:grid-cols-2"
+    : "grid-cols-1 md:grid-cols-2";
+  const gridGap = isCompact ? "gap-2 md:gap-6" : "gap-3 md:gap-6";
+  // 2열 압축 모드: 모바일에서 Before/After가 각 1/4 폭이 되므로 세로를 좀 더 확보 (3/2 비율)
+  const imageAspect = isCompact
+    ? "aspect-[3/2] md:aspect-[16/9]"
+    : "aspect-[4/3] md:aspect-[16/9]";
+  const cardRadius = isCompact ? "rounded-xl md:rounded-3xl" : "rounded-2xl md:rounded-3xl";
+  const infoPadding = isCompact ? "p-2.5 md:p-6" : "p-3.5 md:p-6";
+  const titleClass = isCompact
+    ? "text-[11px] md:text-sm font-semibold text-ink-900 truncate"
+    : "text-xs md:text-sm font-semibold text-ink-900 truncate";
+  const subClass = isCompact
+    ? "text-[9px] md:text-xs text-ink-400 truncate"
+    : "text-[10px] md:text-xs text-ink-400 truncate";
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
+    <div className={`grid ${gridCols} ${gridGap}`}>
       {cases.map((c, i) => {
         const beforeUrl = c.before_images?.[0] ?? null;
         const afterUrl = c.after_images?.[0] ?? null;
@@ -34,28 +54,29 @@ export default function BeforeAfterCardsGrid({ cases }: Props) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.06 }}
-            className="rounded-2xl md:rounded-3xl overflow-hidden bg-white border border-ink-100 hover:shadow-[0_20px_50px_-25px_rgba(10,15,26,0.2)] hover:-translate-y-1 transition-all duration-200 h-full"
+            className={`${cardRadius} overflow-hidden bg-white border border-ink-100 hover:shadow-[0_20px_50px_-25px_rgba(10,15,26,0.2)] hover:-translate-y-1 transition-all duration-200 h-full`}
           >
-            {/* 모바일: 4/3 비율로 세로 공간 확보 (각 이미지가 세로로 잘 보이도록) · 데스크톱: 16/9 */}
-            <div className="grid grid-cols-2 aspect-[4/3] md:aspect-[16/9] border-b border-ink-100">
+            <div className={`grid grid-cols-2 ${imageAspect} border-b border-ink-100`}>
               <BeforeAfterSlot url={beforeUrl} label="Before" tone="ink" />
               <BeforeAfterSlot url={afterUrl} label="After" tone="brand" />
             </div>
 
-            <div className="p-3.5 md:p-6 flex items-center justify-between gap-3 md:gap-4">
+            <div className={`${infoPadding} flex items-center justify-between gap-2 md:gap-4`}>
               <div className="flex flex-col gap-0.5 md:gap-1 min-w-0">
-                <p className="text-xs md:text-sm font-semibold text-ink-900 truncate">
+                <p className={titleClass}>
                   {c.store_name
                     ? maskStoreName(c.store_name)
                     : `${c.industry ?? ""} ${c.item ?? ""}`.trim()}
                 </p>
-                <p className="text-[10px] md:text-xs text-ink-400 truncate">
+                <p className={subClass}>
                   {[c.industry, c.region, c.timing].filter(Boolean).join(" · ")}
                 </p>
               </div>
-              <span className="text-[10px] md:text-[11px] uppercase tracking-[0.14em] text-ink-400 font-semibold shrink-0">
-                {String(i + 1).padStart(2, "0")} / {cases.length}
-              </span>
+              {!isCompact && (
+                <span className="text-[10px] md:text-[11px] uppercase tracking-[0.14em] text-ink-400 font-semibold shrink-0">
+                  {String(i + 1).padStart(2, "0")} / {cases.length}
+                </span>
+              )}
             </div>
           </motion.article>
         );

@@ -54,7 +54,7 @@ export default async function CasesPage() {
                 "radial-gradient(ellipse 55% 45% at 78% 30%, rgba(44,167,241,0.06), transparent 60%)",
             }}
           />
-          <div className="relative max-w-7xl mx-auto px-5 md:px-8 pt-28 md:pt-32 pb-10 md:pb-12">
+          <div className="relative max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pt-20 md:pt-28 lg:pt-32 pb-6 md:pb-10 lg:pb-12">
             <LiveTicker items={RECENT_UPLOADS} intervalMs={4500} prefix="Now" />
           </div>
         </section>
@@ -69,14 +69,14 @@ export default async function CasesPage() {
 
         <section className="relative bg-ink-50 overflow-hidden">
           <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-24 md:h-32 z-10"
+            className="pointer-events-none absolute inset-x-0 top-0 h-16 md:h-24 lg:h-32 z-10"
             style={{
               background:
                 "linear-gradient(to bottom, rgb(248 249 250) 0%, rgba(248,249,250,0) 100%)",
             }}
           />
           <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-24 md:h-32 z-10"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-16 md:h-24 lg:h-32 z-10"
             style={{
               background:
                 "linear-gradient(to top, rgb(248 249 250) 0%, rgba(248,249,250,0) 100%)",
@@ -85,28 +85,30 @@ export default async function CasesPage() {
           <CasesFeedGrid cases={publicCases} />
         </section>
 
-        <section className="bg-white py-24 md:py-32">
-          <div className="max-w-4xl mx-auto px-5 md:px-8 rounded-3xl bg-ink-50 border border-ink-100 p-8 md:p-12 flex flex-col gap-6">
-            <span className="text-[11px] uppercase tracking-[0.18em] text-brand-600 font-semibold">
-              For Owners
-            </span>
-            <h2 className="text-2xl md:text-4xl font-bold text-ink-900 leading-[1.2] tracking-tight break-keep">
-              사장님 매장도
-              <br />
-              이 피드에 오를 수 있어요.
-            </h2>
-            <p className="text-[15px] md:text-base text-ink-600 leading-[1.7] break-keep">
-              모든 사진은 사장님 동의를 받아 공개합니다. 시공 후 사례 등록에
-              동의해주시면 매장 노출 효과와 함께 소정의 감사 리워드도 준비해
-              드립니다.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 h-13 px-7 rounded-full bg-ink-900 text-white text-sm font-semibold hover:bg-brand-600 transition-colors w-fit"
-            >
-              지금 상담 시작하기
-              <ArrowRight className="w-4 h-4" strokeWidth={1.75} />
-            </Link>
+        <section className="bg-white py-14 md:py-24 lg:py-32">
+          <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
+            <div className="rounded-2xl md:rounded-3xl bg-ink-50 border border-ink-100 p-5 md:p-10 lg:p-12 flex flex-col gap-4 md:gap-6">
+              <span className="text-[10px] md:text-[11px] uppercase tracking-[0.18em] text-brand-600 font-semibold">
+                For Owners
+              </span>
+              <h2 className="text-xl md:text-3xl lg:text-4xl font-bold text-ink-900 leading-[1.2] tracking-tight break-keep">
+                사장님 매장도
+                <br />
+                이 피드에 오를 수 있어요.
+              </h2>
+              <p className="text-xs md:text-[15px] lg:text-base text-ink-600 leading-[1.55] md:leading-[1.7] break-keep">
+                모든 사진은 사장님 동의를 받아 공개합니다. 시공 후 사례 등록에
+                동의해주시면 매장 노출 효과와 함께 소정의 감사 리워드도 준비해
+                드립니다.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 h-11 md:h-12 lg:h-13 px-5 md:px-6 lg:px-7 rounded-full bg-ink-900 text-white text-xs md:text-sm font-semibold hover:bg-brand-600 transition-colors w-fit"
+              >
+                지금 상담 시작하기
+                <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4" strokeWidth={1.75} />
+              </Link>
+            </div>
           </div>
         </section>
 

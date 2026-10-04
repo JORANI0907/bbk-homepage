@@ -54,18 +54,18 @@ export default function PaginatedCasesSection({
   if (totalPages < 1 || cases.length === 0) return null;
 
   return (
-    <section className="bg-brand-50 py-24 md:py-32 border-y border-brand-100">
-      <div className="max-w-7xl mx-auto px-5 md:px-8 flex flex-col gap-14 md:gap-16">
-        <div className="flex flex-col gap-5 max-w-3xl">
-          <span className="text-[11px] uppercase tracking-[0.18em] text-brand-600 font-semibold">
+    <section className="bg-brand-50 py-14 md:py-24 lg:py-32 border-y border-brand-100">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex flex-col gap-8 md:gap-14 lg:gap-16">
+        <div className="flex flex-col gap-3 md:gap-5 max-w-3xl">
+          <span className="text-[10px] md:text-[11px] uppercase tracking-[0.18em] text-brand-600 font-semibold">
             Cases
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold leading-[1.15] tracking-tight break-keep text-ink-900">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold leading-[1.15] tracking-tight break-keep text-ink-900">
             말보다 결과로,
             <br />
             <span className="text-ink-400">보여드릴게요.</span>
           </h2>
-          <p className="text-base md:text-lg leading-[1.65] break-keep max-w-2xl text-ink-600">
+          <p className="text-sm md:text-base lg:text-lg leading-[1.55] md:leading-[1.65] break-keep max-w-2xl text-ink-600">
             BBK가 함께한 매장들을 순서대로 만나보세요. 번호를 눌러 다음 사례로 넘어갈 수 있어요.
           </p>
         </div>
@@ -74,7 +74,8 @@ export default function PaginatedCasesSection({
           className={`transition-opacity duration-200 ${loading ? "opacity-50" : "opacity-100"}`}
           aria-busy={loading}
         >
-          <BeforeAfterCardsGrid cases={cases} />
+          {/* 모바일 2열 (가로 압축형) · PC처럼 많이 보여주기 — 사용자는 눌러서 상세 봄 */}
+          <BeforeAfterCardsGrid cases={cases} mobileColumns={2} />
         </div>
 
         {totalPages > 1 && (
@@ -151,7 +152,7 @@ function PageButton({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className={`inline-flex items-center justify-center w-9 h-9 rounded-lg text-sm font-semibold transition-colors ${
+      className={`inline-flex items-center justify-center w-10 h-10 md:w-9 md:h-9 rounded-lg text-sm font-semibold transition-colors ${
         active
           ? "bg-ink-900 text-white"
           : "bg-white border border-ink-200 text-ink-700 hover:border-ink-900 disabled:opacity-40 disabled:hover:border-ink-200"
