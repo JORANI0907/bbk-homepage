@@ -30,7 +30,8 @@ export default async function BeforeAfterV4() {
           subtitle="사장님들 동의하에 공개하는 실제 시공 전후 사진이에요. 사장님 매장도 곧 이 자리에 오를 수 있어요."
         />
 
-        <BeforeAfterCardsGrid cases={cases} />
+        {/* 모바일 2열 가로형 · /cases 와 동일한 패턴 (볼 사람은 눌러서 상세 봄) */}
+        <BeforeAfterCardsGrid cases={cases} mobileColumns={2} />
 
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-6 pt-2 md:pt-4">
           <p className="text-xs text-ink-400 max-w-md break-keep leading-[1.5]">{footnoteText}</p>
