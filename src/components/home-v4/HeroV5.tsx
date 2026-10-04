@@ -56,7 +56,7 @@ export default function HeroV5() {
       buttonPosition="top-20 right-4 md:top-24 md:right-6"
     >
       {/* Hero · 사진이 전체 배경이 되는 심플한 구조 */}
-      <div className="relative bg-ink-900 text-white overflow-hidden min-h-[460px] md:min-h-[560px] flex flex-col justify-end">
+      <div className="relative bg-ink-900 text-white overflow-hidden min-h-[400px] md:min-h-[500px] lg:min-h-[560px] flex flex-col justify-end">
         {/* 배경 사진 · 전체 커버 */}
         <EditableImage
           contentKey="hero.background"
@@ -113,13 +113,13 @@ export default function HeroV5() {
         />
 
         {/* 콘텐츠 · 사진 위에, 하단 정렬 + 아래 검색 카드와 살짝 간격 */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 pt-20 md:pt-24 pb-24 md:pb-28">
-          <div className="flex flex-col gap-5 max-w-xl md:max-w-2xl">
-            <div className="flex items-center gap-2 text-[11px] font-medium text-white/60 tracking-[0.14em] uppercase">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pt-16 md:pt-20 lg:pt-24 pb-20 md:pb-24 lg:pb-28">
+          <div className="flex flex-col gap-3.5 md:gap-5 max-w-xl md:max-w-2xl">
+            <div className="flex items-center gap-2 text-[10px] md:text-[11px] font-medium text-white/60 tracking-[0.14em] uppercase">
               <span className="inline-flex w-1.5 h-1.5 rounded-full bg-brand-400 animate-pulse" />
               Live · 지금 {liveCount}명이 상담 진행 중
             </div>
-            <h1 className="text-3xl md:text-6xl font-bold leading-[1.1] tracking-[-0.02em] break-keep text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
+            <h1 className="text-[26px] md:text-4xl lg:text-6xl font-bold leading-[1.15] md:leading-[1.1] tracking-[-0.02em] break-keep text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
               <EditableText
                 contentKey="hero.title.main"
                 defaultText="밤에 청소가 필요할 땐"
@@ -135,37 +135,37 @@ export default function HeroV5() {
               contentKey="hero.subtitle"
               defaultText="전국 24시간 야간 청소 · 매달 500건 이상 고객님이 이용 중입니다."
               multiline
-              className="text-sm md:text-base text-white/80 max-w-lg break-keep drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]"
+              className="text-xs md:text-sm lg:text-base text-white/80 max-w-lg break-keep drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]"
             />
           </div>
         </div>
       </div>
 
       {/* 검색 · 아이콘 카테고리 카드 (검정 헤드 위에 얹기) */}
-      <div className="relative max-w-6xl mx-auto px-5 md:px-8 -mt-20 md:-mt-24 z-10">
-        <div className="rounded-3xl bg-white border border-ink-100 shadow-[0_30px_80px_-30px_rgba(10,15,26,0.3)] p-6 md:p-10">
+      <div className="relative max-w-6xl mx-auto px-4 md:px-6 lg:px-8 -mt-16 md:-mt-20 lg:-mt-24 z-10">
+        <div className="rounded-2xl md:rounded-3xl bg-white border border-ink-100 shadow-[0_30px_80px_-30px_rgba(10,15,26,0.3)] p-4 md:p-7 lg:p-10">
           {/* 지역 + 질문 */}
-          <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-5 md:mb-6">
+          <div className="flex flex-wrap items-center gap-1.5 md:gap-3 mb-4 md:mb-6">
             <button
               onClick={() => setRegionOpen(true)}
-              className="inline-flex items-center gap-1.5 text-xl md:text-3xl font-bold text-ink-900 hover:text-brand-600 transition-colors group"
+              className="inline-flex items-center gap-1 md:gap-1.5 text-base md:text-2xl lg:text-3xl font-bold text-ink-900 hover:text-brand-600 transition-colors group"
             >
               <MapPin
-                className="w-4 h-4 md:w-5 md:h-5 text-brand-500"
+                className="w-3.5 h-3.5 md:w-5 md:h-5 text-brand-500"
                 strokeWidth={2}
               />
               <span className="underline decoration-brand-200 underline-offset-4 decoration-2 group-hover:decoration-brand-500">
                 {region}
               </span>
               <ChevronDown
-                className="w-5 h-5 md:w-6 md:h-6 text-ink-400 group-hover:text-brand-600 transition-colors"
+                className="w-4 h-4 md:w-6 md:h-6 text-ink-400 group-hover:text-brand-600 transition-colors"
                 strokeWidth={2}
               />
             </button>
-            <span className="text-xl md:text-3xl font-bold text-ink-900">
+            <span className="text-base md:text-2xl lg:text-3xl font-bold text-ink-900">
               에서
             </span>
-            <span className="text-xl md:text-3xl font-bold text-ink-400">
+            <span className="text-base md:text-2xl lg:text-3xl font-bold text-ink-400 break-keep">
               어떤 청소가 필요하세요?
             </span>
           </div>
@@ -180,11 +180,11 @@ export default function HeroV5() {
           {/* 검색 바 */}
           <form
             onSubmit={submit}
-            className="flex flex-col sm:flex-row gap-2 mb-8"
+            className="flex flex-col sm:flex-row gap-2 mb-6 md:mb-8"
           >
             <div className="relative flex-1">
               <Search
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-ink-400"
+                className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-ink-400"
                 strokeWidth={1.75}
               />
               <input
@@ -192,12 +192,12 @@ export default function HeroV5() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={PLACEHOLDERS[placeholderIdx]}
-                className="w-full h-14 pl-12 pr-4 rounded-2xl border border-ink-200 bg-ink-50 text-ink-900 text-base placeholder:text-ink-400 focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-100 transition"
+                className="w-full h-12 md:h-14 pl-10 md:pl-12 pr-4 rounded-xl md:rounded-2xl border border-ink-200 bg-ink-50 text-ink-900 text-sm md:text-base placeholder:text-ink-400 focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-100 transition"
               />
             </div>
             <button
               type="submit"
-              className="inline-flex items-center justify-center gap-2 h-14 px-6 md:px-8 rounded-2xl bg-brand-500 text-white text-sm md:text-base font-semibold hover:bg-brand-600 transition-colors duration-200 active:scale-[0.98] whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-2 h-12 md:h-14 px-5 md:px-6 lg:px-8 rounded-xl md:rounded-2xl bg-brand-500 text-white text-sm md:text-base font-semibold hover:bg-brand-600 transition-colors duration-200 active:scale-[0.98] whitespace-nowrap"
             >
               빠른 견적 요청
             </button>
@@ -205,30 +205,30 @@ export default function HeroV5() {
 
           {/* 6개 서비스 유형 카테고리 · 클릭 시 상세 페이지로 이동 */}
           <div>
-            <div className="flex items-center justify-between mb-4">
-              <p className="text-sm font-semibold text-ink-900">
+            <div className="flex items-center justify-between mb-3 md:mb-4">
+              <p className="text-xs md:text-sm font-semibold text-ink-900 break-keep">
                 또는, 필요한 청소부터 골라보세요
               </p>
               <Link
                 href="/services"
-                className="text-xs text-brand-600 font-semibold hover:underline hidden sm:inline-flex items-center gap-1"
+                className="text-[11px] md:text-xs text-brand-600 font-semibold hover:underline hidden sm:inline-flex items-center gap-1"
               >
                 전체 서비스 보기
                 <ArrowRight className="w-3 h-3" strokeWidth={2} />
               </Link>
             </div>
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3">
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-1.5 md:gap-3">
               {SERVICE_CATEGORIES.map((c) => (
                 <Link
                   key={c.key}
                   href={c.href}
-                  className="group flex flex-col items-center gap-2 p-3 rounded-2xl hover:bg-ink-50 transition-colors"
+                  className="group flex flex-col items-center gap-1.5 md:gap-2 p-2 md:p-3 rounded-xl md:rounded-2xl hover:bg-ink-50 transition-colors"
                 >
                   <span className="flex items-center justify-center group-hover:scale-105 transition-transform">
-                    <CategoryTextLogo category={c} size={80} />
+                    <CategoryTextLogo category={c} size={64} className="md:!w-20 md:!h-20" />
                   </span>
                   <div className="flex flex-col items-center gap-0.5">
-                    <span className="text-xs md:text-[13px] text-ink-900 font-semibold break-keep text-center leading-tight">
+                    <span className="text-[11px] md:text-[13px] text-ink-900 font-semibold break-keep text-center leading-tight">
                       {c.label}
                     </span>
                     <span className="text-[10px] text-ink-400 hidden md:block text-center leading-tight break-keep">
@@ -242,38 +242,38 @@ export default function HeroV5() {
         </div>
 
         {/* 프로모션 배너 */}
-        <div className="mt-4 md:mt-5 rounded-2xl bg-ink-900 text-white p-5 md:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <span className="w-11 h-11 rounded-2xl bg-brand-500 flex items-center justify-center text-white shrink-0">
-              <Tag className="w-5 h-5" strokeWidth={1.75} />
+        <div className="mt-3 md:mt-5 rounded-xl md:rounded-2xl bg-ink-900 text-white p-3.5 md:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 md:gap-3">
+          <div className="flex items-center gap-2.5 md:gap-3">
+            <span className="w-9 h-9 md:w-11 md:h-11 rounded-xl md:rounded-2xl bg-brand-500 flex items-center justify-center text-white shrink-0">
+              <Tag className="w-4 h-4 md:w-5 md:h-5" strokeWidth={1.75} />
             </span>
             <div className="flex flex-col">
               <EditableText
                 as="p"
                 contentKey="hero.promo.label"
                 defaultText="Launch Promo"
-                className="text-[11px] uppercase tracking-[0.18em] text-brand-400 font-semibold"
+                className="text-[10px] md:text-[11px] uppercase tracking-[0.18em] text-brand-400 font-semibold"
               />
               <EditableText
                 as="p"
                 contentKey="hero.promo.headline"
                 defaultText="이번 달 첫 시공 사장님, 20% 할인해드립니다."
                 multiline
-                className="text-base md:text-lg font-bold"
+                className="text-xs md:text-base lg:text-lg font-bold break-keep"
               />
             </div>
           </div>
           <Link
             href="/quick-inquiry"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:text-brand-400 transition-colors shrink-0"
+            className="inline-flex items-center gap-1 md:gap-1.5 text-xs md:text-sm font-semibold text-white hover:text-brand-400 transition-colors shrink-0"
           >
             지금 채팅 상담
-            <ArrowRight className="w-4 h-4" strokeWidth={2} />
+            <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4" strokeWidth={2} />
           </Link>
         </div>
 
         {/* 신뢰 스트립 */}
-        <div className="mt-8 md:mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs md:text-sm text-ink-400 font-medium">
+        <div className="mt-6 md:mt-10 flex flex-wrap items-center justify-center gap-x-4 md:gap-x-6 gap-y-1.5 md:gap-y-2 text-[11px] md:text-sm text-ink-400 font-medium break-keep text-center">
           <EditableText
             contentKey="hero.trust.0"
             defaultText="매달 500건 이상 고객님이 공간 진행"

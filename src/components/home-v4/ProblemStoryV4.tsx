@@ -76,8 +76,8 @@ const PAINS: Pain[] = [
 
 export default function ProblemStoryV4() {
   return (
-    <EditableSection className="relative bg-white py-24 md:py-36 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-5 md:px-8 flex flex-col gap-12 md:gap-16">
+    <EditableSection className="relative bg-white py-14 md:py-24 lg:py-36 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex flex-col gap-8 md:gap-12 lg:gap-16">
         <Bridge
           contentKeyPrefix="problem"
           step="02 · 매장 사장님의 고민"
@@ -87,7 +87,7 @@ export default function ProblemStoryV4() {
         />
 
         {/* 상단 · 4개 고민 카드 (임팩트 강조) */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 md:gap-4 lg:gap-5">
           {PAINS.map((p, i) => {
             const Icon = p.icon;
             return (
@@ -106,18 +106,18 @@ export default function ProblemStoryV4() {
                 {/* 상단 컬러 accent bar */}
                 <div className={`h-1.5 ${p.accent.bar}`} />
 
-                <div className="p-5 md:p-7 flex flex-col gap-3.5 md:gap-4">
+                <div className="p-3.5 md:p-5 lg:p-7 flex flex-col gap-2.5 md:gap-3.5 lg:gap-4">
                   {/* 아이콘 + 번호 */}
                   <div className="flex items-start justify-between">
                     <span
-                      className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl ${p.accent.iconBg} ${p.accent.iconText} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+                      className={`w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-xl md:rounded-2xl ${p.accent.iconBg} ${p.accent.iconText} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
                     >
                       <Icon
-                        className="w-5 h-5 md:w-6 md:h-6"
+                        className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
                         strokeWidth={1.75}
                       />
                     </span>
-                    <span className="text-[11px] uppercase tracking-[0.14em] text-ink-300 font-bold">
+                    <span className="text-[10px] md:text-[11px] uppercase tracking-[0.14em] text-ink-300 font-bold">
                       0{i + 1}
                     </span>
                   </div>
@@ -128,17 +128,17 @@ export default function ProblemStoryV4() {
                     contentKey={`problem.pain.${i}.title`}
                     defaultText={p.title}
                     multiline
-                    className="text-lg md:text-2xl font-black text-ink-900 leading-[1.2] tracking-tight break-keep whitespace-pre-line"
+                    className="text-sm md:text-lg lg:text-2xl font-black text-ink-900 leading-[1.15] md:leading-[1.2] tracking-tight break-keep whitespace-pre-line"
                   />
 
                   {/* 키워드 pill · 굵고 컬러 강조 */}
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1 md:gap-1.5">
                     {p.keywords.map((k, ki) => (
                       <EditableText
                         key={ki}
                         contentKey={`problem.pain.${i}.keyword.${ki}`}
                         defaultText={k}
-                        className={`inline-flex px-2.5 py-1 rounded-full border text-[11px] font-bold ${p.accent.pill}`}
+                        className={`inline-flex px-2 py-0.5 md:px-2.5 md:py-1 rounded-full border text-[10px] md:text-[11px] font-bold ${p.accent.pill}`}
                       />
                     ))}
                   </div>
@@ -149,7 +149,7 @@ export default function ProblemStoryV4() {
                     contentKey={`problem.pain.${i}.desc`}
                     defaultText={p.desc}
                     multiline
-                    className="text-[13px] md:text-[14px] text-ink-600 leading-[1.55] break-keep mt-1"
+                    className="text-[11px] md:text-[13px] lg:text-[14px] text-ink-600 leading-[1.5] md:leading-[1.55] break-keep mt-0.5 md:mt-1"
                   />
                 </div>
               </motion.article>
@@ -171,8 +171,8 @@ export default function ProblemStoryV4() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="relative rounded-3xl overflow-hidden border border-ink-100 shadow-[0_30px_80px_-30px_rgba(10,15,26,0.3)]"
         >
-          {/* 배경 이미지 · 편집 가능 */}
-          <div className="relative aspect-[21/9]">
+          {/* 배경 이미지 · 편집 가능 · 모바일은 4/3 비율, 데스크톱 와이드 */}
+          <div className="relative aspect-[4/3] md:aspect-[16/9] lg:aspect-[21/9]">
             <EditableImage
               contentKey="problem.solution-bg"
               placeholder={
@@ -189,9 +189,17 @@ export default function ProblemStoryV4() {
             />
           </div>
 
-          {/* 다크 그라디언트 오버레이 */}
+          {/* 다크 그라디언트 오버레이 · 모바일에서는 하단 전체 어둡게, 데스크톱은 좌측부터 */}
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="absolute inset-0 pointer-events-none md:hidden"
+            aria-hidden="true"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(10,15,26,0.4) 0%, rgba(10,15,26,0.85) 70%, rgba(10,15,26,0.95) 100%)",
+            }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none hidden md:block"
             aria-hidden="true"
             style={{
               background:
@@ -199,10 +207,10 @@ export default function ProblemStoryV4() {
             }}
           />
 
-          {/* 오버레이 콘텐츠 · 좌측 정렬 */}
-          <div className="absolute inset-0 flex items-center pointer-events-none [&_*]:pointer-events-auto [&_[aria-hidden=true]]:!pointer-events-none">
-            <div className="px-6 md:px-14 py-8 md:py-10 flex flex-col gap-4 md:gap-6 max-w-2xl">
-              <div className="inline-flex items-center gap-2 self-start px-3 py-1.5 rounded-full bg-brand-500/95 backdrop-blur text-white text-[11px] uppercase tracking-[0.14em] font-bold">
+          {/* 오버레이 콘텐츠 · 모바일 하단 정렬, 데스크톱 좌측 중앙 */}
+          <div className="absolute inset-0 flex items-end md:items-center pointer-events-none [&_*]:pointer-events-auto [&_[aria-hidden=true]]:!pointer-events-none">
+            <div className="px-5 md:px-10 lg:px-14 py-5 md:py-8 lg:py-10 flex flex-col gap-2.5 md:gap-4 lg:gap-6 max-w-2xl">
+              <div className="inline-flex items-center gap-2 self-start px-2.5 py-1 md:px-3 md:py-1.5 rounded-full bg-brand-500/95 backdrop-blur text-white text-[10px] md:text-[11px] uppercase tracking-[0.14em] font-bold">
                 <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                 <EditableText
                   contentKey="problem.solution.badge"
@@ -210,7 +218,7 @@ export default function ProblemStoryV4() {
                 />
               </div>
 
-              <h3 className="text-2xl md:text-5xl font-black text-white leading-[1.1] tracking-tight break-keep">
+              <h3 className="text-xl md:text-3xl lg:text-5xl font-black text-white leading-[1.1] tracking-tight break-keep">
                 <EditableText
                   contentKey="problem.solution.title"
                   defaultText={"BBK가\n케어합니다."}
@@ -224,16 +232,16 @@ export default function ProblemStoryV4() {
                 contentKey="problem.solution.desc"
                 defaultText={"매일 밤, 사장님이 자는 사이 매장을 지킵니다.\n청소·위생·리포트까지 통째로."}
                 multiline
-                className="text-sm md:text-lg text-white/85 leading-[1.6] break-keep max-w-lg whitespace-pre-line"
+                className="text-xs md:text-base lg:text-lg text-white/85 leading-[1.55] md:leading-[1.6] break-keep max-w-lg whitespace-pre-line"
               />
 
               <Link
                 href="/services"
-                className="inline-flex items-center gap-2 self-start mt-2 h-11 md:h-12 px-5 md:px-6 rounded-full bg-white text-ink-900 text-sm font-semibold hover:bg-brand-500 hover:text-white transition-colors group/cta"
+                className="inline-flex items-center gap-1.5 md:gap-2 self-start mt-1 md:mt-2 h-10 md:h-11 lg:h-12 px-4 md:px-5 lg:px-6 rounded-full bg-white text-ink-900 text-xs md:text-sm font-semibold hover:bg-brand-500 hover:text-white transition-colors group/cta"
               >
                 어떻게 케어하는지 보기
                 <ArrowRight
-                  className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform"
+                  className="w-3.5 h-3.5 md:w-4 md:h-4 group-hover/cta:translate-x-0.5 transition-transform"
                   strokeWidth={2}
                 />
               </Link>

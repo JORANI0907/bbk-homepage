@@ -89,9 +89,9 @@ function AppSectionInner() {
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-5 md:px-8 py-24 md:py-36">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          <div className="lg:col-span-6 flex flex-col gap-10 md:gap-12">
+      <div className="relative max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-14 md:py-24 lg:py-36">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-start">
+          <div className="lg:col-span-6 flex flex-col gap-6 md:gap-10 lg:gap-12">
             <Bridge
               contentKeyPrefix="app"
               tone="dark"
@@ -102,7 +102,7 @@ function AppSectionInner() {
               subtitle="정기 계약을 하시면 BBK 전용 앱을 무료로 드려요. 언제 오는지, 어떻게 되고 있는지, 앞으로 어떻게 관리되는지 사장님이 매장에 없어도 실시간으로 확인하실 수 있어요."
             />
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2 md:gap-3">
               {FEATURES.map((f, i) => (
                 <FeatureCard
                   key={i}
@@ -114,8 +114,8 @@ function AppSectionInner() {
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 items-start">
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/10 text-white text-sm">
+            <div className="flex flex-col sm:flex-row gap-2 md:gap-3 items-start">
+              <span className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-white/10 border border-white/10 text-white text-xs md:text-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
                 <EditableText
                   contentKey="app.badge"
@@ -126,7 +126,7 @@ function AppSectionInner() {
                 contentKey="app.note"
                 defaultText="iOS · Android 모두 지원, 앱 없이 웹으로도 확인 가능해요."
                 multiline
-                className="text-[13px] text-white/50 leading-[1.6] max-w-xs break-keep"
+                className="text-[11px] md:text-[13px] text-white/50 leading-[1.5] md:leading-[1.6] max-w-xs break-keep"
               />
             </div>
 
@@ -134,7 +134,7 @@ function AppSectionInner() {
               href={SITE.app.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 h-13 md:h-14 px-7 rounded-full bg-brand-500 text-white text-sm md:text-base font-semibold hover:bg-brand-600 transition-colors duration-200 active:scale-[0.98] shadow-[0_16px_40px_-15px_rgba(44,167,241,0.6)] self-start"
+              className="inline-flex items-center gap-2 h-12 md:h-14 px-6 md:px-7 rounded-full bg-brand-500 text-white text-sm md:text-base font-semibold hover:bg-brand-600 transition-colors duration-200 active:scale-[0.98] shadow-[0_16px_40px_-15px_rgba(44,167,241,0.6)] self-start"
             >
               <Smartphone className="w-4 h-4" strokeWidth={1.75} />
               {SITE.app.label}
@@ -174,27 +174,27 @@ function FeatureCard({
           onClick();
         }
       }}
-      className={`text-left rounded-2xl p-5 border transition-all duration-300 flex items-start gap-4 cursor-pointer ${
+      className={`text-left rounded-xl md:rounded-2xl p-3.5 md:p-5 border transition-all duration-300 flex items-start gap-3 md:gap-4 cursor-pointer ${
         isActive
           ? "bg-brand-500/10 border-brand-400/50 shadow-[0_16px_40px_-25px_rgba(44,167,241,0.4)]"
           : "bg-white/[0.03] border-white/10 hover:bg-white/[0.06]"
       }`}
     >
       <span
-        className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+        className={`w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl flex items-center justify-center shrink-0 transition-colors ${
           isActive
             ? "bg-brand-500 text-white"
             : "bg-brand-500/20 border border-brand-400/30 text-brand-400"
         }`}
       >
-        <Icon className="w-4 h-4" strokeWidth={1.5} />
+        <Icon className="w-3.5 h-3.5 md:w-4 md:h-4" strokeWidth={1.5} />
       </span>
-      <div className="flex flex-col gap-1 flex-1 min-w-0">
+      <div className="flex flex-col gap-0.5 md:gap-1 flex-1 min-w-0">
         <EditableText
           as="p"
           contentKey={`${contentKey}.title`}
           defaultText={feature.title}
-          className={`text-sm font-semibold transition-colors ${
+          className={`text-xs md:text-sm font-semibold transition-colors break-keep ${
             isActive ? "text-white" : "text-white/80"
           }`}
         />
@@ -203,7 +203,7 @@ function FeatureCard({
           contentKey={`${contentKey}.desc`}
           defaultText={feature.desc}
           multiline
-          className="text-[13px] text-white/60 leading-[1.55] break-keep"
+          className="text-[11px] md:text-[13px] text-white/60 leading-[1.45] md:leading-[1.55] break-keep"
         />
         {isActive && (
           <div className="mt-2 h-0.5 bg-white/10 rounded-full overflow-hidden">
@@ -223,7 +223,7 @@ function FeatureCard({
 
 function PhoneMockup({ activeIdx }: { activeIdx: number }) {
   return (
-    <div className="relative w-full max-w-[380px]">
+    <div className="relative w-full max-w-[300px] md:max-w-[340px] lg:max-w-[380px]">
       <div className="relative aspect-[9/17] rounded-[44px] bg-gradient-to-b from-white/10 to-white/5 border border-white/15 p-3 shadow-[0_40px_100px_-30px_rgba(44,167,241,0.4)]">
         <div className="w-full h-full rounded-[34px] bg-white overflow-hidden flex flex-col">
           {/* Status Bar */}

@@ -48,14 +48,14 @@ function Counter({ value, suffix }: { value: string; suffix: string }) {
   }, [inView, value]);
 
   return (
-    <div className="flex items-baseline gap-2 md:gap-3">
+    <div className="flex items-baseline gap-1.5 md:gap-3">
       <span
         ref={ref}
-        className="text-[68px] md:text-[128px] font-black text-white leading-none tracking-[-0.03em] tabular-nums drop-shadow-[0_4px_20px_rgba(0,0,0,0.35)]"
+        className="text-[48px] md:text-[88px] lg:text-[128px] font-black text-white leading-none tracking-[-0.03em] tabular-nums drop-shadow-[0_4px_20px_rgba(0,0,0,0.35)]"
       >
         {display}
       </span>
-      <span className="text-lg md:text-2xl text-white/80 font-semibold">
+      <span className="text-sm md:text-xl lg:text-2xl text-white/80 font-semibold">
         {suffix}
       </span>
     </div>
@@ -89,9 +89,9 @@ export default function StatsBarV4() {
         />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-5 md:px-8 py-24 md:py-32">
+      <div className="relative max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-14 md:py-24 lg:py-32">
         {/* 헤드 */}
-        <div className="mb-14 md:mb-20">
+        <div className="mb-8 md:mb-14 lg:mb-20">
           <Bridge
             contentKeyPrefix="stats"
             tone="dark"
@@ -102,8 +102,8 @@ export default function StatsBarV4() {
           />
         </div>
 
-        {/* 2개 메트릭 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
+        {/* 2개 메트릭 · 모바일 2열로 압축 */}
+        <div className="grid grid-cols-2 md:grid-cols-2 gap-5 md:gap-10 lg:gap-12">
           {METRICS.map((m, i) => (
             <motion.div
               key={m.label}
@@ -111,36 +111,36 @@ export default function StatsBarV4() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.55, delay: i * 0.1 }}
-              className="flex flex-col gap-4 md:pl-8 md:border-l-2 md:border-white/20"
+              className="flex flex-col gap-2 md:gap-4 md:pl-8 md:border-l-2 md:border-white/20"
             >
               <Counter value={m.value} suffix={m.suffix} />
               <EditableText
                 contentKey={`stats.metric.${i}.label`}
                 defaultText={m.label}
-                className="text-sm md:text-base text-white/85 font-medium"
+                className="text-xs md:text-sm lg:text-base text-white/85 font-medium break-keep"
               />
             </motion.div>
           ))}
         </div>
 
         {/* CTA · 문의 버튼 */}
-        <div className="mt-14 md:mt-20 flex flex-col sm:flex-row gap-3 items-start">
+        <div className="mt-8 md:mt-14 lg:mt-20 flex flex-col sm:flex-row gap-2.5 md:gap-3 items-stretch sm:items-start">
           <Link
             href="/quick-inquiry"
-            className="inline-flex items-center justify-center gap-2 h-13 md:h-14 px-7 rounded-full bg-brand-500 text-white text-sm md:text-base font-semibold hover:bg-brand-600 transition-colors active:scale-[0.98] shadow-[0_16px_40px_-15px_rgba(44,167,241,0.6)]"
+            className="inline-flex items-center justify-center gap-2 h-12 md:h-14 px-6 md:px-7 rounded-full bg-brand-500 text-white text-sm md:text-base font-semibold hover:bg-brand-600 transition-colors active:scale-[0.98] shadow-[0_16px_40px_-15px_rgba(44,167,241,0.6)]"
           >
             빠른 견적 요청
             <ArrowRight className="w-4 h-4" strokeWidth={1.75} />
           </Link>
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center gap-2 h-13 md:h-14 px-7 rounded-full border border-white/40 bg-white/5 backdrop-blur text-white text-sm md:text-base font-semibold hover:bg-white/10 hover:border-white/70 transition-colors"
+            className="inline-flex items-center justify-center gap-2 h-12 md:h-14 px-6 md:px-7 rounded-full border border-white/40 bg-white/5 backdrop-blur text-white text-sm md:text-base font-semibold hover:bg-white/10 hover:border-white/70 transition-colors"
           >
             문의하기
           </Link>
           <a
             href={SITE.contact.telHref}
-            className="inline-flex items-center justify-center gap-2 h-13 md:h-14 px-6 rounded-full text-white/80 text-sm md:text-base font-semibold hover:text-white transition-colors"
+            className="inline-flex items-center justify-center gap-2 h-12 md:h-14 px-5 md:px-6 rounded-full text-white/80 text-sm md:text-base font-semibold hover:text-white transition-colors"
           >
             <Phone className="w-4 h-4" strokeWidth={1.75} />
             {SITE.contact.telDisplay}

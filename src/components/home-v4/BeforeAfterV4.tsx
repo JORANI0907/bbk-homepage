@@ -19,8 +19,8 @@ export default async function BeforeAfterV4() {
     "사장님 동의 하에 공개하는 실제 시공 사진이에요. 순차적으로 사례가 추가되고 있어요.";
 
   return (
-    <section className="bg-brand-50 py-24 md:py-36 border-y border-brand-100">
-      <div className="max-w-7xl mx-auto px-5 md:px-8 flex flex-col gap-14 md:gap-20">
+    <section className="bg-brand-50 py-14 md:py-24 lg:py-36 border-y border-brand-100">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex flex-col gap-10 md:gap-16 lg:gap-20">
         <Bridge
           contentKeyPrefix="beforeafter"
           step="08 · 시공 전 · 후 결과"
@@ -32,14 +32,14 @@ export default async function BeforeAfterV4() {
 
         <BeforeAfterCardsGrid cases={cases} />
 
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pt-4">
-          <p className="text-xs text-ink-400 max-w-md">{footnoteText}</p>
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-6 pt-2 md:pt-4">
+          <p className="text-xs text-ink-400 max-w-md break-keep leading-[1.5]">{footnoteText}</p>
           <Link
             href="/cases"
-            className="inline-flex items-center gap-2 h-11 px-5 rounded-full bg-white border border-ink-200 text-ink-900 text-sm font-semibold hover:border-ink-900 transition-colors"
+            className="inline-flex items-center gap-1.5 md:gap-2 h-10 md:h-11 px-4 md:px-5 rounded-full bg-white border border-ink-200 text-ink-900 text-xs md:text-sm font-semibold hover:border-ink-900 transition-colors self-stretch md:self-auto justify-center md:justify-start"
           >
             모든 사례 보기
-            <ArrowRight className="w-4 h-4" strokeWidth={1.75} />
+            <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4" strokeWidth={1.75} />
           </Link>
         </div>
       </div>

@@ -96,8 +96,8 @@ function PhotoFill({
 
 export default function TestimonialsV4() {
   return (
-    <EditableSection className="bg-brand-50 py-24 md:py-36 border-y border-brand-100">
-      <div className="max-w-7xl mx-auto px-5 md:px-8 flex flex-col gap-14 md:gap-20">
+    <EditableSection className="bg-brand-50 py-14 md:py-24 lg:py-36 border-y border-brand-100">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex flex-col gap-10 md:gap-16 lg:gap-20">
         <Bridge
           contentKeyPrefix="testimonial"
           step="05 · 사장님 후기"
@@ -106,17 +106,17 @@ export default function TestimonialsV4() {
           titleAccent="사장님들의 진짜 후기."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6">
           {/* 메인 후기 · 좌 큰 카드 */}
           <motion.article
             initial={{ opacity: 1, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
-            className="md:col-span-7 bg-white rounded-3xl border border-ink-100 overflow-hidden shadow-[0_20px_50px_-25px_rgba(10,15,26,0.15)] flex flex-col md:flex-row"
+            className="md:col-span-7 bg-white rounded-2xl md:rounded-3xl border border-ink-100 overflow-hidden shadow-[0_20px_50px_-25px_rgba(10,15,26,0.15)] flex flex-col md:flex-row"
           >
-            {/* 사진 · 카드 세로 전체 fill */}
-            <div className="relative md:w-2/5 min-h-[220px] md:min-h-[420px]">
+            {/* 사진 · 모바일 가로 비율 축소, 데스크톱 fill */}
+            <div className="relative md:w-2/5 aspect-[16/10] md:aspect-auto md:min-h-[420px]">
               <PhotoFill
                 contentKey="testimonial.primary.photo"
                 src={PRIMARY.photo}
@@ -126,13 +126,13 @@ export default function TestimonialsV4() {
             </div>
 
             {/* 텍스트 */}
-            <div className="md:w-3/5 p-6 md:p-9 flex flex-col gap-5">
+            <div className="md:w-3/5 p-4 md:p-7 lg:p-9 flex flex-col gap-3 md:gap-5">
               <div className="flex items-center justify-between">
-                <Quote className="w-6 h-6 md:w-7 md:h-7 text-brand-500" strokeWidth={1.5} />
+                <Quote className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-brand-500" strokeWidth={1.5} />
                 <EditableText
                   contentKey="testimonial.primary.category"
                   defaultText={PRIMARY.category}
-                  className="text-[11px] uppercase tracking-[0.14em] text-brand-600 font-semibold"
+                  className="text-[10px] md:text-[11px] uppercase tracking-[0.14em] text-brand-600 font-semibold"
                 />
               </div>
               <EditableText
@@ -140,12 +140,12 @@ export default function TestimonialsV4() {
                 contentKey="testimonial.primary.story"
                 defaultText={PRIMARY.story}
                 multiline
-                className="text-lg md:text-2xl font-semibold text-ink-900 leading-[1.5] break-keep"
+                className="text-sm md:text-lg lg:text-2xl font-semibold text-ink-900 leading-[1.5] break-keep"
                 wrap={(t) => <>&ldquo;{t}&rdquo;</>}
               />
-              <div className="mt-auto pt-5 border-t border-ink-100 flex items-center justify-between gap-4">
+              <div className="mt-auto pt-3 md:pt-5 border-t border-ink-100 flex items-center justify-between gap-3 md:gap-4">
                 <div>
-                  <p className="text-sm font-semibold text-ink-900">
+                  <p className="text-xs md:text-sm font-semibold text-ink-900">
                     <EditableText
                       contentKey="testimonial.primary.name"
                       defaultText={PRIMARY.name}
@@ -156,10 +156,10 @@ export default function TestimonialsV4() {
                     as="p"
                     contentKey="testimonial.primary.role"
                     defaultText={PRIMARY.role}
-                    className="text-xs text-ink-400"
+                    className="text-[11px] md:text-xs text-ink-400"
                   />
                 </div>
-                <span className="text-xs font-semibold text-brand-700 bg-brand-50 border border-brand-100 rounded-full px-3 py-1.5 whitespace-nowrap">
+                <span className="text-[10px] md:text-xs font-semibold text-brand-700 bg-brand-50 border border-brand-100 rounded-full px-2 md:px-3 py-1 md:py-1.5 whitespace-nowrap">
                   <EditableText
                     contentKey="testimonial.primary.period"
                     defaultText={PRIMARY.period}
@@ -175,7 +175,7 @@ export default function TestimonialsV4() {
           </motion.article>
 
           {/* 서브 후기 2개 · 우 */}
-          <div className="md:col-span-5 flex flex-col gap-4 md:gap-6">
+          <div className="md:col-span-5 flex flex-col gap-3 md:gap-6">
             {OTHERS.map((o, i) => (
               <motion.article
                 key={i}
@@ -183,10 +183,10 @@ export default function TestimonialsV4() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.5, delay: 0.1 + i * 0.05 }}
-                className="flex-1 bg-white rounded-3xl border border-ink-100 overflow-hidden flex items-stretch min-h-[180px]"
+                className="flex-1 bg-white rounded-2xl md:rounded-3xl border border-ink-100 overflow-hidden flex items-stretch min-h-[140px] md:min-h-[180px]"
               >
                 {/* 사진 · 카드 세로 fill */}
-                <div className="relative w-[35%] shrink-0">
+                <div className="relative w-[32%] md:w-[35%] shrink-0">
                   <PhotoFill
                     contentKey={`testimonial.other.${i}.photo`}
                     src={o.photo}
@@ -195,29 +195,29 @@ export default function TestimonialsV4() {
                 </div>
 
                 {/* 텍스트 */}
-                <div className="flex-1 p-5 md:p-6 flex flex-col gap-3 min-w-0">
+                <div className="flex-1 p-3.5 md:p-5 lg:p-6 flex flex-col gap-2 md:gap-3 min-w-0">
                   <EditableText
                     contentKey={`testimonial.other.${i}.category`}
                     defaultText={o.category}
-                    className="text-[10px] uppercase tracking-[0.18em] text-ink-400 font-semibold"
+                    className="text-[9px] md:text-[10px] uppercase tracking-[0.18em] text-ink-400 font-semibold"
                   />
                   <EditableText
                     as="p"
                     contentKey={`testimonial.other.${i}.story`}
                     defaultText={o.story}
                     multiline
-                    className="text-[14px] md:text-[15px] text-ink-900 leading-[1.55] break-keep font-medium"
+                    className="text-[12px] md:text-[14px] lg:text-[15px] text-ink-900 leading-[1.5] md:leading-[1.55] break-keep font-medium line-clamp-4 md:line-clamp-none"
                     wrap={(t) => <>&ldquo;{t}&rdquo;</>}
                   />
-                  <div className="mt-auto pt-3 border-t border-ink-100 flex items-center justify-between gap-3">
-                    <p className="text-[12px] font-semibold text-ink-900">
+                  <div className="mt-auto pt-2 md:pt-3 border-t border-ink-100 flex items-center justify-between gap-2 md:gap-3">
+                    <p className="text-[11px] md:text-[12px] font-semibold text-ink-900">
                       <EditableText
                         contentKey={`testimonial.other.${i}.name`}
                         defaultText={o.name}
                       />{" "}
                       사장님
                     </p>
-                    <span className="text-[11px] text-ink-400 font-medium whitespace-nowrap">
+                    <span className="text-[10px] md:text-[11px] text-ink-400 font-medium whitespace-nowrap">
                       <EditableText
                         contentKey={`testimonial.other.${i}.period`}
                         defaultText={o.period}

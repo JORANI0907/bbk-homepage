@@ -23,7 +23,7 @@ export default function BeforeAfterCardsGrid({ cases }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
       {cases.map((c, i) => {
         const beforeUrl = c.before_images?.[0] ?? null;
         const afterUrl = c.after_images?.[0] ?? null;
@@ -34,25 +34,26 @@ export default function BeforeAfterCardsGrid({ cases }: Props) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.06 }}
-            className="rounded-3xl overflow-hidden bg-white border border-ink-100 hover:shadow-[0_20px_50px_-25px_rgba(10,15,26,0.2)] hover:-translate-y-1 transition-all duration-200 h-full"
+            className="rounded-2xl md:rounded-3xl overflow-hidden bg-white border border-ink-100 hover:shadow-[0_20px_50px_-25px_rgba(10,15,26,0.2)] hover:-translate-y-1 transition-all duration-200 h-full"
           >
-            <div className="grid grid-cols-2 aspect-[16/9] border-b border-ink-100">
+            {/* 모바일: 4/3 비율로 세로 공간 확보 (각 이미지가 세로로 잘 보이도록) · 데스크톱: 16/9 */}
+            <div className="grid grid-cols-2 aspect-[4/3] md:aspect-[16/9] border-b border-ink-100">
               <BeforeAfterSlot url={beforeUrl} label="Before" tone="ink" />
               <BeforeAfterSlot url={afterUrl} label="After" tone="brand" />
             </div>
 
-            <div className="p-6 flex items-center justify-between gap-4">
-              <div className="flex flex-col gap-1 min-w-0">
-                <p className="text-sm font-semibold text-ink-900 truncate">
+            <div className="p-3.5 md:p-6 flex items-center justify-between gap-3 md:gap-4">
+              <div className="flex flex-col gap-0.5 md:gap-1 min-w-0">
+                <p className="text-xs md:text-sm font-semibold text-ink-900 truncate">
                   {c.store_name
                     ? maskStoreName(c.store_name)
                     : `${c.industry ?? ""} ${c.item ?? ""}`.trim()}
                 </p>
-                <p className="text-xs text-ink-400 truncate">
+                <p className="text-[10px] md:text-xs text-ink-400 truncate">
                   {[c.industry, c.region, c.timing].filter(Boolean).join(" · ")}
                 </p>
               </div>
-              <span className="text-[11px] uppercase tracking-[0.14em] text-ink-400 font-semibold shrink-0">
+              <span className="text-[10px] md:text-[11px] uppercase tracking-[0.14em] text-ink-400 font-semibold shrink-0">
                 {String(i + 1).padStart(2, "0")} / {cases.length}
               </span>
             </div>

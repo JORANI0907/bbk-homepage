@@ -41,7 +41,7 @@ const MAX_FAQS = 20;
 
 export default function FaqV4() {
   return (
-    <EditableSection className="bg-white py-24 md:py-36">
+    <EditableSection className="bg-white py-14 md:py-24 lg:py-36">
       <FaqInner />
     </EditableSection>
   );
@@ -101,9 +101,9 @@ function FaqInner() {
   }));
 
   return (
-    <div className="max-w-7xl mx-auto px-5 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+    <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-10 lg:gap-16">
       {/* 좌 · Bridge + 이미지 */}
-      <div className="lg:col-span-5 flex flex-col gap-8">
+      <div className="lg:col-span-5 flex flex-col gap-6 md:gap-8">
         <Bridge
           contentKeyPrefix="faq"
           step="11 · 자주 묻는 질문"
@@ -152,18 +152,18 @@ function FaqInner() {
                     setOpen(isOpen ? null : i);
                   }
                 }}
-                className="w-full text-left py-5 md:py-6 flex items-center justify-between gap-4 group cursor-pointer"
+                className="w-full text-left py-4 md:py-5 lg:py-6 min-h-[52px] md:min-h-[60px] flex items-center justify-between gap-3 md:gap-4 group cursor-pointer"
               >
                 <EditableText
                   contentKey={`faq.item.${i}.q`}
                   defaultText={f.q}
-                  className="text-base md:text-lg font-semibold text-ink-900 break-keep group-hover:text-brand-700 transition-colors"
+                  className="text-sm md:text-base lg:text-lg font-semibold text-ink-900 break-keep group-hover:text-brand-700 transition-colors"
                 />
-                <span className="shrink-0 w-8 h-8 rounded-full border border-ink-200 flex items-center justify-center text-ink-600 group-hover:border-ink-900 group-hover:text-ink-900 transition-colors">
+                <span className="shrink-0 w-7 h-7 md:w-8 md:h-8 rounded-full border border-ink-200 flex items-center justify-center text-ink-600 group-hover:border-ink-900 group-hover:text-ink-900 transition-colors">
                   {isOpen ? (
-                    <Minus className="w-3.5 h-3.5" strokeWidth={1.75} />
+                    <Minus className="w-3 h-3 md:w-3.5 md:h-3.5" strokeWidth={1.75} />
                   ) : (
-                    <Plus className="w-3.5 h-3.5" strokeWidth={1.75} />
+                    <Plus className="w-3 h-3 md:w-3.5 md:h-3.5" strokeWidth={1.75} />
                   )}
                 </span>
               </div>
@@ -181,7 +181,7 @@ function FaqInner() {
                       contentKey={`faq.item.${i}.a`}
                       defaultText={f.a}
                       multiline
-                      className="text-[14px] md:text-[15px] text-ink-600 leading-[1.7] pb-6 md:pb-8 max-w-[560px] break-keep"
+                      className="text-[12px] md:text-[14px] lg:text-[15px] text-ink-600 leading-[1.55] md:leading-[1.7] pb-4 md:pb-6 lg:pb-8 max-w-[560px] break-keep"
                     />
                   </motion.div>
                 )}

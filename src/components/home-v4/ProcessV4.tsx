@@ -17,8 +17,8 @@ const STEPS = [
 
 export default function ProcessV4() {
   return (
-    <EditableSection className="bg-white py-24 md:py-36">
-      <div className="max-w-7xl mx-auto px-5 md:px-8 flex flex-col gap-14 md:gap-20">
+    <EditableSection className="bg-white py-14 md:py-24 lg:py-36">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex flex-col gap-10 md:gap-16 lg:gap-20">
         <Bridge
           contentKeyPrefix="process"
           step="09 · 신청부터 시공까지"
@@ -27,7 +27,8 @@ export default function ProcessV4() {
           titleAccent="이렇게만 하시면 됩니다."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
+        {/* 모바일 2열 2행 / 데스크톱 4열 1행 */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
           {STEPS.map((s, i) => {
             const Icon = s.icon;
             return (
@@ -37,9 +38,9 @@ export default function ProcessV4() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="relative bg-white rounded-3xl border border-ink-100 overflow-hidden hover:border-ink-300 hover:shadow-[0_16px_40px_-25px_rgba(10,15,26,0.15)] transition-all duration-200 flex flex-col"
+                className="relative bg-white rounded-2xl md:rounded-3xl border border-ink-100 overflow-hidden hover:border-ink-300 hover:shadow-[0_16px_40px_-25px_rgba(10,15,26,0.15)] transition-all duration-200 flex flex-col"
               >
-                <div className="relative aspect-[4/3]">
+                <div className="relative aspect-[5/3] md:aspect-[4/3]">
                   <EditableImage
                     contentKey={`process.${s.num}.image`}
                     placeholder={
@@ -54,28 +55,28 @@ export default function ProcessV4() {
                     className="absolute inset-0 w-full h-full object-cover"
                     wrapperClassName="absolute inset-0"
                   />
-                  <div className="absolute left-4 top-4 flex items-center gap-2 z-10 pointer-events-none">
-                    <span className="w-8 h-8 rounded-full bg-white text-ink-900 flex items-center justify-center text-[11px] font-bold">
+                  <div className="absolute left-2.5 top-2.5 md:left-4 md:top-4 flex items-center gap-2 z-10 pointer-events-none">
+                    <span className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white text-ink-900 flex items-center justify-center text-[10px] md:text-[11px] font-bold">
                       {s.num}
                     </span>
                   </div>
                 </div>
-                <div className="p-6 md:p-7 flex flex-col gap-3 flex-1">
-                  <span className="w-9 h-9 rounded-xl bg-brand-500 text-white flex items-center justify-center">
-                    <Icon className="w-4 h-4" strokeWidth={1.5} />
+                <div className="p-3.5 md:p-6 lg:p-7 flex flex-col gap-2 md:gap-3 flex-1">
+                  <span className="w-7 h-7 md:w-9 md:h-9 rounded-lg md:rounded-xl bg-brand-500 text-white flex items-center justify-center">
+                    <Icon className="w-3.5 h-3.5 md:w-4 md:h-4" strokeWidth={1.5} />
                   </span>
                   <EditableText
                     as="h3"
                     contentKey={`process.step.${i}.head`}
                     defaultText={s.head}
-                    className="text-lg md:text-xl font-bold text-ink-900 leading-tight"
+                    className="text-sm md:text-lg lg:text-xl font-bold text-ink-900 leading-tight break-keep"
                   />
                   <EditableText
                     as="p"
                     contentKey={`process.step.${i}.desc`}
                     defaultText={s.desc}
                     multiline
-                    className="text-sm text-ink-600 leading-[1.55] break-keep"
+                    className="text-xs md:text-sm text-ink-600 leading-[1.5] md:leading-[1.55] break-keep"
                   />
                 </div>
               </motion.article>

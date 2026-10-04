@@ -41,8 +41,8 @@ const ROWS = [
 
 export default function ComparisonV4() {
   return (
-    <EditableSection className="bg-white py-24 md:py-36">
-      <div className="max-w-7xl mx-auto px-5 md:px-8 flex flex-col gap-14 md:gap-20">
+    <EditableSection className="bg-white py-14 md:py-24 lg:py-36">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex flex-col gap-8 md:gap-16 lg:gap-20">
         <Bridge
           contentKeyPrefix="comparison"
           step="06 · 다른 청소업체와의 차이"
@@ -56,25 +56,25 @@ export default function ComparisonV4() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5 }}
-          className="rounded-3xl border-2 border-ink-200 overflow-hidden shadow-[0_20px_50px_-30px_rgba(10,15,26,0.15)]"
+          className="rounded-2xl md:rounded-3xl border-2 border-ink-200 overflow-hidden shadow-[0_20px_50px_-30px_rgba(10,15,26,0.15)]"
         >
-          {/* 헤더 */}
+          {/* 헤더 · 모바일 라벨 좁게(3), BBK 넓게(5), 타사(4) */}
           <div className="grid grid-cols-12 border-b-2 border-ink-200">
-            <div className="col-span-4 px-4 md:px-8 py-5 md:py-6 bg-white flex items-center">
-              <span className="text-[11px] md:text-xs uppercase tracking-[0.14em] text-ink-500 font-bold">
+            <div className="col-span-3 md:col-span-4 px-2.5 md:px-8 py-3.5 md:py-6 bg-white flex items-center">
+              <span className="text-[10px] md:text-xs uppercase tracking-[0.14em] text-ink-500 font-bold">
                 항목
               </span>
             </div>
-            <div className="col-span-4 px-4 md:px-8 py-5 md:py-6 bg-ink-900 border-l-2 border-ink-200 flex items-center gap-2 text-white">
-              <span className="text-brand-400 font-bold text-base md:text-lg tracking-tight">
+            <div className="col-span-5 md:col-span-4 px-2.5 md:px-8 py-3.5 md:py-6 bg-ink-900 border-l-2 border-ink-200 flex items-center gap-1.5 md:gap-2 text-white">
+              <span className="text-brand-400 font-bold text-sm md:text-lg tracking-tight">
                 BBK
               </span>
-              <span className="text-[10px] md:text-[11px] uppercase tracking-[0.14em] text-white/60 font-semibold hidden md:inline">
+              <span className="text-[9px] md:text-[11px] uppercase tracking-[0.14em] text-white/60 font-semibold hidden md:inline">
                 Space Care
               </span>
             </div>
-            <div className="col-span-4 px-4 md:px-8 py-5 md:py-6 bg-ink-100 border-l-2 border-ink-200 flex items-center">
-              <span className="text-[11px] md:text-xs uppercase tracking-[0.14em] text-ink-600 font-bold">
+            <div className="col-span-4 md:col-span-4 px-2.5 md:px-8 py-3.5 md:py-6 bg-ink-100 border-l-2 border-ink-200 flex items-center">
+              <span className="text-[10px] md:text-xs uppercase tracking-[0.14em] text-ink-600 font-bold break-keep">
                 일반 청소업체
               </span>
             </div>
@@ -90,25 +90,25 @@ export default function ComparisonV4() {
               >
                 {/* 항목 */}
                 <div
-                  className={`col-span-4 px-4 md:px-8 py-5 md:py-7 flex items-center ${
+                  className={`col-span-3 md:col-span-4 px-2.5 md:px-8 py-3.5 md:py-7 flex items-center ${
                     isEven ? "bg-white" : "bg-ink-50/70"
                   }`}
                 >
                   <EditableText
                     contentKey={`comparison.row.${i}.label`}
                     defaultText={r.label}
-                    className="text-[13px] md:text-sm font-bold text-ink-900 break-keep leading-snug"
+                    className="text-[11px] md:text-sm font-bold text-ink-900 break-keep leading-snug"
                   />
                 </div>
                 {/* BBK · 브랜드 파스텔 톤 배경으로 열 구분 */}
                 <div
-                  className={`col-span-4 px-4 md:px-8 py-5 md:py-7 border-l-2 border-ink-200 flex items-start gap-2.5 md:gap-3 ${
+                  className={`col-span-5 md:col-span-4 px-2.5 md:px-8 py-3.5 md:py-7 border-l-2 border-ink-200 flex items-start gap-1.5 md:gap-3 ${
                     isEven ? "bg-brand-50/50" : "bg-brand-50"
                   }`}
                 >
-                  <span className="w-5 h-5 rounded-full bg-brand-500 flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="w-4 h-4 md:w-5 md:h-5 rounded-full bg-brand-500 flex items-center justify-center shrink-0 mt-0.5">
                     <Check
-                      className="w-3 h-3 text-white"
+                      className="w-2.5 h-2.5 md:w-3 md:h-3 text-white"
                       strokeWidth={3}
                     />
                   </span>
@@ -116,23 +116,23 @@ export default function ComparisonV4() {
                     contentKey={`comparison.row.${i}.bbk`}
                     defaultText={r.bbk}
                     multiline
-                    className="text-[13px] md:text-sm text-ink-900 leading-[1.55] break-keep font-medium"
+                    className="text-[11px] md:text-sm text-ink-900 leading-[1.5] md:leading-[1.55] break-keep font-medium"
                   />
                 </div>
                 {/* 일반 청소업체 · 회색 톤 배경 */}
                 <div
-                  className={`col-span-4 px-4 md:px-8 py-5 md:py-7 border-l-2 border-ink-200 flex items-start gap-2.5 md:gap-3 ${
+                  className={`col-span-4 md:col-span-4 px-2.5 md:px-8 py-3.5 md:py-7 border-l-2 border-ink-200 flex items-start gap-1.5 md:gap-3 ${
                     isEven ? "bg-ink-50" : "bg-ink-100/60"
                   }`}
                 >
-                  <span className="w-5 h-5 rounded-full bg-ink-300 flex items-center justify-center shrink-0 mt-0.5">
-                    <Check className="w-3 h-3 text-white" strokeWidth={3} />
+                  <span className="w-4 h-4 md:w-5 md:h-5 rounded-full bg-ink-300 flex items-center justify-center shrink-0 mt-0.5">
+                    <Check className="w-2.5 h-2.5 md:w-3 md:h-3 text-white" strokeWidth={3} />
                   </span>
                   <EditableText
                     contentKey={`comparison.row.${i}.other`}
                     defaultText={r.other}
                     multiline
-                    className="text-[13px] md:text-sm text-ink-600 leading-[1.55] break-keep"
+                    className="text-[11px] md:text-sm text-ink-600 leading-[1.5] md:leading-[1.55] break-keep"
                   />
                 </div>
               </div>
@@ -145,7 +145,7 @@ export default function ComparisonV4() {
           contentKey="comparison.footnote"
           defaultText="위 비교는 BBK가 실제 시공 현장에서 관찰한 업계 평균에 기반합니다. 모든 청소업체가 그렇다는 뜻은 아니며, 참고용으로 봐주세요."
           multiline
-          className="text-xs text-ink-400 max-w-2xl"
+          className="text-[11px] md:text-xs text-ink-400 max-w-2xl break-keep leading-[1.5]"
         />
       </div>
     </EditableSection>

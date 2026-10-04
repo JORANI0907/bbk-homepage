@@ -92,19 +92,19 @@ export default function LiveFeedV5() {
   }, []);
 
   return (
-    <EditableSection className="bg-white py-16 md:py-24 border-b border-ink-100">
-      <div className="max-w-7xl mx-auto px-5 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+    <EditableSection className="bg-white py-10 md:py-16 lg:py-24 border-b border-ink-100">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 lg:gap-12">
         {/* 좌 · 헤드 */}
-        <div className="lg:col-span-4 flex flex-col gap-4">
-          <div className="flex items-center gap-3">
-            <span className="inline-block w-6 h-px bg-ink-300" />
+        <div className="lg:col-span-4 flex flex-col gap-3 md:gap-4">
+          <div className="flex items-center gap-2 md:gap-3">
+            <span className="inline-block w-5 md:w-6 h-px bg-ink-300" />
             <EditableText
               contentKey="live.step"
               defaultText="Live Feed"
-              className="text-[11px] uppercase tracking-[0.18em] text-brand-600 font-semibold"
+              className="text-[10px] md:text-[11px] uppercase tracking-[0.18em] text-brand-600 font-semibold"
             />
           </div>
-          <h2 className="text-2xl md:text-4xl font-bold text-ink-900 leading-[1.2] tracking-tight break-keep">
+          <h2 className="text-xl md:text-3xl lg:text-4xl font-bold text-ink-900 leading-[1.2] tracking-tight break-keep">
             <EditableText
               contentKey="live.title.main"
               defaultText="지금 이 순간에도,"
@@ -121,13 +121,13 @@ export default function LiveFeedV5() {
             contentKey="live.subtitle"
             defaultText="BBK를 신뢰 한다면 우리매장의 신뢰를 쌓을 수 있습니다."
             multiline
-            className="text-sm md:text-base text-ink-600 leading-[1.65] break-keep"
+            className="text-xs md:text-sm lg:text-base text-ink-600 leading-[1.55] md:leading-[1.65] break-keep"
           />
         </div>
 
         {/* 우 · 피드 리스트 */}
         <div className="lg:col-span-8">
-          <div className="rounded-3xl border border-ink-100 bg-white overflow-hidden shadow-[0_16px_40px_-25px_rgba(10,15,26,0.12)] min-h-[520px]">
+          <div className="rounded-2xl md:rounded-3xl border border-ink-100 bg-white overflow-hidden shadow-[0_16px_40px_-25px_rgba(10,15,26,0.12)] min-h-[420px] md:min-h-[520px]">
             <AnimatePresence initial={false}>
               {items.map((e, i) => (
                 <motion.div
@@ -153,9 +153,9 @@ export default function LiveFeedV5() {
                   }}
                   className="border-b border-ink-100 last:border-b-0"
                 >
-                  <div className="px-5 md:px-6 py-4 flex items-center gap-4">
+                  <div className="px-3.5 md:px-6 py-3 md:py-4 flex items-center gap-2.5 md:gap-4">
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 text-[13px] text-ink-900 font-semibold">
+                      <div className="flex items-center gap-1.5 md:gap-2 text-[11px] md:text-[13px] text-ink-900 font-semibold">
                         <span className="truncate">
                           <span className="text-brand-700 font-mono tracking-tight">
                             {e.store}
@@ -164,7 +164,7 @@ export default function LiveFeedV5() {
                             {" "}
                             ({e.owner} 사장님)
                           </span>
-                          <span className="text-ink-300 mx-1.5">·</span>
+                          <span className="text-ink-300 mx-1 md:mx-1.5">·</span>
                           {e.action}
                         </span>
                         {i === 0 && (
@@ -173,18 +173,21 @@ export default function LiveFeedV5() {
                           </span>
                         )}
                       </div>
-                      <div className="flex items-center gap-2 mt-0.5 text-[11px] text-ink-400">
+                      <div className="flex items-center gap-1.5 md:gap-2 mt-0.5 text-[10px] md:text-[11px] text-ink-400">
                         <MapPin className="w-3 h-3" strokeWidth={1.75} />
-                        <span>{e.region}</span>
+                        <span className="truncate">{e.region}</span>
                         <span className="text-ink-200">·</span>
-                        <span>{e.industry}</span>
+                        <span className="truncate">{e.industry}</span>
                       </div>
                     </div>
-                    <div className="text-right shrink-0 flex flex-col items-end gap-1">
-                      <span className="text-[10px] uppercase tracking-[0.14em] font-semibold text-brand-600 whitespace-nowrap">
+                    <div className="text-right shrink-0 flex flex-col items-end gap-0.5 md:gap-1">
+                      <span className="text-[9px] md:text-[10px] uppercase tracking-[0.14em] font-semibold text-brand-600 whitespace-nowrap hidden sm:inline">
                         접수 및 상담신청
                       </span>
-                      <span className="text-[11px] text-ink-400">
+                      <span className="text-[9px] md:text-[10px] uppercase tracking-[0.14em] font-semibold text-brand-600 whitespace-nowrap sm:hidden">
+                        상담접수
+                      </span>
+                      <span className="text-[10px] md:text-[11px] text-ink-400 whitespace-nowrap">
                         {e.time}
                       </span>
                     </div>

@@ -46,7 +46,7 @@ export default function CasesFeedGrid({ cases }: Props) {
   }
 
   return (
-    <div className="bbk-feed-wrapper w-full max-w-7xl mx-auto px-3 md:px-6 py-10 md:py-14">
+    <div className="bbk-feed-wrapper w-full max-w-7xl mx-auto px-2 md:px-6 py-6 md:py-14">
       <div className="hidden md:grid grid-cols-4 gap-4 h-[860px] overflow-hidden">
         {desktopColumns.map((items, i) => (
           <FeedColumn
@@ -56,7 +56,8 @@ export default function CasesFeedGrid({ cases }: Props) {
           />
         ))}
       </div>
-      <div className="grid md:hidden grid-cols-2 gap-2.5 h-[720px] overflow-hidden">
+      {/* 모바일: 뷰포트의 65%로 축소해서 다른 섹션 전환 자연스럽게 */}
+      <div className="grid md:hidden grid-cols-2 gap-2 h-[560px] sm:h-[640px] overflow-hidden">
         {mobileColumns.map((items, i) => (
           <FeedColumn
             key={`m-${i}`}
