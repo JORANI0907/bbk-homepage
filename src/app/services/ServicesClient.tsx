@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Phone, Plus, Minus } from "lucide-react";
+import { ArrowRight, Phone, Plus, Minus, Home, Trees } from "lucide-react";
 import HeaderV4 from "@/components/layout/HeaderV4";
 import FooterV4 from "@/components/layout/FooterV4";
 import MobileStickyCta from "@/components/home-v4/MobileStickyCta";
@@ -10,6 +10,7 @@ import CtaBannerV4 from "@/components/home-v4/CtaBannerV4";
 import { Bridge } from "@/components/home-v4/Bridge";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { CategoryLogo } from "@/components/ui/CategoryLogo";
+import InfoModal from "@/components/ui/InfoModal";
 import EditableSection from "@/components/admin/EditableSection";
 import EditableText from "@/components/admin/EditableText";
 import EditableImage from "@/components/admin/EditableImage";
@@ -305,26 +306,9 @@ function CategorySection({
         })}
       </div>
 
-      {/* 타입 A · 운영 방식 리본 (1회 / 정기 두 가지 방식) or 타입 B · 품목 */}
+      {/* 타입 A · 운영 방식 리본 (1회 / 정기 + 품목확인 모달) or 타입 B · 품목 */}
       {hasProducts ? (
-        <div className="rounded-2xl border border-brand-100 bg-brand-50/60 px-5 md:px-6 py-4 md:py-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <div className="flex flex-col gap-0.5 min-w-0">
-            <span className="text-[10px] uppercase tracking-[0.18em] text-brand-700 font-semibold">
-              두 가지 운영 방식
-            </span>
-            <span className="text-[14px] md:text-[15px] text-ink-800 font-medium break-keep">
-              매장 상황에 맞춰 1회성 · 정기 중 선택하세요
-            </span>
-          </div>
-          <div className="flex gap-2 md:gap-3 sm:ml-auto shrink-0">
-            <span className="inline-flex items-center justify-center px-5 md:px-6 py-3 md:py-3.5 rounded-full bg-white border-2 border-brand-200 text-ink-900 text-base md:text-lg font-bold break-keep">
-              1회성 청소
-            </span>
-            <span className="inline-flex items-center justify-center px-5 md:px-6 py-3 md:py-3.5 rounded-full bg-ink-900 text-white text-base md:text-lg font-bold break-keep">
-              정기 청소
-            </span>
-          </div>
-        </div>
+        <ServicePlanRibbon categoryKey={category.key} />
       ) : (
         <ItemsEditable prefix={prefix} defaultItems={category.items!} />
       )}
@@ -459,6 +443,645 @@ function ItemsEditable({
           )}
         </div>
       )}
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────
+ * 운영 방식 리본 · 1회성 / 정기 / 품목확인 3개 버튼 + 모달
+ * ────────────────────────────────────────────────────────── */
+
+type RibbonModalKey = "onetime" | "regular" | "items";
+
+/**
+ * 카테고리별 모달 콘텐츠 매핑.
+ * 딥케어 / 엔드케어는 각각 다른 서비스 특성을 가지므로
+ * 1회성 설명, 정기 설명, 품목 리스트 모두 분리.
+ */
+const RIBBON_CONTENT: Partial<
+  Record<
+    ServiceCategoryKey,
+    {
+      onetimeTitle: string;
+      regularTitle: string;
+      itemsTitle: string;
+      onetime: React.ReactNode;
+      regular: React.ReactNode;
+      items: React.ReactNode;
+    }
+  >
+> = {
+  deepcare: {
+    onetimeTitle: "1회성 딥케어",
+    regularTitle: "정기 딥케어",
+    itemsTitle: "BBK가 커버하는 공간",
+    onetime: <DeepcareOnetimeContent />,
+    regular: <DeepcareRegularContent />,
+    items: <DeepcareItemsContent />,
+  },
+  endcare: {
+    onetimeTitle: "1회성 엔드케어",
+    regularTitle: "정기 엔드케어",
+    itemsTitle: "BBK가 커버하는 마감 업무",
+    onetime: <EndcareOnetimeContent />,
+    regular: <EndcareRegularContent />,
+    items: <EndcareItemsContent />,
+  },
+};
+
+function ServicePlanRibbon({
+  categoryKey,
+}: {
+  categoryKey: ServiceCategoryKey;
+}) {
+  const [openModal, setOpenModal] = useState<RibbonModalKey | null>(null);
+  const content = RIBBON_CONTENT[categoryKey];
+  if (!content) return null;
+
+  return (
+    <>
+      <div className="rounded-2xl border border-brand-100 bg-brand-50/60 px-4 md:px-6 py-4 md:py-5 flex flex-col gap-3 md:flex-row md:items-center md:gap-5">
+        {/* 좌 · 설명 (모바일 상단) */}
+        <div className="flex flex-col gap-0.5 min-w-0">
+          <span className="text-[10px] uppercase tracking-[0.18em] text-brand-700 font-semibold">
+            자세히 알아보기
+          </span>
+          <span className="text-[13px] md:text-[15px] text-ink-800 font-medium break-keep">
+            궁금한 부분을 눌러 자세한 안내를 확인하세요
+          </span>
+        </div>
+
+        {/* 우 · 3개 액션 버튼 (모바일에서도 가로 유지) */}
+        <div className="flex gap-1.5 md:gap-2.5 md:ml-auto shrink-0">
+          <RibbonActionButton
+            label="1회성 청소"
+            onClick={() => setOpenModal("onetime")}
+            variant="outline"
+          />
+          <RibbonActionButton
+            label="정기 청소"
+            onClick={() => setOpenModal("regular")}
+            variant="solid"
+          />
+          <RibbonActionButton
+            label="품목 확인"
+            onClick={() => setOpenModal("items")}
+            variant="brand"
+          />
+        </div>
+      </div>
+
+      <InfoModal
+        open={openModal === "onetime"}
+        onClose={() => setOpenModal(null)}
+        eyebrow="서비스 안내"
+        title={content.onetimeTitle}
+      >
+        {content.onetime}
+      </InfoModal>
+
+      <InfoModal
+        open={openModal === "regular"}
+        onClose={() => setOpenModal(null)}
+        eyebrow="서비스 안내"
+        title={content.regularTitle}
+      >
+        {content.regular}
+      </InfoModal>
+
+      <InfoModal
+        open={openModal === "items"}
+        onClose={() => setOpenModal(null)}
+        eyebrow="시공 범위"
+        title={content.itemsTitle}
+        maxWidth="max-w-2xl"
+      >
+        {content.items}
+      </InfoModal>
+    </>
+  );
+}
+
+/**
+ * 리본 액션 버튼. 👆 이모지가 호버 시 살짝 흔들려 "눌러도 돼요" 시그널.
+ * - outline: 1회성 청소 (흰 배경 + 테두리)
+ * - solid: 정기 청소 (검정 배경)
+ * - brand: 품목 확인 (브랜드 블루)
+ */
+function RibbonActionButton({
+  label,
+  onClick,
+  variant,
+}: {
+  label: string;
+  onClick: () => void;
+  variant: "outline" | "solid" | "brand";
+}) {
+  const base =
+    "group inline-flex items-center justify-center gap-1 md:gap-1.5 px-2.5 md:px-5 py-2.5 md:py-3.5 rounded-full text-[11px] md:text-base font-bold break-keep whitespace-nowrap transition-all duration-200 active:scale-[0.97]";
+  const variants = {
+    outline:
+      "bg-white border-2 border-brand-200 text-ink-900 hover:border-brand-500 hover:shadow-[0_8px_20px_-10px_rgba(44,167,241,0.5)]",
+    solid:
+      "bg-ink-900 text-white hover:bg-brand-600 hover:shadow-[0_8px_20px_-10px_rgba(10,15,26,0.5)]",
+    brand:
+      "bg-brand-500 text-white hover:bg-brand-600 hover:shadow-[0_8px_20px_-10px_rgba(44,167,241,0.6)]",
+  };
+
+  return (
+    <button type="button" onClick={onClick} className={`${base} ${variants[variant]}`}>
+      <span>{label}</span>
+      <span
+        aria-hidden
+        className="inline-block transition-transform duration-200 group-hover:translate-y-[-2px] group-hover:rotate-[-10deg]"
+      >
+        👆
+      </span>
+    </button>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────
+ * 모달 콘텐츠 · 1회성 / 정기 / 품목
+ * ────────────────────────────────────────────────────────── */
+
+function DeepcareOnetimeContent() {
+  return (
+    <div className="flex flex-col gap-5 text-ink-700">
+      <p className="text-sm md:text-base leading-[1.7] break-keep">
+        <strong className="text-ink-900">1회성 청소</strong>는 매장이나 건물에
+        누적된 오염을 전문 약품과 장비로 한 번에 해결하는{" "}
+        <strong className="text-ink-900">단건 케어 서비스</strong>입니다. 일반
+        청소로는 제거하기 어려운 기름때·찌든때·곰팡이·그을음을 BBK 전문팀이
+        설비를 분해해 속까지 세척해드립니다.
+      </p>
+
+      <div className="rounded-2xl bg-brand-50/60 border border-brand-100 p-4 md:p-5 flex flex-col gap-3">
+        <h4 className="text-sm md:text-base font-bold text-ink-900 break-keep">
+          이런 분께 추천드립니다
+        </h4>
+        <ul className="flex flex-col gap-2 text-[13px] md:text-sm text-ink-700 leading-[1.6]">
+          {[
+            "매장 오픈 전 초기 위생 세팅이 필요하신 사장님",
+            "몇 년간 누적된 오염을 한 번에 리셋하고 싶으신 분",
+            "정기 계약 전 서비스 품질을 먼저 체험해보고 싶으신 분",
+            "위생등급 심사 등 특별한 시점에 완벽한 상태가 필요한 매장",
+          ].map((text, i) => (
+            <li key={i} className="flex gap-2 break-keep">
+              <span className="shrink-0 text-brand-600 font-bold">•</span>
+              <span>{text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+function DeepcareRegularContent() {
+  return (
+    <div className="flex flex-col gap-5 text-ink-700">
+      <p className="text-sm md:text-base leading-[1.7] break-keep">
+        <strong className="text-ink-900">정기 청소</strong>는 1회성 딥케어와
+        동일한 수준의 전문 분해 세척 서비스를{" "}
+        <strong className="text-ink-900">
+          매달 정해진 주기로 반복 제공
+        </strong>
+        하는 구독형 케어 서비스입니다. 오염이 누적되기 전에 선제적으로 관리하기
+        때문에 매장이 항상 최상의 위생 상태를 유지할 수 있습니다.
+      </p>
+
+      <div className="rounded-2xl bg-ink-900 text-white p-4 md:p-5 flex flex-col gap-3">
+        <h4 className="text-sm md:text-base font-bold break-keep">
+          핵심 이점
+        </h4>
+        <ul className="flex flex-col gap-2 text-[13px] md:text-sm text-white/85 leading-[1.6]">
+          {[
+            "매장 위생 상태를 매일 안정적으로 유지",
+            <>
+              일회성 계약 대비{" "}
+              <strong className="text-brand-400">최대 45% 비용 절감</strong>
+            </>,
+            "매번 청소 일정 조율의 번거로움 제거",
+            "전용 앱으로 시공 결과 자동 리포트",
+          ].map((text, i) => (
+            <li key={i} className="flex gap-2 break-keep">
+              <span className="shrink-0 text-brand-400 font-bold">✓</span>
+              <span>{text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="rounded-2xl bg-brand-50/60 border border-brand-100 p-4 md:p-5 flex flex-col gap-3">
+        <h4 className="text-sm md:text-base font-bold text-ink-900 break-keep">
+          이런 분께 추천드립니다
+        </h4>
+        <ul className="flex flex-col gap-2 text-[13px] md:text-sm text-ink-700 leading-[1.6]">
+          {[
+            "매장 위생을 항상 관리된 상태로 유지하고 싶으신 사장님",
+            "다점포를 운영하며 통합 관리가 필요하신 운영자",
+            "장기적으로 비용 효율까지 챙기고 싶으신 분",
+          ].map((text, i) => (
+            <li key={i} className="flex gap-2 break-keep">
+              <span className="shrink-0 text-brand-600 font-bold">•</span>
+              <span>{text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+const INDOOR_ITEMS = [
+  "상가·매장",
+  "사무실",
+  "빌딩",
+  "공용공간",
+  "공공시설",
+  "창고",
+  "공장",
+  "식품시설",
+];
+
+const OUTDOOR_ITEMS = [
+  "간판",
+  "외창",
+  "데크",
+  "인조잔디",
+  "놀이터",
+  "야외 매트",
+  "옥상",
+];
+
+function DeepcareItemsContent() {
+  return (
+    <div className="flex flex-col gap-5 text-ink-700">
+      {/* ① 한 줄 요약 */}
+      <p className="text-sm md:text-base leading-[1.7] break-keep">
+        BBK는 <strong className="text-ink-900">공간 유형</strong>과{" "}
+        <strong className="text-ink-900">시공 범위</strong>를 모두 자유롭게
+        선택하실 수 있습니다. 아래 안내된 조합 중 어떤 형태든 가능합니다.
+      </p>
+
+      {/* ② 범위 자유 선택 */}
+      <div className="rounded-2xl bg-ink-50 border border-ink-100 p-4 md:p-5 flex flex-col gap-3">
+        <div className="flex flex-col gap-0.5">
+          <span className="text-[10px] uppercase tracking-[0.14em] text-ink-500 font-semibold">
+            Scope
+          </span>
+          <h4 className="text-sm md:text-base font-bold text-ink-900 break-keep">
+            원하는 범위로 선택 가능
+          </h4>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-ink-100">
+            <span className="shrink-0 px-2 py-0.5 rounded-md bg-brand-500 text-white text-[10px] font-bold uppercase tracking-wider">
+              전체
+            </span>
+            <div className="flex flex-col gap-0.5 min-w-0">
+              <strong className="text-[13px] md:text-sm text-ink-900 leading-tight">
+                주방 전체 청소
+              </strong>
+              <p className="text-[11px] md:text-[12px] text-ink-500 leading-[1.5] break-keep">
+                후드·덕트·가스레인지·냉장고까지 한 번에 시공
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-ink-100">
+            <span className="shrink-0 px-2 py-0.5 rounded-md bg-ink-900 text-white text-[10px] font-bold uppercase tracking-wider">
+              부분
+            </span>
+            <div className="flex flex-col gap-0.5 min-w-0">
+              <strong className="text-[13px] md:text-sm text-ink-900 leading-tight">
+                후드 청소 1건
+              </strong>
+              <p className="text-[11px] md:text-[12px] text-ink-500 leading-[1.5] break-keep">
+                필요한 설비만 콕 찝어 단일 시공도 가능
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ③ 실내 / 실외 */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+        {/* 실내 */}
+        <div className="rounded-2xl bg-brand-50/60 border border-brand-100 p-4 md:p-5 flex flex-col gap-3">
+          <div className="flex items-center gap-2">
+            <span className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-brand-500 text-white flex items-center justify-center shrink-0">
+              <Home className="w-4 h-4 md:w-5 md:h-5" strokeWidth={1.75} />
+            </span>
+            <div className="flex flex-col leading-tight">
+              <span className="text-[10px] uppercase tracking-[0.14em] text-brand-700 font-semibold">
+                Indoor
+              </span>
+              <h4 className="text-sm md:text-base font-bold text-ink-900">
+                실내 청소
+              </h4>
+            </div>
+          </div>
+          <p className="text-[12px] md:text-[13px] text-ink-600 leading-[1.55] break-keep">
+            업무·영업·보관·제조까지, 건물 안쪽의 모든 공간을 BBK 전문팀이
+            책임집니다.
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {INDOOR_ITEMS.map((item) => (
+              <span
+                key={item}
+                className="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-brand-200 text-[11px] md:text-xs font-semibold text-ink-800"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+          <p className="text-[11px] md:text-[12px] text-brand-700 font-medium leading-[1.5] break-keep border-t border-brand-100 pt-2.5">
+            ※ 리스트에 없어도 건물 내부 유사 공간이면 모두 시공 가능합니다
+          </p>
+        </div>
+
+        {/* 실외 */}
+        <div className="rounded-2xl bg-emerald-50/60 border border-emerald-100 p-4 md:p-5 flex flex-col gap-3">
+          <div className="flex items-center gap-2">
+            <span className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0">
+              <Trees className="w-4 h-4 md:w-5 md:h-5" strokeWidth={1.75} />
+            </span>
+            <div className="flex flex-col leading-tight">
+              <span className="text-[10px] uppercase tracking-[0.14em] text-emerald-700 font-semibold">
+                Outdoor
+              </span>
+              <h4 className="text-sm md:text-base font-bold text-ink-900">
+                실외 청소
+              </h4>
+            </div>
+          </div>
+          <p className="text-[12px] md:text-[13px] text-ink-600 leading-[1.55] break-keep">
+            건물 자체뿐 아니라 외부에 딸린 부수 시설까지 전부 커버합니다. 평소
+            손이 닿기 어려운 공간도 전문 장비로 안전하게 관리합니다.
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {OUTDOOR_ITEMS.map((item) => (
+              <span
+                key={item}
+                className="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-emerald-200 text-[11px] md:text-xs font-semibold text-ink-800"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+          <p className="text-[11px] md:text-[12px] text-emerald-700 font-medium leading-[1.5] break-keep border-t border-emerald-100 pt-2.5">
+            ※ 리스트에 없어도 건물에 딸린 유사 공간이면 모두 시공 가능합니다
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────
+ * 엔드케어 전용 모달 콘텐츠 (딥케어와 완전 다른 성격)
+ * - 1회성: 긴급·단기 상황 대응 (인력 결원·행사·팝업)
+ * - 정기: 주 단위 반복 마감 (일상 유지)
+ * - 품목: 상주 직원이 하던 업무 전체 대체 (매장 내/외 업무)
+ * ────────────────────────────────────────────────────────── */
+
+function EndcareOnetimeContent() {
+  return (
+    <div className="flex flex-col gap-5 text-ink-700">
+      <p className="text-sm md:text-base leading-[1.7] break-keep">
+        <strong className="text-ink-900">1회성 엔드케어</strong>는 매장이나
+        시설의{" "}
+        <strong className="text-ink-900">마감 청소를 단발성으로 제공</strong>
+        하는 서비스입니다. 평상시 자체 운영 중이지만 특정 시점에만 외부 인력
+        지원이 필요하신 매장을 위해 설계되었습니다.
+      </p>
+
+      <div className="rounded-2xl bg-brand-50/60 border border-brand-100 p-4 md:p-5 flex flex-col gap-3">
+        <h4 className="text-sm md:text-base font-bold text-ink-900 break-keep">
+          이런 상황에 적합합니다
+        </h4>
+        <ul className="flex flex-col gap-2 text-[13px] md:text-sm text-ink-700 leading-[1.6]">
+          {[
+            "갑작스런 마감 인력 결원이 발생한 매장",
+            "행사·팝업 스토어 등 단기 운영 공간",
+            "특별 이벤트 전후 매장 리셋이 필요한 경우",
+            "정기 계약 전 서비스 품질을 먼저 체험해보고 싶으신 분",
+          ].map((text, i) => (
+            <li key={i} className="flex gap-2 break-keep">
+              <span className="shrink-0 text-brand-600 font-bold">•</span>
+              <span>{text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+function EndcareRegularContent() {
+  return (
+    <div className="flex flex-col gap-5 text-ink-700">
+      <p className="text-sm md:text-base leading-[1.7] break-keep">
+        <strong className="text-ink-900">정기 엔드케어</strong>는 매주 지정된
+        요일에 반복적으로 마감 청소를 제공하는{" "}
+        <strong className="text-ink-900">구독형 케어 서비스</strong>입니다.
+        일상적으로 발생하는 먼지·발자국·정리정돈 업무를 BBK 전문팀이 상시
+        관리하여, 매장이 항상 깔끔한 상태를 유지합니다.
+      </p>
+
+      <div className="rounded-2xl bg-ink-900 text-white p-4 md:p-5 flex flex-col gap-3">
+        <h4 className="text-sm md:text-base font-bold break-keep">
+          핵심 이점
+        </h4>
+        <ul className="flex flex-col gap-2 text-[13px] md:text-sm text-white/85 leading-[1.6]">
+          {[
+            "매장 운영 흐름에 맞춘 요일 선택 가능",
+            <>
+              1회성 엔드케어와{" "}
+              <strong className="text-brand-400">동일한 품질</strong>
+            </>,
+            <>
+              1회성 계약 대비{" "}
+              <strong className="text-brand-400">최대 45% 비용 절감</strong>
+            </>,
+            "매번 인력 수급 걱정에서 자유로움",
+          ].map((text, i) => (
+            <li key={i} className="flex gap-2 break-keep">
+              <span className="shrink-0 text-brand-400 font-bold">✓</span>
+              <span>{text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="rounded-2xl bg-brand-50/60 border border-brand-100 p-4 md:p-5 flex flex-col gap-3">
+        <h4 className="text-sm md:text-base font-bold text-ink-900 break-keep">
+          이런 분께 추천드립니다
+        </h4>
+        <ul className="flex flex-col gap-2 text-[13px] md:text-sm text-ink-700 leading-[1.6]">
+          {[
+            "매일 반복되는 마감 업무를 전문팀에 위탁하고 싶으신 사장님",
+            "상주 인력 운영보다 외주화가 효율적인 매장",
+            "장기적으로 비용 효율까지 챙기고 싶으신 분",
+          ].map((text, i) => (
+            <li key={i} className="flex gap-2 break-keep">
+              <span className="shrink-0 text-brand-600 font-bold">•</span>
+              <span>{text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+const ENDCARE_INDOOR_TASKS = [
+  "설거지",
+  "비품 리필",
+  "바닥 청소",
+  "테이블·의자 정리",
+  "쓰레기 처리",
+  "정리정돈",
+  "화장실 청소",
+  "유리·거울 닦기",
+];
+
+const ENDCARE_OUTDOOR_TASKS = [
+  "매장 앞 바닥",
+  "간판 주변 정리",
+  "외부 쓰레기 수거",
+  "외부 창문",
+  "주차장 정리",
+];
+
+function EndcareItemsContent() {
+  return (
+    <div className="flex flex-col gap-5 text-ink-700">
+      {/* ① 한 줄 요약 */}
+      <p className="text-sm md:text-base leading-[1.7] break-keep">
+        BBK 엔드케어는{" "}
+        <strong className="text-ink-900">
+          상주 직원이 처리하던 모든 마감 업무를 대체
+        </strong>
+        합니다. 매장 운영에 필요한 어떤 품목이든 자유롭게 커스터마이즈
+        가능합니다.
+      </p>
+
+      {/* ② 범위 자유 선택 */}
+      <div className="rounded-2xl bg-ink-50 border border-ink-100 p-4 md:p-5 flex flex-col gap-3">
+        <div className="flex flex-col gap-0.5">
+          <span className="text-[10px] uppercase tracking-[0.14em] text-ink-500 font-semibold">
+            Scope
+          </span>
+          <h4 className="text-sm md:text-base font-bold text-ink-900 break-keep">
+            원하는 범위로 선택 가능
+          </h4>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-ink-100">
+            <span className="shrink-0 px-2 py-0.5 rounded-md bg-brand-500 text-white text-[10px] font-bold uppercase tracking-wider">
+              전체
+            </span>
+            <div className="flex flex-col gap-0.5 min-w-0">
+              <strong className="text-[13px] md:text-sm text-ink-900 leading-tight">
+                매장 마감 올인원
+              </strong>
+              <p className="text-[11px] md:text-[12px] text-ink-500 leading-[1.5] break-keep">
+                설거지부터 비품 리필까지 마감 업무 통째로
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-ink-100">
+            <span className="shrink-0 px-2 py-0.5 rounded-md bg-ink-900 text-white text-[10px] font-bold uppercase tracking-wider">
+              부분
+            </span>
+            <div className="flex flex-col gap-0.5 min-w-0">
+              <strong className="text-[13px] md:text-sm text-ink-900 leading-tight">
+                설거지 1건
+              </strong>
+              <p className="text-[11px] md:text-[12px] text-ink-500 leading-[1.5] break-keep">
+                필요한 품목만 콕 찝어 단일 요청 가능
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ③ 매장 내 / 매장 외 업무 */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+        {/* 매장 내 */}
+        <div className="rounded-2xl bg-brand-50/60 border border-brand-100 p-4 md:p-5 flex flex-col gap-3">
+          <div className="flex items-center gap-2">
+            <span className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-brand-500 text-white flex items-center justify-center shrink-0">
+              <Home className="w-4 h-4 md:w-5 md:h-5" strokeWidth={1.75} />
+            </span>
+            <div className="flex flex-col leading-tight">
+              <span className="text-[10px] uppercase tracking-[0.14em] text-brand-700 font-semibold">
+                Indoor
+              </span>
+              <h4 className="text-sm md:text-base font-bold text-ink-900">
+                매장 내 업무
+              </h4>
+            </div>
+          </div>
+          <p className="text-[12px] md:text-[13px] text-ink-600 leading-[1.55] break-keep">
+            영업 종료 후 매장 안쪽에서 이루어지는 모든 마감 업무를 BBK
+            전문팀이 대신 처리합니다.
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {ENDCARE_INDOOR_TASKS.map((item) => (
+              <span
+                key={item}
+                className="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-brand-200 text-[11px] md:text-xs font-semibold text-ink-800"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+          <p className="text-[11px] md:text-[12px] text-brand-700 font-medium leading-[1.5] break-keep border-t border-brand-100 pt-2.5">
+            ※ 리스트에 없어도 매장 운영에 필요한 업무는 모두 요청 가능합니다
+          </p>
+        </div>
+
+        {/* 매장 외 */}
+        <div className="rounded-2xl bg-emerald-50/60 border border-emerald-100 p-4 md:p-5 flex flex-col gap-3">
+          <div className="flex items-center gap-2">
+            <span className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0">
+              <Trees className="w-4 h-4 md:w-5 md:h-5" strokeWidth={1.75} />
+            </span>
+            <div className="flex flex-col leading-tight">
+              <span className="text-[10px] uppercase tracking-[0.14em] text-emerald-700 font-semibold">
+                Outdoor
+              </span>
+              <h4 className="text-sm md:text-base font-bold text-ink-900">
+                매장 외부 업무
+              </h4>
+            </div>
+          </div>
+          <p className="text-[12px] md:text-[13px] text-ink-600 leading-[1.55] break-keep">
+            매장 앞·주변·주차장 등 손님이 처음 마주하는 외부 공간까지 깔끔하게
+            관리합니다.
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {ENDCARE_OUTDOOR_TASKS.map((item) => (
+              <span
+                key={item}
+                className="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-emerald-200 text-[11px] md:text-xs font-semibold text-ink-800"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+          <p className="text-[11px] md:text-[12px] text-emerald-700 font-medium leading-[1.5] break-keep border-t border-emerald-100 pt-2.5">
+            ※ 리스트에 없어도 매장 외부에 필요한 업무는 모두 요청 가능합니다
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
