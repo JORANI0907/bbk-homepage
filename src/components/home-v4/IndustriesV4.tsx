@@ -88,7 +88,7 @@ export default function IndustriesV4() {
             <EditableText
               as="p"
               contentKey="industries.franchise.desc"
-              defaultText="현재 12개 프랜차이즈 본사와 진행 중이에요. 지점별로 신경 쓰실 필요 없이 통합 리포트로 확인하실 수 있어요."
+              defaultText="지점별로 신경 쓰실 필요 없이 통합 리포트로 확인하실 수 있어요."
               multiline
               className="text-xs md:text-sm lg:text-base text-ink-600 leading-[1.55] md:leading-[1.6] break-keep"
             />
