@@ -91,7 +91,7 @@ function AppSectionInner() {
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-14 md:py-24 lg:py-36">
         {/* ──────────── 모바일 전용 레이아웃 (설명 → 폰 중앙 → 하단 pill 탭 → CTA) ──────────── */}
-        <div className="lg:hidden flex flex-col gap-6 md:gap-8">
+        <div className="lg:hidden flex flex-col gap-7 md:gap-9">
           <Bridge
             contentKeyPrefix="app"
             tone="dark"
@@ -340,7 +340,7 @@ function MobilePillTabs({
 
 function PhoneMockup({ activeIdx, compact = false }: { activeIdx: number; compact?: boolean }) {
   return (
-    <div className={`relative w-full ${compact ? "max-w-[220px] sm:max-w-[260px]" : "max-w-[300px] md:max-w-[340px] lg:max-w-[380px]"}`}>
+    <div className={`relative w-full ${compact ? "max-w-[300px] sm:max-w-[340px]" : "max-w-[300px] md:max-w-[340px] lg:max-w-[380px]"}`}>
       <div className="relative aspect-[9/17] rounded-[44px] bg-gradient-to-b from-white/10 to-white/5 border border-white/15 p-3 shadow-[0_40px_100px_-30px_rgba(44,167,241,0.4)]">
         <div className="w-full h-full rounded-[34px] bg-white overflow-hidden flex flex-col">
           {/* Status Bar */}
