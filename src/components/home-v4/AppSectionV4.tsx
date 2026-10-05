@@ -90,8 +90,61 @@ function AppSectionInner() {
       />
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-14 md:py-24 lg:py-36">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-start">
-          <div className="lg:col-span-6 flex flex-col gap-6 md:gap-10 lg:gap-12">
+        {/* ──────────── 모바일 전용 레이아웃 (설명 → 폰 중앙 → 하단 pill 탭 → CTA) ──────────── */}
+        <div className="lg:hidden flex flex-col gap-6 md:gap-8">
+          <Bridge
+            contentKeyPrefix="app"
+            tone="dark"
+            step="07 · 시공 후에도 이어지는 관리"
+            bridge="차이의 마지막 조각. 저희는 시공만 하고 끝내지 않아요."
+            titleMain="시공 이후에도,"
+            titleAccent="앱으로 계속 지켜드립니다."
+            subtitle="정기 계약을 하시면 BBK 전용 앱을 무료로 드려요. 사장님이 매장에 없어도 실시간으로 확인하실 수 있어요."
+          />
+
+          {/* 폰 목업 중앙에 배치 · 모바일 전용 크기 */}
+          <div className="flex justify-center">
+            <PhoneMockup activeIdx={activeIdx} compact />
+          </div>
+
+          {/* 하단 pill 탭 · 3개 기능 가로 (활성화된 것만 progress 표시) */}
+          <MobilePillTabs
+            features={FEATURES}
+            activeIdx={activeIdx}
+            onSelect={setActiveIdx}
+          />
+
+          {/* Badge + 다운로드 버튼 */}
+          <div className="flex flex-col gap-3 items-center">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-white text-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
+              <EditableText
+                contentKey="app.badge"
+                defaultText="정기 계약 시 무료 제공"
+              />
+            </span>
+            <a
+              href={SITE.app.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-brand-500 text-white text-sm font-semibold hover:bg-brand-600 transition-colors duration-200 active:scale-[0.98] shadow-[0_16px_40px_-15px_rgba(44,167,241,0.6)]"
+            >
+              <Smartphone className="w-4 h-4" strokeWidth={1.75} />
+              {SITE.app.label}
+              <ArrowUpRight className="w-4 h-4" strokeWidth={1.75} />
+            </a>
+            <EditableText
+              contentKey="app.note"
+              defaultText="iOS · Android 모두 지원, 앱 없이 웹으로도 확인 가능해요."
+              multiline
+              className="text-[11px] text-white/50 leading-[1.5] break-keep text-center"
+            />
+          </div>
+        </div>
+
+        {/* ──────────── 데스크톱 전용 레이아웃 (기존 좌우 분할 유지) ──────────── */}
+        <div className="hidden lg:grid grid-cols-12 gap-16 items-start">
+          <div className="col-span-6 flex flex-col gap-12">
             <Bridge
               contentKeyPrefix="app"
               tone="dark"
@@ -102,7 +155,7 @@ function AppSectionInner() {
               subtitle="정기 계약을 하시면 BBK 전용 앱을 무료로 드려요. 언제 오는지, 어떻게 되고 있는지, 앞으로 어떻게 관리되는지 사장님이 매장에 없어도 실시간으로 확인하실 수 있어요."
             />
 
-            <div className="flex flex-col gap-2 md:gap-3">
+            <div className="flex flex-col gap-3">
               {FEATURES.map((f, i) => (
                 <FeatureCard
                   key={i}
@@ -114,8 +167,8 @@ function AppSectionInner() {
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-2 md:gap-3 items-start">
-              <span className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-white/10 border border-white/10 text-white text-xs md:text-sm">
+            <div className="flex flex-row gap-3 items-start">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/10 text-white text-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
                 <EditableText
                   contentKey="app.badge"
@@ -126,7 +179,7 @@ function AppSectionInner() {
                 contentKey="app.note"
                 defaultText="iOS · Android 모두 지원, 앱 없이 웹으로도 확인 가능해요."
                 multiline
-                className="text-[11px] md:text-[13px] text-white/50 leading-[1.5] md:leading-[1.6] max-w-xs break-keep"
+                className="text-[13px] text-white/50 leading-[1.6] max-w-xs break-keep"
               />
             </div>
 
@@ -134,7 +187,7 @@ function AppSectionInner() {
               href={SITE.app.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 h-12 md:h-14 px-6 md:px-7 rounded-full bg-brand-500 text-white text-sm md:text-base font-semibold hover:bg-brand-600 transition-colors duration-200 active:scale-[0.98] shadow-[0_16px_40px_-15px_rgba(44,167,241,0.6)] self-start"
+              className="inline-flex items-center gap-2 h-14 px-7 rounded-full bg-brand-500 text-white text-base font-semibold hover:bg-brand-600 transition-colors duration-200 active:scale-[0.98] shadow-[0_16px_40px_-15px_rgba(44,167,241,0.6)] self-start"
             >
               <Smartphone className="w-4 h-4" strokeWidth={1.75} />
               {SITE.app.label}
@@ -142,7 +195,7 @@ function AppSectionInner() {
             </a>
           </div>
 
-          <div className="lg:col-span-6 flex justify-center lg:justify-end">
+          <div className="col-span-6 flex justify-end">
             <PhoneMockup activeIdx={activeIdx} />
           </div>
         </div>
@@ -221,9 +274,73 @@ function FeatureCard({
   );
 }
 
-function PhoneMockup({ activeIdx }: { activeIdx: number }) {
+/**
+ * 모바일 전용 가로 pill 탭 · 폰 하단에 배치.
+ * 3개 FeatureCard의 세로 설명을 압축해서 아이콘+제목만 노출,
+ * 활성 pill 아래에 progress bar가 자동 순환 시간을 시각화.
+ */
+function MobilePillTabs({
+  features,
+  activeIdx,
+  onSelect,
+}: {
+  features: Feature[];
+  activeIdx: number;
+  onSelect: (idx: number) => void;
+}) {
   return (
-    <div className="relative w-full max-w-[300px] md:max-w-[340px] lg:max-w-[380px]">
+    <div className="flex flex-col gap-2">
+      <div className="flex gap-2">
+        {features.map((f, i) => {
+          const Icon = f.icon;
+          const isActive = activeIdx === i;
+          return (
+            <button
+              key={i}
+              type="button"
+              onClick={() => onSelect(i)}
+              aria-pressed={isActive}
+              className={`flex-1 min-w-0 flex items-center justify-center gap-1.5 h-11 px-2 rounded-full border text-[11px] font-semibold transition-colors ${
+                isActive
+                  ? "bg-brand-500 text-white border-brand-500"
+                  : "bg-white/[0.04] text-white/70 border-white/10 hover:bg-white/[0.08]"
+              }`}
+            >
+              <Icon
+                className="w-3.5 h-3.5 shrink-0"
+                strokeWidth={isActive ? 2 : 1.5}
+              />
+              <span className="truncate">
+                {/* 제목에서 첫 줄만 (· 기준 분리된 첫 어구) */}
+                {f.title.split("·")[0].trim()}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+      {/* 활성 pill 하단 progress bar · 자동 순환 시간을 시각화 */}
+      <div className="flex gap-2 px-1">
+        {features.map((f, i) => (
+          <div key={i} className="flex-1 h-0.5 bg-white/5 rounded-full overflow-hidden">
+            {activeIdx === i && (
+              <motion.div
+                key={`mobile-prog-${f.title}-${activeIdx}`}
+                className="h-full bg-brand-400"
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ duration: CYCLE_MS / 1000, ease: "linear" }}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PhoneMockup({ activeIdx, compact = false }: { activeIdx: number; compact?: boolean }) {
+  return (
+    <div className={`relative w-full ${compact ? "max-w-[220px] sm:max-w-[260px]" : "max-w-[300px] md:max-w-[340px] lg:max-w-[380px]"}`}>
       <div className="relative aspect-[9/17] rounded-[44px] bg-gradient-to-b from-white/10 to-white/5 border border-white/15 p-3 shadow-[0_40px_100px_-30px_rgba(44,167,241,0.4)]">
         <div className="w-full h-full rounded-[34px] bg-white overflow-hidden flex flex-col">
           {/* Status Bar */}
