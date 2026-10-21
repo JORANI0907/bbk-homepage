@@ -10,6 +10,21 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: ["/api/", "/preview"],
       },
+      {
+        userAgent: "Yeti",
+        allow: "/",
+        disallow: ["/api/", "/preview"],
+      },
+      {
+        userAgent: "NaverBot",
+        allow: "/",
+        disallow: ["/api/", "/preview"],
+      },
+      {
+        userAgent: "Googlebot",
+        allow: "/",
+        disallow: ["/api/", "/preview"],
+      },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,
