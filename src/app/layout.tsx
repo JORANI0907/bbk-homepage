@@ -16,15 +16,17 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://bbkorea.co.kr"),
   title: {
-    default: "범빌드코리아 BBK — 야간 청소 전문 | 상업 청소",
-    template: "%s | 범빌드코리아 BBK",
+    default: "범빌드코리아(주) BBK — 야간 청소 전문 | 상업 청소",
+    template: "%s | 범빌드코리아(주) BBK",
   },
   description:
-    "범빌드코리아(BBK)는 전국 24시간 야간 청소 전문 업체입니다. 매장·주방 후드·덕트·바닥 청소를 매달 500건 이상 진행하고 있습니다. BBK 공간케어로 청소 걱정 끝.",
+    "범빌드코리아(주) BBK는 전국 24시간 야간 청소 전문 업체입니다. 매장·주방 후드·덕트·바닥 청소를 매달 500건 이상 진행하고 있습니다. BBK 공간케어로 청소 걱정 끝.",
   keywords: [
+    "범빌드코리아(주)",
     "범빌드코리아",
     "BBK",
     "BBK 공간케어",
+    "범빌드코리아(주) BBK",
     "범빌드코리아 BBK",
     "야간 청소",
     "매장 청소",
@@ -35,23 +37,23 @@ export const metadata: Metadata = {
     "청소 업체",
     "청소 전문",
   ],
-  authors: [{ name: "범빌드코리아 BBK" }],
-  creator: "범빌드코리아 BBK",
-  publisher: "범빌드코리아 BBK",
+  authors: [{ name: "범빌드코리아(주) BBK" }],
+  creator: "범빌드코리아(주) BBK",
+  publisher: "범빌드코리아(주) BBK",
   openGraph: {
     type: "website",
     locale: "ko_KR",
     url: "https://bbkorea.co.kr",
-    siteName: "범빌드코리아 BBK",
-    title: "범빌드코리아 BBK — 야간 청소 전문 | 상업 청소",
+    siteName: "범빌드코리아(주) BBK",
+    title: "범빌드코리아(주) BBK — 야간 청소 전문 | 상업 청소",
     description:
-      "범빌드코리아(BBK)는 전국 24시간 야간 청소 전문 업체입니다. 매장·주방 후드·덕트·바닥 청소를 매달 500건 이상 진행합니다.",
+      "범빌드코리아(주) BBK는 전국 24시간 야간 청소 전문 업체입니다. 매장·주방 후드·덕트·바닥 청소를 매달 500건 이상 진행합니다.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "범빌드코리아 BBK — 야간 청소 전문",
+    title: "범빌드코리아(주) BBK — 야간 청소 전문",
     description:
-      "범빌드코리아(BBK)는 전국 24시간 야간 청소 전문 업체입니다. 매달 500건 이상의 상업 청소를 진행합니다.",
+      "범빌드코리아(주) BBK는 전국 24시간 야간 청소 전문 업체입니다. 매달 500건 이상의 상업 청소를 진행합니다.",
   },
   robots: {
     index: true,
@@ -68,7 +70,7 @@ export const metadata: Metadata = {
   },
   appleWebApp: {
     capable: true,
-    title: "범빌드코리아 BBK",
+    title: "범빌드코리아(주) BBK",
     statusBarStyle: "default",
   },
 };
@@ -82,12 +84,19 @@ export const viewport: Viewport = {
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "범빌드코리아",
-  alternateName: ["BBK", "BBK 공간케어", "범빌드코리아 BBK"],
+  name: "범빌드코리아(주)",
+  legalName: "범빌드코리아 주식회사",
+  alternateName: [
+    "범빌드코리아",
+    "BBK",
+    "BBK 공간케어",
+    "범빌드코리아 BBK",
+    "범빌드코리아(주) BBK",
+  ],
   url: "https://bbkorea.co.kr",
   logo: "https://bbkorea.co.kr/opengraph-image.png",
   description:
-    "범빌드코리아(BBK)는 전국 24시간 야간 청소 전문 업체입니다. 매장·주방 후드·덕트·바닥 청소를 매달 500건 이상 진행합니다.",
+    "범빌드코리아(주) BBK는 전국 24시간 야간 청소 전문 업체입니다. 매장·주방 후드·덕트·바닥 청소를 매달 500건 이상 진행합니다.",
   foundingDate: "2023",
   areaServed: {
     "@type": "Country",
@@ -101,12 +110,17 @@ const organizationJsonLd = {
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "범빌드코리아 BBK",
-  alternateName: ["BBK", "범빌드코리아"],
+  name: "범빌드코리아(주) BBK",
+  alternateName: [
+    "범빌드코리아(주)",
+    "범빌드코리아",
+    "BBK",
+    "범빌드코리아 BBK",
+  ],
   url: "https://bbkorea.co.kr",
   image: "https://bbkorea.co.kr/opengraph-image.png",
   description:
-    "범빌드코리아(BBK)는 전국 24시간 야간 청소 전문 업체입니다. 매장·주방 후드·덕트·바닥 청소를 매달 500건 이상 진행합니다.",
+    "범빌드코리아(주) BBK는 전국 24시간 야간 청소 전문 업체입니다. 매장·주방 후드·덕트·바닥 청소를 매달 500건 이상 진행합니다.",
   priceRange: "₩₩",
   address: {
     "@type": "PostalAddress",

@@ -1,6 +1,6 @@
 export const SITE = {
   brand: {
-    name: "범빌드코리아",
+    name: "범빌드코리아(주)",
     shortName: "BBK",
     tagline: "공간케어 · 야간 청소 전문",
   },

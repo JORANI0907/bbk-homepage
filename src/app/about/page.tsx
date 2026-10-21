@@ -12,7 +12,7 @@ import HistoryEditable from "./HistoryEditable";
 export const metadata = {
   title: "회사 소개 — BBK 공간케어",
   description:
-    "범빌드코리아는 야간 청소 전문 기업으로, 1,200+ 매장을 관리해온 상업 공간 위생 관리 파트너입니다.",
+    "범빌드코리아(주)는 야간 청소 전문 기업으로, 1,200+ 매장을 관리해온 상업 공간 위생 관리 파트너입니다.",
 };
 
 const CORE_VALUES = [

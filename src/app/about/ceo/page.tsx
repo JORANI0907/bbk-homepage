@@ -13,7 +13,7 @@ import EditableImage from "@/components/admin/EditableImage";
 export const metadata = {
   title: "대표 인사말 — BBK 공간케어",
   description:
-    "범빌드코리아 대표 조동환. 야간 청소 전문 회사를 만들게 된 이야기.",
+    "범빌드코리아(주) 대표 조동환. 야간 청소 전문 회사를 만들게 된 이야기.",
 };
 
 const MESSAGE_PARAGRAPHS = [
@@ -104,7 +104,7 @@ export default function CeoPage() {
                   <EditableText
                     as="p"
                     contentKey="ceo.hero.role"
-                    defaultText="범빌드코리아 대표"
+                    defaultText="범빌드코리아(주) 대표"
                     className="text-sm text-ink-600 mt-1"
                   />
                 </div>
@@ -145,7 +145,7 @@ export default function CeoPage() {
                 <EditableText
                   as="p"
                   contentKey="ceo.message.sign.role"
-                  defaultText="범빌드코리아 대표"
+                  defaultText="범빌드코리아(주) 대표"
                   className="text-sm text-ink-400 mb-2"
                 />
                 <EditableText
