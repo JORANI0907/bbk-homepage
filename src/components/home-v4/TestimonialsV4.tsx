@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Quote, ImageIcon } from "lucide-react";
+import { Quote, ImageIcon, PlayCircle, Star } from "lucide-react";
 import { Bridge } from "./Bridge";
 import EditableImage from "@/components/admin/EditableImage";
 import EditableText from "@/components/admin/EditableText";
@@ -17,6 +18,9 @@ type Testimonial = {
   /** 실제 사진 경로. 없으면 placeholder 렌더 */
   photo?: string;
 };
+
+/** 숨고 리뷰 스크롤 캡처 영상 · public/videos/ 에 이 이름으로 넣으면 자동 재생 */
+const REVIEW_VIDEO_SRC = "/videos/soomgo-reviews.mp4";
 
 const PRIMARY: Testimonial = {
   category: "외식·주점",
@@ -94,6 +98,161 @@ function PhotoFill({
   );
 }
 
+/** 좌측 · 숨고 리뷰 스크롤 영상 카드 */
+function ReviewVideoCard() {
+  const [failed, setFailed] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 1, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.5 }}
+      className="h-full bg-white rounded-2xl md:rounded-3xl border border-ink-100 overflow-hidden shadow-[0_20px_50px_-25px_rgba(10,15,26,0.15)] flex flex-col"
+    >
+      {/* 상단 라벨 */}
+      <div className="px-4 md:px-5 py-3 md:py-3.5 border-b border-ink-100 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="inline-flex items-center justify-center w-6 h-6 rounded-md bg-brand-500 text-white text-[10px] font-bold shrink-0">
+            숨
+          </span>
+          <p className="text-[12px] md:text-[13px] font-semibold text-ink-900 truncate">
+            숨고 실제 고객 리뷰
+          </p>
+        </div>
+        <span className="inline-flex items-center gap-1 text-[10px] md:text-[11px] font-semibold text-brand-700 bg-brand-50 border border-brand-100 rounded-full px-2 md:px-2.5 py-1 whitespace-nowrap">
+          <Star className="w-3 h-3 fill-current" strokeWidth={1.5} />
+          실시간 캡처
+        </span>
+      </div>
+
+      {/* 영상 · 원본 비율(998×838 ≈ 6:5) 그대로 · 잘림 없음 */}
+      <div className="relative bg-ink-900 aspect-[6/5]">
+        {!failed ? (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            onError={() => setFailed(true)}
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src={REVIEW_VIDEO_SRC} type="video/mp4" />
+          </video>
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-ink-50 via-ink-100 to-ink-200 text-ink-400 flex flex-col items-center justify-center gap-2 px-6 text-center">
+            <PlayCircle className="w-9 h-9 md:w-11 md:h-11 opacity-60" strokeWidth={1.5} />
+            <span className="text-[10px] md:text-[11px] uppercase tracking-[0.18em] font-semibold opacity-70">
+              Review Video
+            </span>
+            <span className="text-[11px] md:text-xs opacity-70 break-keep">
+              public/videos/soomgo-reviews.mp4 파일을 넣으면 자동 재생됩니다
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* 하단 설명 · 우측 카드 높이와 맞추기 위해 남는 공간을 채움 */}
+      <div className="flex-1 px-4 md:px-5 py-4 md:py-5 flex flex-col justify-center gap-1.5 md:gap-2">
+        <EditableText
+          as="p"
+          contentKey="testimonial.video.title"
+          defaultText="숨고에서 받은 후기, 그대로 보여드립니다."
+          className="text-sm md:text-base font-semibold text-ink-900 leading-[1.5] break-keep"
+        />
+        <EditableText
+          as="p"
+          contentKey="testimonial.video.caption"
+          defaultText="편집 없이 숨고 리뷰 화면을 그대로 캡처했습니다. 사장님들이 직접 남긴 평가를 확인해 보세요."
+          multiline
+          className="text-[12px] md:text-[13px] text-ink-500 leading-[1.55] break-keep"
+        />
+      </div>
+    </motion.div>
+  );
+}
+
+/** 우측 · 후기 카드 한 장 (사진 좌 · 텍스트 우) */
+function ReviewCard({
+  keyPrefix,
+  data,
+  featured = false,
+  delay = 0,
+}: {
+  keyPrefix: string;
+  data: Testimonial;
+  featured?: boolean;
+  delay?: number;
+}) {
+  const storyClass = featured
+    ? "text-sm md:text-base lg:text-lg font-semibold text-ink-900 leading-[1.5] break-keep"
+    : "text-[12px] md:text-[14px] lg:text-[15px] text-ink-900 leading-[1.5] md:leading-[1.55] break-keep font-medium line-clamp-4 md:line-clamp-none";
+
+  return (
+    <motion.article
+      initial={{ opacity: 1, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.5, delay }}
+      className={`flex-1 bg-white rounded-2xl md:rounded-3xl border border-ink-100 overflow-hidden flex items-stretch min-h-[140px] md:min-h-[170px] ${
+        featured ? "shadow-[0_20px_50px_-25px_rgba(10,15,26,0.15)]" : ""
+      }`}
+    >
+      {/* 사진 · 카드 세로 fill */}
+      <div className="relative w-[32%] md:w-[34%] shrink-0">
+        <PhotoFill
+          contentKey={`${keyPrefix}.photo`}
+          src={data.photo}
+          label={featured ? "Owner" : undefined}
+          tone={featured ? "brand" : "light"}
+        />
+      </div>
+
+      {/* 텍스트 */}
+      <div className="flex-1 p-3.5 md:p-5 lg:p-6 flex flex-col gap-2 md:gap-3 min-w-0">
+        <div className="flex items-center justify-between gap-2">
+          <EditableText
+            contentKey={`${keyPrefix}.category`}
+            defaultText={data.category}
+            className={`text-[9px] md:text-[10px] uppercase tracking-[0.18em] font-semibold ${
+              featured ? "text-brand-600" : "text-ink-400"
+            }`}
+          />
+          {featured && (
+            <Quote className="w-4 h-4 md:w-5 md:h-5 text-brand-500" strokeWidth={1.5} />
+          )}
+        </div>
+        <EditableText
+          as="p"
+          contentKey={`${keyPrefix}.story`}
+          defaultText={data.story}
+          multiline
+          className={storyClass}
+          wrap={(t) => <>&ldquo;{t}&rdquo;</>}
+        />
+        <div className="mt-auto pt-2 md:pt-3 border-t border-ink-100 flex items-center justify-between gap-2 md:gap-3">
+          <div className="min-w-0">
+            <p className="text-[11px] md:text-[12px] font-semibold text-ink-900">
+              <EditableText contentKey={`${keyPrefix}.name`} defaultText={data.name} /> 사장님
+            </p>
+            <EditableText
+              as="p"
+              contentKey={`${keyPrefix}.role`}
+              defaultText={data.role}
+              className="text-[10px] md:text-[11px] text-ink-400"
+            />
+          </div>
+          <span className="text-[10px] md:text-[11px] font-semibold text-brand-700 bg-brand-50 border border-brand-100 rounded-full px-2 md:px-2.5 py-1 whitespace-nowrap">
+            <EditableText contentKey={`${keyPrefix}.period`} defaultText={data.period} /> ·{" "}
+            <EditableText contentKey={`${keyPrefix}.service`} defaultText={data.service} />
+          </span>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
 export default function TestimonialsV4() {
   return (
     <EditableSection className="bg-brand-50 py-14 md:py-24 lg:py-36 border-y border-brand-100">
@@ -106,131 +265,22 @@ export default function TestimonialsV4() {
           titleAccent="사장님들의 진짜 후기."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6">
-          {/* 메인 후기 · 좌 큰 카드 */}
-          <motion.article
-            initial={{ opacity: 1, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5 }}
-            className="md:col-span-7 bg-white rounded-2xl md:rounded-3xl border border-ink-100 overflow-hidden shadow-[0_20px_50px_-25px_rgba(10,15,26,0.15)] flex flex-col md:flex-row"
-          >
-            {/* 사진 · 모바일 가로 비율 축소, 데스크톱 fill */}
-            <div className="relative md:w-2/5 aspect-[16/10] md:aspect-auto md:min-h-[420px]">
-              <PhotoFill
-                contentKey="testimonial.primary.photo"
-                src={PRIMARY.photo}
-                label="Owner"
-                tone="brand"
-              />
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 md:items-stretch">
+          {/* 좌 · 숨고 리뷰 스크롤 영상 */}
+          <div className="md:col-span-5">
+            <ReviewVideoCard />
+          </div>
 
-            {/* 텍스트 */}
-            <div className="md:w-3/5 p-4 md:p-7 lg:p-9 flex flex-col gap-3 md:gap-5">
-              <div className="flex items-center justify-between">
-                <Quote className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-brand-500" strokeWidth={1.5} />
-                <EditableText
-                  contentKey="testimonial.primary.category"
-                  defaultText={PRIMARY.category}
-                  className="text-[10px] md:text-[11px] uppercase tracking-[0.14em] text-brand-600 font-semibold"
-                />
-              </div>
-              <EditableText
-                as="p"
-                contentKey="testimonial.primary.story"
-                defaultText={PRIMARY.story}
-                multiline
-                className="text-sm md:text-lg lg:text-2xl font-semibold text-ink-900 leading-[1.5] break-keep"
-                wrap={(t) => <>&ldquo;{t}&rdquo;</>}
-              />
-              <div className="mt-auto pt-3 md:pt-5 border-t border-ink-100 flex items-center justify-between gap-3 md:gap-4">
-                <div>
-                  <p className="text-xs md:text-sm font-semibold text-ink-900">
-                    <EditableText
-                      contentKey="testimonial.primary.name"
-                      defaultText={PRIMARY.name}
-                    />{" "}
-                    사장님
-                  </p>
-                  <EditableText
-                    as="p"
-                    contentKey="testimonial.primary.role"
-                    defaultText={PRIMARY.role}
-                    className="text-[11px] md:text-xs text-ink-400"
-                  />
-                </div>
-                <span className="text-[10px] md:text-xs font-semibold text-brand-700 bg-brand-50 border border-brand-100 rounded-full px-2 md:px-3 py-1 md:py-1.5 whitespace-nowrap">
-                  <EditableText
-                    contentKey="testimonial.primary.period"
-                    defaultText={PRIMARY.period}
-                  />{" "}
-                  ·{" "}
-                  <EditableText
-                    contentKey="testimonial.primary.service"
-                    defaultText={PRIMARY.service}
-                  />
-                </span>
-              </div>
-            </div>
-          </motion.article>
-
-          {/* 서브 후기 2개 · 우 */}
-          <div className="md:col-span-5 flex flex-col gap-3 md:gap-6">
+          {/* 우 · 후기 카드 3장 세로 배치 */}
+          <div className="md:col-span-7 flex flex-col gap-3 md:gap-6">
+            <ReviewCard keyPrefix="testimonial.primary" data={PRIMARY} featured />
             {OTHERS.map((o, i) => (
-              <motion.article
+              <ReviewCard
                 key={i}
-                initial={{ opacity: 1, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: 0.1 + i * 0.05 }}
-                className="flex-1 bg-white rounded-2xl md:rounded-3xl border border-ink-100 overflow-hidden flex items-stretch min-h-[140px] md:min-h-[180px]"
-              >
-                {/* 사진 · 카드 세로 fill */}
-                <div className="relative w-[32%] md:w-[35%] shrink-0">
-                  <PhotoFill
-                    contentKey={`testimonial.other.${i}.photo`}
-                    src={o.photo}
-                    tone="light"
-                  />
-                </div>
-
-                {/* 텍스트 */}
-                <div className="flex-1 p-3.5 md:p-5 lg:p-6 flex flex-col gap-2 md:gap-3 min-w-0">
-                  <EditableText
-                    contentKey={`testimonial.other.${i}.category`}
-                    defaultText={o.category}
-                    className="text-[9px] md:text-[10px] uppercase tracking-[0.18em] text-ink-400 font-semibold"
-                  />
-                  <EditableText
-                    as="p"
-                    contentKey={`testimonial.other.${i}.story`}
-                    defaultText={o.story}
-                    multiline
-                    className="text-[12px] md:text-[14px] lg:text-[15px] text-ink-900 leading-[1.5] md:leading-[1.55] break-keep font-medium line-clamp-4 md:line-clamp-none"
-                    wrap={(t) => <>&ldquo;{t}&rdquo;</>}
-                  />
-                  <div className="mt-auto pt-2 md:pt-3 border-t border-ink-100 flex items-center justify-between gap-2 md:gap-3">
-                    <p className="text-[11px] md:text-[12px] font-semibold text-ink-900">
-                      <EditableText
-                        contentKey={`testimonial.other.${i}.name`}
-                        defaultText={o.name}
-                      />{" "}
-                      사장님
-                    </p>
-                    <span className="text-[10px] md:text-[11px] text-ink-400 font-medium whitespace-nowrap">
-                      <EditableText
-                        contentKey={`testimonial.other.${i}.period`}
-                        defaultText={o.period}
-                      />{" "}
-                      ·{" "}
-                      <EditableText
-                        contentKey={`testimonial.other.${i}.service`}
-                        defaultText={o.service}
-                      />
-                    </span>
-                  </div>
-                </div>
-              </motion.article>
+                keyPrefix={`testimonial.other.${i}`}
+                data={o}
+                delay={0.1 + i * 0.05}
+              />
             ))}
           </div>
         </div>
