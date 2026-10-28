@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Quote, ImageIcon, PlayCircle, Star } from "lucide-react";
+import { Quote, ImageIcon, PlayCircle } from "lucide-react";
 import { Bridge } from "./Bridge";
 import EditableImage from "@/components/admin/EditableImage";
 import EditableText from "@/components/admin/EditableText";
@@ -113,16 +114,24 @@ function ReviewVideoCard() {
       {/* 상단 라벨 */}
       <div className="px-4 md:px-5 py-3 md:py-3.5 border-b border-ink-100 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="inline-flex items-center justify-center w-6 h-6 rounded-md bg-brand-500 text-white text-[10px] font-bold shrink-0">
-            숨
-          </span>
+          <Image
+            src="/logos/brand/soomgo.png"
+            alt="숨고"
+            width={96}
+            height={67}
+            className="h-5 md:h-6 w-auto shrink-0"
+          />
           <p className="text-[12px] md:text-[13px] font-semibold text-ink-900 truncate">
             숨고 실제 고객 리뷰
           </p>
         </div>
-        <span className="inline-flex items-center gap-1 text-[10px] md:text-[11px] font-semibold text-brand-700 bg-brand-50 border border-brand-100 rounded-full px-2 md:px-2.5 py-1 whitespace-nowrap">
-          <Star className="w-3 h-3 fill-current" strokeWidth={1.5} />
-          실시간 캡처
+        <span className="inline-flex items-center gap-1.5 text-[10px] md:text-[11px] font-semibold text-brand-700 bg-brand-50 border border-brand-100 rounded-full px-2 md:px-2.5 py-1 whitespace-nowrap">
+          {/* 라이브 점 · 바깥 원이 퍼지며 사라지는 맥동 */}
+          <span className="relative flex w-2 h-2 shrink-0" aria-hidden>
+            <span className="absolute inset-0 rounded-full bg-red-500 opacity-75 animate-ping" />
+            <span className="relative w-2 h-2 rounded-full bg-red-500" />
+          </span>
+          실제 후기
         </span>
       </div>
 
